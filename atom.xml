@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>峰享会</title>
+  
+  <subtitle>漫道求索</subtitle>
+  <link href="/./atom.xml" rel="self"/>
+  
+  <link href="https://yangyfeng.github.io/"/>
+  <updated>2021-04-21T07:11:29.156Z</updated>
+  <id>https://yangyfeng.github.io/</id>
+  
+  <author>
+    <name>漫道求索</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>github连接超时问题</title>
+    <link href="https://yangyfeng.github.io//posts/d8976663.html"/>
+    <id>https://yangyfeng.github.io//posts/d8976663.html</id>
+    <published>2021-04-20T16:00:00.000Z</published>
+    <updated>2021-04-21T07:11:29.156Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Github出现连接超时&quot;&gt;&lt;a href=&quot;#Github出现连接超时&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="开发工具" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://yangyfeng.github.io/blogpost/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈Vue 和 React 的diff有什么不同</title>
+    <link href="https://yangyfeng.github.io//posts/35755b8d.html"/>
+    <id>https://yangyfeng.github.io//posts/35755b8d.html</id>
+    <published>2021-04-15T16:00:00.000Z</published>
+    <updated>2021-04-16T02:17:03.376Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;说几个问题&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Computed 属性为什么能够在依赖改变的时候，自己发生变化？&lt;/li&gt;
+&lt;li&gt;Vuex 的 Mutation 和 Action 的区别？&lt;/li&gt;
+&lt;li&gt;React
+        
+      
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git提交规范</title>
+    <link href="https://yangyfeng.github.io//posts/596552e8.html"/>
+    <id>https://yangyfeng.github.io//posts/596552e8.html</id>
+    <published>2021-03-22T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.641Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;规范化 git commit 对于提高 git log 可读性、可控的版本控制和 changelog 生成都有着重要的作用。然而阻碍我们脚步的不只是团队的推广，单单对于一系列工具的配置都让人头大。这其中主要就是 commitlint 和 commitizen
+        
+      
+    
+    </summary>
+    
+      <category term="开发工具" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://yangyfeng.github.io/blogpost/tags/Git/"/>
+    
+      <category term="开发工具" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解React</title>
+    <link href="https://yangyfeng.github.io//posts/93b51ba9.html"/>
+    <id>https://yangyfeng.github.io//posts/93b51ba9.html</id>
+    <published>2021-03-07T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;React中响应式原理&quot;&gt;&lt;a href=&quot;#React中响应式原理&quot; class=&quot;headerlink&quot; title=&quot;React中响应式原理&quot;&gt;&lt;/a&gt;React中响应式原理&lt;/h3&gt;&lt;p&gt;1.开发者只需关注状态转移（数据），当状态发生变化，React框架会自动根据新的状态重新构建UI。&lt;/p&gt;
+&lt;p&gt;2.React框架在接收到用户状态改变通知后，会根据当前渲染树，结合最新的状态改变，通过Diff算法，计算出树中变化的部分，然后只更新变化的部分（DOM操作），从而避免整棵树重构，提高性能。状态变化后React框架并不会立即去计算并渲染DOM树的变化部分，相反，React会在DOM的基础上建立一个抽象层，即虚拟DOM树，对数据和状态所做的任何改动，都会被自动且高效的同步到虚拟DOM，最后再批量同步到真实DOM中，而不是每次改变都去操作一下DOM。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为什么不能每次改变都直接去操作DOM树？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这是因为在浏览器中每一次DOM操作都有可能引起浏览器的重绘或回流：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果DOM只是外观风格发生变化，如颜色变化，会导致浏览器重绘界面。&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;如果DOM树的结构发生变化，如尺寸、布局、节点隐藏等导致，浏览器就需要回流（及重新排版布局）。&lt;br&gt;而浏览器的重绘和回流都是比较昂贵的操作，如果每一次改变都直接对DOM进行操作，这会带来性能问题，而批量操作只会触发一次DOM更新。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据发生变化，页面改变的原理：&lt;/strong&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;比较虚拟的dom 不怎么损耗性能，真实的dom比较会损耗性能 &lt;/p&gt;
+&lt;p&gt;1.state 数据&lt;/p&gt;
+&lt;p&gt;2.jsx 模板&lt;/p&gt;
+&lt;p&gt;3.生成虚拟的dom&lt;/p&gt;
+&lt;p&gt;3.数据和模板结合，生成虚拟的dom&lt;/p&gt;
+&lt;p&gt;4.用虚拟的Dom 来生成真实的Dom,来显示&lt;/p&gt;
+&lt;p&gt;5.state 发生改变&lt;/p&gt;
+&lt;p&gt;6.数据和模板结合，生成虚拟的dom&lt;/p&gt;
+&lt;p&gt;7.比较新的虚拟Dom和旧的虚拟Dom，找出差别，改变&lt;/p&gt;
+&lt;p&gt;8.直接操作Dom,改变内容&lt;/p&gt;
+&lt;p&gt;jsx语法 =&amp;gt; React.createElement=&amp;gt; 虚拟的Dom =&amp;gt;真实的Dom&lt;br&gt;&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div&amp;gt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt; ===  React.createElement(&lt;span class=&quot;string&quot;&gt;&#39;div&#39;&lt;/span&gt;,&amp;#123; &amp;#125;,React.createElement(&lt;span class=&quot;string&quot;&gt;&#39;span&#39;&lt;/span&gt;,&amp;#123;&amp;#125;))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;props-state与render函数关系-–-数据和页面互相联动的底层机制&quot;&gt;&lt;a href=&quot;#props-state与render函数关系-–-数据和页面互相联动的底层机制&quot; class=&quot;headerlink&quot; title=&quot;props, state与render函数关系 – 数据和页面互相联动的底层机制&quot;&gt;&lt;/a&gt;&lt;strong&gt;props, state与render函数关系 – 数据和页面互相联动的底层机制&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;当组件的state或者props发生改变的时候，自己的render函数就会重新执行。&lt;/p&gt;
+&lt;p&gt;注意：当父组件的render被执行的时候，子组件的也render会被重新执行一次（因为在父组件的render里面）。&lt;/p&gt;
+&lt;p&gt;也就是说当绑定的事件改变了state或者props，render函数就会重新执行解析页面，这个时候解析的时候就会使用新的数据了，所以页面就会变化。&lt;/p&gt;
+&lt;h3 id=&quot;React中的虚拟DOM&quot;&gt;&lt;a href=&quot;#React中的虚拟DOM&quot; class=&quot;headerlink&quot; title=&quot;React中的虚拟DOM&quot;&gt;&lt;/a&gt;&lt;strong&gt;React中的虚拟DOM&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;刚才提到只要state、props改变就会重新render，可以想象要不断的重新渲染页面对性能要求非常高，实际上render的性能是非常高的，这是归功于虚拟DOM。&lt;/p&gt;
+&lt;p&gt;首先明确DOM的相关操作需要调用web application对性能损耗是比较高的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;先看看常规的思路&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React Fiber原理解析</title>
+    <link href="https://yangyfeng.github.io//posts/8e322b93.html"/>
+    <id>https://yangyfeng.github.io//posts/8e322b93.html</id>
+    <published>2021-03-07T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.619Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt; &lt;code&gt;React&lt;/code&gt;团队重写了&lt;code&gt;React&lt;/code&gt; 的核心算法—&lt;code&gt;reconciliation&lt;/code&gt;,一般将之前的算法叫&lt;code&gt;stack reconciliation&lt;/code&gt;，现在的叫&lt;code&gt;fiber reconciliation&lt;/code&gt;。 &lt;/p&gt;
+&lt;h3 id=&quot;React-Fiber是什么&quot;&gt;&lt;a href=&quot;#React-Fiber是什么&quot; class=&quot;headerlink&quot; title=&quot;React Fiber是什么&quot;&gt;&lt;/a&gt;React Fiber是什么&lt;/h3&gt;&lt;p&gt; React Fiber是个什么东西呢？官方的一句话解释是“&lt;strong&gt;React Fiber是对核心算法的一次重新实现”&lt;/strong&gt;。 &lt;/p&gt;
+&lt;p&gt; 为什么Facebook要搞React Fiber呢？  在现有React中，更新过程是同步的，这可能会导致性能问题。 &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;同步更新过程的局限&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当React决定要加载或者更新组件树时，会做很多事，比如调用各个组件的生命周期函数，计算和比对Virtual DOM，最后更新DOM树，这整个过程是同步进行的，也就是说只要一个加载或者更新过程开始，那React就以不破楼兰终不还的气概，一鼓作气运行到底，中途绝不停歇。&lt;/p&gt;
+&lt;p&gt;表面上看，这样的设计也是挺合理的，因为更新过程不会有任何I/O操作嘛，完全是CPU计算，所以无需异步操作，的确只要一路狂奔就行了，但是，当组件树比较庞大的时候，问题就来了。&lt;/p&gt;
+&lt;p&gt;假如更新一个组件需要1毫秒，如果有200个组件要更新，那就需要200毫秒，在这200毫秒的更新过程中，浏览器那个唯一的主线程都在专心运行更新操作，无暇去做任何其他的事情。想象一下，在这200毫秒内，用户往一个input元素中输入点什么，敲击键盘也不会获得响应，因为渲染输入按键结果也是浏览器主线程的工作，但是浏览器主线程被React占着呢，抽不出空，最后的结果就是用户敲了按键看不到反应，等React更新过程结束之后，咔咔咔那些按键一下子出现在input元素里了。&lt;/p&gt;
+&lt;p&gt;这就是所谓的界面卡顿，很不好的用户体验。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/68SdWF&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/09/68SdWF.md.png&quot; alt=&quot;68SdWF.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;现有的React版本，当组件树很大的时候就会出现这种问题，因为更新过程是同步地一层组件套一层组件，逐渐深入的过程，在更新完所有组件之前不停止，函数的调用栈就像下图这样，调用得很深，而且很长时间不会返回。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue知识点集合</title>
+    <link href="https://yangyfeng.github.io//posts/5b9a2dd2.html"/>
+    <id>https://yangyfeng.github.io//posts/5b9a2dd2.html</id>
+    <published>2021-03-06T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.636Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;vue&quot;&gt;&lt;a href=&quot;#vue&quot; class=&quot;headerlink&quot; title=&quot;vue&quot;&gt;&lt;/a&gt;vue&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2503&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue中watch和created哪个先执行？为什么？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2429&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vue中mixins和extends有什么区别？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2428&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vue中mixins有什么使用场景？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2427&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue中created与activated有什么区别？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2231&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue项目如何引入异步组件？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2230&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue项目中scss scoped穿透符&amp;gt;&amp;gt;&amp;gt;无效的解决方案有哪些？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2229&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;为什么在v-for中的key不推荐使用随机数或者index呢？那要怎么使用才比较好呢？&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React知识点集合</title>
+    <link href="https://yangyfeng.github.io//posts/13437c1d.html"/>
+    <id>https://yangyfeng.github.io//posts/13437c1d.html</id>
+    <published>2021-03-06T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.635Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;React&quot;&gt;&lt;a href=&quot;#React&quot; class=&quot;headerlink&quot; title=&quot;React&quot;&gt;&lt;/a&gt;React&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;什么时候使用状态管理器？&lt;/li&gt;
+&lt;li&gt;render函数中return如果没有使用()会有什么问题？&lt;/li&gt;
+&lt;li&gt;componentWillUpdate可以直接修改state的值吗？&lt;/li&gt;
+&lt;li&gt;说说你对React的渲染原理的理解&lt;/li&gt;
+&lt;li&gt;什么渲染劫持？&lt;/li&gt;
+&lt;li&gt;React Intl是什么原理？&lt;/li&gt;
+&lt;li&gt;你有使用过React Intl吗？&lt;/li&gt;
+&lt;li&gt;怎么实现React组件的国际化呢？
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
+    
+      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>应急管理中心 刑侦案件地理信息可视化展示系统</title>
+    <link href="https://yangyfeng.github.io//posts/f2d2e0b4.html"/>
+    <id>https://yangyfeng.github.io//posts/f2d2e0b4.html</id>
+    <published>2021-03-04T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.647Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>可视化定制开发</title>
+    <link href="https://yangyfeng.github.io//posts/aab0fbb9.html"/>
+    <id>https://yangyfeng.github.io//posts/aab0fbb9.html</id>
+    <published>2021-03-04T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.645Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;定制开发&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用户业务需求为基础，设计出客户满意的方案，前端根据设计图1:1完成开发。&lt;/p&gt;
+&lt;p&gt;包括各类图表展示元素，地理位置信息展示单元（Gis、矢量、3d地球等），交互效果（酷炫动画，用户交互，展示效果等），实数数据监控
+        
+      
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="数据可视化" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>QTV2直播商城</title>
+    <link href="https://yangyfeng.github.io//posts/b1fde4c6.html"/>
+    <id>https://yangyfeng.github.io//posts/b1fde4c6.html</id>
+    <published>2021-03-03T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.644Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;项目描述&quot;&gt;&lt;a href=&quot;#项目描述&quot; class=&quot;headerlink&quot; title=&quot;项目描述&quot;&gt;&lt;/a&gt;项目描述&lt;/h2&gt;&lt;p&gt;QTV-2直播生活供货商入驻系统，运行在微信公众号， 集资讯短视频，电商直播，购物商城为一体的青岛广电生活服务平台 。 其功能主要有直播打赏，直播抽奖，会员制，商品分享，弹幕评论等。微信搜索“QTV蛤蜊帮”，即可进入。 &lt;/p&gt;
+&lt;h2 id=&quot;系统结构说明&quot;&gt;&lt;a href=&quot;#系统结构说明&quot; class=&quot;headerlink&quot; title=&quot;系统结构说明&quot;&gt;&lt;/a&gt;系统结构说明&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;核心模型&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6VwFh9&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/04/6VwFh9.md.png&quot; alt=&quot;6VwFh9.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;业务架构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6ehCSx&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/05/6ehCSx.md.png&quot; alt=&quot;6ehCSx.md.png&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgtu.com/i/6ehpf1&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/05/6ehpf1.md.png&quot; alt=&quot;6ehpf1.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;业务介绍&quot;&gt;&lt;a href=&quot;#业务介绍&quot; class=&quot;headerlink&quot; title=&quot;业务介绍&quot;&gt;&lt;/a&gt;业务介绍&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;产品分类&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;推荐、大牌MALL（商超大牌）、扶农助农、工厂清仓、母婴亲子、美食美味、珠光宝气、潮搭攻略、乐家生活、美妆心得等&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6V0Nx1&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/04/6V0Nx1.md.png&quot; alt=&quot;6V0Nx1.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>国珍知识库管理系统</title>
+    <link href="https://yangyfeng.github.io//posts/d02d7caa.html"/>
+    <id>https://yangyfeng.github.io//posts/d02d7caa.html</id>
+    <published>2021-02-22T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.646Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;项目描述&quot;&gt;&lt;a href=&quot;#项目描述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>华北电力控制系统</title>
+    <link href="https://yangyfeng.github.io//posts/763ea06e.html"/>
+    <id>https://yangyfeng.github.io//posts/763ea06e.html</id>
+    <published>2021-02-22T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.645Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;项目概况&quot;&gt;&lt;a href=&quot;#项目概况&quot; class=&quot;headerlink&quot; title=&quot;项目概况&quot;&gt;&lt;/a&gt;项目概况&lt;/h2&gt;&lt;p&gt;数据可视化展示与开发中心，通过开发可视化设计器、可视化展示引擎、可视化控制平台、可视化后台服务及音视屏驱动软件，用于全方面、多角度展示智能发电运行控制系统整体架构与主要功能，开展发电设备三维可视化、发电过程音视频数据分析、状态识别与故障定位算法研究，最终形成“多业务，多窗口，多交互手段，少人工”的数据驾驶舱系统。&lt;/p&gt;
+&lt;h2 id=&quot;系统架构&quot;&gt;&lt;a href=&quot;#系统架构&quot; class=&quot;headerlink&quot; title=&quot;系统架构&quot;&gt;&lt;/a&gt;系统架构&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6V6DdP&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/04/6V6DdP.md.png&quot; alt=&quot;6V6DdP.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;总体应用框架分为六层框架结构，提供两类支撑，分别是“网络层”、“数据层”、“应用层”、“业务层”、“交互层”、“表现层”，支撑为“标准规范”与“硬件体系”。&lt;/p&gt;
+&lt;h2 id=&quot;系统业务&quot;&gt;&lt;a href=&quot;#系统业务&quot; class=&quot;headerlink&quot; title=&quot;系统业务&quot;&gt;&lt;/a&gt;系统业务&lt;/h2&gt;&lt;p&gt;业务主要包括，工业指标的数据可视化展示（数据监测），设备的精准控制（手动，阀值报警或制动，语音智能控制），对数据的多类方式分析并给出高价值结果，各类测试数据下指标对比（灵活筛选对比的指标），以及用户权限控制，报表分析与下载，3d场景下的工业数据的可视化展示等。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="数据可视化" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>风力发电SCADA</title>
+    <link href="https://yangyfeng.github.io//posts/fa28e10b.html"/>
+    <id>https://yangyfeng.github.io//posts/fa28e10b.html</id>
+    <published>2021-02-22T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.647Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;什么是SCADA&quot;&gt;&lt;a href=&quot;#什么是SCADA&quot; class=&quot;headerlink&quot; title=&quot;什么是SCADA&quot;&gt;&lt;/a&gt;什么是SCADA&lt;/h2&gt;&lt;p&gt;SCADA系统，即数据采集与监视控制系统。SCADA系统是以计算机为基础的DCS与电力自动化监控系统；它应用领域很广，可以应用于电力、冶金、石油、化工、燃气、铁路等领域的数据采集与监视控制以及过程控制等诸多领域。其功能主要围绕生产数据实时采集、生产设备过程监控、生产设备异常报警、数据分析、数据报表及仪表盘展示四个方面进行，其特性主要体现以下几个方面：&lt;/p&gt;
+&lt;p&gt;1、支持5000多种通讯协议，满足市场上百分之99.99的控制器、仪器仪表的通讯要求。打通自动化硬件系统与信息化软件系统信息传递。&lt;br&gt;2、将办公网络IP与工业设备IP进行硬件隔离，避免IP冲突。&lt;br&gt;3、直观展示生产动态，对现场设备实现直接或间接控制，满足可视化管理的需求。&lt;br&gt;4、进行数据统计分析，并通过仪表盘进行展示。&lt;/p&gt;
+&lt;h2 id=&quot;项目描述&quot;&gt;&lt;a href=&quot;#项目描述&quot; class=&quot;headerlink&quot; title=&quot;项目描述&quot;&gt;&lt;/a&gt;项目描述&lt;/h2&gt;&lt;p&gt;风力发电厂的安全监测平台。将SCADA和IT运维监控内容融与数据可视化相融合形成安全监测平台。分别有数据可视化、SACDA、IT运维监控和基本功能4个主要功能模块。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;数据可视化：&lt;/em&gt;&lt;/strong&gt;主要提供前端展示内容，包括3D、2D建模和图表元素，形成沉浸式的监控展示体系，将业务、告警等相融合。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;SCADA：&lt;/em&gt;&lt;/strong&gt;将SCADA的原有功能和信息发布功能相结合，对升压站、风机进行实时数据监控，形成数据采集、分析、监控和预警的统一功能。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;IT运维监测：&lt;/em&gt;&lt;/strong&gt;对机房网络和服务进行整体的监控。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;基本功能：&lt;/em&gt;&lt;/strong&gt;账号管理、权限管理、部门管理和角色管理等内容。&lt;/p&gt;
+&lt;p&gt;建设要求遵循了灵活性和可扩展性原则，能够适应业务变化和进步的要求，满足同行业电厂业务要求。平台系统所采用的相关标准必须与国际、国家、省、市级及行业标准相符合，确保系统具有良好的开放性，能实现与多种技术和软硬件平台的有机集成。&lt;/p&gt;
+&lt;p&gt;对于用户而言，解决了在业务中一些棘手问题，如下：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;运营管理场景：&lt;/em&gt;&lt;/strong&gt;对变电站和风机进行全面的监控，提供直观高效的数据展现形式。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;预警告警：&lt;/em&gt;&lt;/strong&gt;对预警和告警信息作出实时数据监控并发送相应的告警信息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;运维支撑：&lt;/em&gt;&lt;/strong&gt;对业务运维和IT运维人员提供及时的信息提醒和展示，便于运维人员及时有效的进行电厂的整体维护。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;培训人员：&lt;/em&gt;&lt;/strong&gt;减少员工培训成本，快速理解电厂业务和相关工作岗位，增加员工的业务熟练程度和应急处理能力。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="数据可视化" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大数据可视化系统</title>
+    <link href="https://yangyfeng.github.io//posts/5f998618.html"/>
+    <id>https://yangyfeng.github.io//posts/5f998618.html</id>
+    <published>2021-02-02T01:22:00.000Z</published>
+    <updated>2021-03-27T06:24:34.646Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;项目描述&quot;&gt;&lt;a href=&quot;#项目描述&quot; class=&quot;headerlink&quot; title=&quot;项目描述&quot;&gt;&lt;/a&gt;项目描述&lt;/h2&gt;&lt;p&gt;一套数据可视化展示平台，支持多种数据源类型（CSV静态文件，数据库连接，Http接口，JSON静态数据，WebSocket连接）。拥有多种酷炫图表和动画，同时支持本地化部署，镜像保存，分享，权限控制等。支持自定义图表上传，支持多种可视化插件，如Echarts，D3，AntV等。3D可视化功能目前只支持Unity3D引擎。&lt;/p&gt;
+&lt;h2 id=&quot;系统简介&quot;&gt;&lt;a href=&quot;#系统简介&quot; class=&quot;headerlink&quot; title=&quot;系统简介&quot;&gt;&lt;/a&gt;系统简介&lt;/h2&gt;&lt;p&gt;探索您拥有的所有数据，发现新的模式，创造丰富的视觉效果来共享洞察。利用该系统易于使用的分析和商业智能工具，您能够：&lt;/p&gt;
+&lt;p&gt;①　快速获得信息概览，更快的通过可视化探索所有相关数据，飞速获取洞察。发现未知模式识别关键的联系，发现隐藏的机会。&lt;/p&gt;
+&lt;p&gt;②　看到数据，理解数据，通过炫目的可视化方式，快速理解数据所表明的一切。基于分析的交互可视化让每个人都可以理解分析结果。&lt;/p&gt;
+&lt;p&gt;③　停止猜测，更智慧地工作，简化数据准备。软件自动突出显示相关的重要发现，无需编程。&lt;/p&gt;
+&lt;h2 id=&quot;功能详解&quot;&gt;&lt;a href=&quot;#功能详解&quot; class=&quot;headerlink&quot; title=&quot;功能详解&quot;&gt;&lt;/a&gt;功能详解&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;登录&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/yHG0ln&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/02/22/yHG0ln.md.png&quot; alt=&quot;yHG0ln.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;项目只支持内网部署版本，未发版sass平台。&lt;/p&gt;
+&lt;p&gt;用户有管理员逐一分配，适合多类企业的需求。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;可视化大屏列表&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;展示方式有两种：卡片模式、列表模式&lt;/p&gt;
+&lt;p&gt;卡片模式可以获取大屏内部的画面作为预览图或者用户自己设置封面&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6EpKA0&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/03/6EpKA0.md.png&quot; alt=&quot;6EpKA0.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/yHG3OP&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/02/22/yHG3OP.md.png&quot; alt=&quot;yHG3OP.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;之外每个大屏都可以锁定（设置密码）、发布、预览、复制、编辑等功能。&lt;/p&gt;
+&lt;p&gt;左上角的创建按钮，跳转到创建大屏页面，创建时可选择模板、空白的任意比例的大屏，以及加入到多选分类中。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;可视化大屏配置&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6E9MqA&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/03/6E9MqA.md.png&quot; alt=&quot;6E9MqA.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在上方选择需要的图表拖入到中间画布，即可在右侧配置对应属性和数据，并能加入到收藏，供后面使用。&lt;/p&gt;
+&lt;p&gt;其中在使用数据时，选择创建的数据源，然后做好字段映射即可，非常方便。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;离线部署&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;适配非常规拼接大屏，支持加密发布，支持本地部署，数据无需上传至第三方服务器或云端，私密数据的安全性更有保障。 &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多种数据源支持&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;支持接入关系型数据库、本地CSV上传和在线API等，支持动态请求，多服务平台信息可视化呈现。 &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6E15T0&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/03/6E15T0.md.png&quot; alt=&quot;6E15T0.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以及可以使用用户自定义的数据做为数据源在图表上使用。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6E3w3F&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/03/6E3w3F.md.png&quot; alt=&quot;6E3w3F.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据源跨平台兼容&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;兼容各种数据源类型，支持海量数据。可连接公司各种各样业务管理系统、第三方平台互联网技术统计数据、电子表格等数据文件以及公共数据综合服务平台，轻松整合所有相关业务数据，帮助企业消除数据孤岛。 &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;用户权限控制&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;RBAC控制，以及数据的用户绑定，用户创建的数据源只能为单用户使用，使数据更加安全和独立。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6E3oDA&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/03/6E3oDA.md.png&quot; alt=&quot;6E3oDA.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3D可视化&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;我们不仅提供全周期模型资源支持，还可以通过设计师灵动设计的场景模型与现实设备进行数据互通与联动，真正实现3D万物可视，还支持3D地图等效果，支持地理数据多层叠加。 &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;支持多种图表效果&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;支持各类图表，折线，点，柱，地图等都有涉及，支持多种可视化图表库，echarts，highcharts，d3，g2等。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6AztxJ&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/03/6AztxJ.md.png&quot; alt=&quot;6AztxJ.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据下钻和上浮&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;支持多图表数据联动，以及下钻和上浮&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/yHG6TU&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/02/22/yHG6TU.md.png&quot; alt=&quot;yHG6TU.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="数据可视化" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021年前端重修课</title>
+    <link href="https://yangyfeng.github.io//posts/cf2c43d.html"/>
+    <id>https://yangyfeng.github.io//posts/cf2c43d.html</id>
+    <published>2021-02-01T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.631Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;2021年前端重修课&quot;&gt;&lt;a href=&quot;#2021年前端重修课&quot; class=&quot;headerlink&quot; title=&quot;2021年前端重修课&quot;&gt;&lt;/a&gt;2021年前端重修课&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/ymtXrR&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Javascript" scheme="https://yangyfeng.github.io/blogpost/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>globalThis对象</title>
+    <link href="https://yangyfeng.github.io//posts/180dd8a3.html"/>
+    <id>https://yangyfeng.github.io//posts/180dd8a3.html</id>
+    <published>2021-01-07T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.614Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt; JavaScript 语言存在一个顶层对象，它提供全局环境（即全局作用域），所有代码都是在这个环境中运行。但是，顶层对象在各种实现里面是不统一的。 &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;浏览器里面，顶层对象是&lt;code&gt;window&lt;/code&gt;，但 Node 和 Web
+        
+      
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Es6" scheme="https://yangyfeng.github.io/blogpost/tags/Es6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Babel转码器</title>
+    <link href="https://yangyfeng.github.io//posts/390a51fc.html"/>
+    <id>https://yangyfeng.github.io//posts/390a51fc.html</id>
+    <published>2021-01-07T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.613Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt; &lt;a href=&quot;https://babeljs.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Babel&lt;/a&gt; 是一个广泛使用的 ES6 转码器(下一代的JavaScript编译器)，可以将 ES6 代码转为 ES5
+        
+      
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Es6" scheme="https://yangyfeng.github.io/blogpost/tags/Es6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js 优化for循环-Duff装置</title>
+    <link href="https://yangyfeng.github.io//posts/ef7302f6.html"/>
+    <id>https://yangyfeng.github.io//posts/ef7302f6.html</id>
+    <published>2020-12-23T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.632Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;循环是编程中常见的结构，在javaScript程序中同样随处可见。当我们要处理的数据集很大时，for循环的优化就显得格外重要了。 &lt;/p&gt;
+&lt;p&gt; 如下是一个常见的for循环： &lt;/p&gt;
+&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="代码优化" scheme="https://yangyfeng.github.io/blogpost/tags/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js的事件循环是什么</title>
+    <link href="https://yangyfeng.github.io//posts/62b88241.html"/>
+    <id>https://yangyfeng.github.io//posts/62b88241.html</id>
+    <published>2020-12-21T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.633Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;事件循环的机制&quot;&gt;&lt;a href=&quot;#事件循环的机制&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="EventLoop" scheme="https://yangyfeng.github.io/blogpost/tags/EventLoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>互联网是如何运作的</title>
+    <link href="https://yangyfeng.github.io//posts/c35109d5.html"/>
+    <id>https://yangyfeng.github.io//posts/c35109d5.html</id>
+    <published>2020-12-21T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.633Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;互联网所有的传输都通过RCP/IP协议族来传输，TCP/IP是&lt;strong&gt;面向连接&lt;/strong&gt;的&lt;strong&gt;可靠&lt;/strong&gt;字节流服务协议&lt;/p&gt;
+&lt;h2 id=&quot;什么是协议&quot;&gt;&lt;a href=&quot;#什么是协议&quot; class=&quot;headerlink&quot; title=&quot;什么是协议&quot;&gt;&lt;/a&gt;什么是协议&lt;/h2&gt;&lt;p&gt;协议是一组&lt;strong&gt;规则&lt;/strong&gt;，用于指定计算机应该如何通过网络来交互通信&lt;/p&gt;
+&lt;h2 id=&quot;TCP-IP协议族&quot;&gt;&lt;a href=&quot;#TCP-IP协议族&quot; class=&quot;headerlink&quot; title=&quot;TCP/IP协议族&quot;&gt;&lt;/a&gt;TCP/IP协议族&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;有四层&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;应用层：提供特定于应用程序的协议  HTTP   FTP   IMAP(邮件)&lt;/li&gt;
+&lt;li&gt;网络控制层： 发送数据包到计算机上使用特定的端口号的应用程序&lt;/li&gt;
+&lt;li&gt;网络层： 使用IP地址将数据包发送到特定的计算&lt;/li&gt;
+&lt;li&gt;链路层：  将二进制数据包与网络信号相互之间转换&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;TCP的可靠&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;tcp在建立连接会进行三次握手，每个收到的数据包都会向发送方发送ack确认，已确保发送成功&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IP的传输&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;IP是不可靠的无连接协议，它并不关心数据包是否到达目的地，也不关系连接和端口号，目的是连接到目标IP&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/rDwiod&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/22/rDwiod.png&quot; alt=&quot;rDwiod.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TCP传输的质量和顺序&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当数据包过大，在网络层会进行分包，分包后传输的链路不一样，到达的时间不一样，TCP会根据数据包上携带序列号来进行排序重组，如果发送方在一个特定时间内（也就是重试时间）没有接受到接收方的ack确认，会再次重新发送&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IP和IP地址的区别&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ip是一种协议  有两种标准  IPv4 2^32次方和IPv6  2^128&lt;/p&gt;
+&lt;p&gt;IP地址是一串数字192.0.0.1&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/rDaLgf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/22/rDaLgf.png&quot; alt=&quot;rDaLgf.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/rDajKS&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/22/rDajKS.png&quot; alt=&quot;rDajKS.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Http" scheme="https://yangyfeng.github.io/blogpost/tags/Http/"/>
+    
+  </entry>
+  
+</feed>
