@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "hexo clean && hexo s", 
-    "build": "hexo clean && hexo g && gulp && node gitalk.init && hexo d",
+    "build": "hexo clean && hexo g && gulp && node gitalk.init",
+    "push": "hexo d",
     "start": "npm run dev",
     "clean": "hexo clean"
   },
