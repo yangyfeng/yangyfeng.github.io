@@ -1,9 +1,9 @@
 ---
 layout: links
-title: 我的朋友们
-music:
-  type: song        # song （单曲） album （专辑） playlist （歌单） search （搜索）
-  id: 30953009      # 歌曲/专辑/歌单 ID
+title: 友链
+# music:
+#   type: song        # song （单曲） album （专辑） playlist （歌单） search （搜索）
+#   id: 30953009      # 歌曲/专辑/歌单 ID
 links:
   - group: 社区论坛
     icon: fas fa-link fa-fw

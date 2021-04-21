@@ -90,7 +90,7 @@ cover:
       icon: fas fa-archive
       url: blogpost/archives/
       rel: nofollow
-    - name: 朋友
+    - name: 友链
       icon: fas fa-user-friends
       url: friends/
       rel: nofollow
@@ -116,7 +116,7 @@ menu_desktop:
     icon: fas fa-archive
     url: blogpost/archives/
     rel: nofollow
-  - name: 朋友
+  - name: 友链
     icon: fas fa-user-friends
     url: friends/
     rel: nofollow
