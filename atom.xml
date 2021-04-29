@@ -6,7 +6,7 @@
   <link href="/./atom.xml" rel="self"/>
   
   <link href="https://yangyfeng.github.io/"/>
-  <updated>2021-04-21T07:11:29.156Z</updated>
+  <updated>2021-04-29T09:36:42.161Z</updated>
   <id>https://yangyfeng.github.io/</id>
   
   <author>
@@ -15,6 +15,93 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue3学习起始</title>
+    <link href="https://yangyfeng.github.io//posts/d69ba86b.html"/>
+    <id>https://yangyfeng.github.io//posts/d69ba86b.html</id>
+    <published>2021-04-28T16:00:00.000Z</published>
+    <updated>2021-04-29T09:36:42.161Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;快速起始&quot;&gt;&lt;a href=&quot;#快速起始&quot; class=&quot;headerlink&quot; title=&quot;快速起始&quot;&gt;&lt;/a&gt;快速起始&lt;/h2&gt;&lt;h3 id=&quot;cdn&quot;&gt;&lt;a href=&quot;#cdn&quot; class=&quot;headerlink&quot; title=&quot;cdn&quot;&gt;&lt;/a&gt;cdn&lt;/h3&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;https://cdn.bootcdn.net/ajax/libs/vue/3.0.0-rc.7/vue.global.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;vue-cli&quot;&gt;&lt;a href=&quot;#vue-cli&quot; class=&quot;headerlink&quot; title=&quot;vue-cli&quot;&gt;&lt;/a&gt;vue-cli&lt;/h3&gt;&lt;p&gt;升级vue-cli v4.5&lt;/p&gt;
+&lt;figure class=&quot;highlight coffeescript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;npm&lt;/span&gt; i -g @vue/cli@next&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;vite&quot;&gt;&lt;a href=&quot;#vite&quot; class=&quot;headerlink&quot; title=&quot;vite&quot;&gt;&lt;/a&gt;vite&lt;/h3&gt;&lt;p&gt;使用vite体验更快速&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; npm init vite-app &amp;lt;project-name&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; &amp;lt;project-name&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; npm install&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; npm run dev&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;从vue2迁移&quot;&gt;&lt;a href=&quot;#从vue2迁移&quot; class=&quot;headerlink&quot; title=&quot;从vue2迁移&quot;&gt;&lt;/a&gt;从vue2迁移&lt;/h2&gt;&lt;h3 id=&quot;新特性&quot;&gt;&lt;a href=&quot;#新特性&quot; class=&quot;headerlink&quot; title=&quot;新特性&quot;&gt;&lt;/a&gt;新特性&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/composition-api-introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Composition API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/teleport.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Teleport&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/fragments.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Fragments&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/component-custom-events.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Emits Component Option&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;createRenderer&lt;/code&gt; API用于创建自定义渲染器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;破坏性变化&quot;&gt;&lt;a href=&quot;#破坏性变化&quot; class=&quot;headerlink&quot; title=&quot;破坏性变化&quot;&gt;&lt;/a&gt;破坏性变化&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/global-api.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Global API 改为应用程序实例调用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/global-api-treeshaking.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Global and internal APIs重构为可做摇树优化&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/v-model.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;model&lt;/code&gt;选项和&lt;code&gt;v-bind&lt;/code&gt;的&lt;code&gt;sync&lt;/code&gt; 修饰符被移除，统一为v-model参数形式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/render-function-api.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;渲染函数API修改&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/functional-components.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;函数式组件仅能通过简单函数方式创建&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/functional-components.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;废弃在SFC的template上使用functional或者添加functional选项的方式声明函数式组件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/async-components.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;异步组件要求使用&lt;code&gt;defineAsyncComponent&lt;/code&gt; 方法创建&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/data-option.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;组件data选项应该总是声明为函数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/custom-elements-interop.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;自定义组件白名单执行于编译时&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/custom-elements-interop.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;is&lt;/code&gt;属性仅限于用在&lt;code&gt;component&lt;/code&gt;标签上&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/slots-unification.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;$scopedSlots&lt;/code&gt; 属性被移除，都用&lt;code&gt;$slots&lt;/code&gt;代替&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/attribute-coercion.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;特性强制策略变更&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/custom-directives.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;自定义指令API和组件一致&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;一些transition类名修改:&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;v-enter&lt;/code&gt; -&amp;gt; &lt;code&gt;v-enter-from&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;v-leave&lt;/code&gt; -&amp;gt; &lt;code&gt;v-leave-from&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/api/options-data.html#watch&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;watch 选项&lt;/a&gt; 和&lt;a href=&quot;https://v3.vuejs.org/api/instance-methods.html#watch&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;$watch&lt;/code&gt;&lt;/a&gt; 不再支持点分隔符字符串路径, 使用计算函数作为其参数&lt;/li&gt;
+&lt;li&gt;Vue 2.x中应用程序根容器的 &lt;code&gt;outerHTML&lt;/code&gt; 会被根组件的模板替换 (或被编译为template)。Vue 3.x现在使用应用根容器的&lt;code&gt;innerHTML&lt;/code&gt;取代.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;移除&quot;&gt;&lt;a href=&quot;#移除&quot; class=&quot;headerlink&quot; title=&quot;移除&quot;&gt;&lt;/a&gt;移除&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/keycode-modifiers.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;移除&lt;code&gt;keyCode&lt;/code&gt; 作为 &lt;code&gt;v-on&lt;/code&gt; 修饰符&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/events-api.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;on,on, on,off and $once 移除&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/filters.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Filters移除&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://v3.vuejs.org/guide/migration/inline-template-attribute.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Inline templates attributes移除&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="Vue3" scheme="https://yangyfeng.github.io/blogpost/tags/Vue3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nvm工具切换node版本</title>
+    <link href="https://yangyfeng.github.io//posts/43f370af.html"/>
+    <id>https://yangyfeng.github.io//posts/43f370af.html</id>
+    <published>2021-04-26T16:00:00.000Z</published>
+    <updated>2021-04-27T10:36:19.707Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;node以往的版本&lt;/strong&gt; &lt;a href=&quot;https://nodejs.org/zh-cn/download/releases/&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="Node" scheme="https://yangyfeng.github.io/blogpost/tags/Node/"/>
+    
+  </entry>
   
   <entry>
     <title>github连接超时问题</title>
@@ -47,7 +134,7 @@
     <link href="https://yangyfeng.github.io//posts/35755b8d.html"/>
     <id>https://yangyfeng.github.io//posts/35755b8d.html</id>
     <published>2021-04-15T16:00:00.000Z</published>
-    <updated>2021-04-16T02:17:03.376Z</updated>
+    <updated>2021-04-29T09:39:58.954Z</updated>
     
     <summary type="html">
     
@@ -101,6 +188,35 @@
   </entry>
   
   <entry>
+    <title>React Fiber原理解析</title>
+    <link href="https://yangyfeng.github.io//posts/8e322b93.html"/>
+    <id>https://yangyfeng.github.io//posts/8e322b93.html</id>
+    <published>2021-03-07T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.619Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt; &lt;code&gt;React&lt;/code&gt;团队重写了&lt;code&gt;React&lt;/code&gt; 的核心算法—&lt;code&gt;reconciliation&lt;/code&gt;,一般将之前的算法叫&lt;code&gt;stack reconciliation&lt;/code&gt;，现在的叫&lt;code&gt;fiber reconciliation&lt;/code&gt;。 &lt;/p&gt;
+&lt;h3 id=&quot;React-Fiber是什么&quot;&gt;&lt;a href=&quot;#React-Fiber是什么&quot; class=&quot;headerlink&quot; title=&quot;React Fiber是什么&quot;&gt;&lt;/a&gt;React Fiber是什么&lt;/h3&gt;&lt;p&gt; React Fiber是个什么东西呢？官方的一句话解释是“&lt;strong&gt;React Fiber是对核心算法的一次重新实现”&lt;/strong&gt;。 &lt;/p&gt;
+&lt;p&gt; 为什么Facebook要搞React Fiber呢？  在现有React中，更新过程是同步的，这可能会导致性能问题。 &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;同步更新过程的局限&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当React决定要加载或者更新组件树时，会做很多事，比如调用各个组件的生命周期函数，计算和比对Virtual DOM，最后更新DOM树，这整个过程是同步进行的，也就是说只要一个加载或者更新过程开始，那React就以不破楼兰终不还的气概，一鼓作气运行到底，中途绝不停歇。&lt;/p&gt;
+&lt;p&gt;表面上看，这样的设计也是挺合理的，因为更新过程不会有任何I/O操作嘛，完全是CPU计算，所以无需异步操作，的确只要一路狂奔就行了，但是，当组件树比较庞大的时候，问题就来了。&lt;/p&gt;
+&lt;p&gt;假如更新一个组件需要1毫秒，如果有200个组件要更新，那就需要200毫秒，在这200毫秒的更新过程中，浏览器那个唯一的主线程都在专心运行更新操作，无暇去做任何其他的事情。想象一下，在这200毫秒内，用户往一个input元素中输入点什么，敲击键盘也不会获得响应，因为渲染输入按键结果也是浏览器主线程的工作，但是浏览器主线程被React占着呢，抽不出空，最后的结果就是用户敲了按键看不到反应，等React更新过程结束之后，咔咔咔那些按键一下子出现在input元素里了。&lt;/p&gt;
+&lt;p&gt;这就是所谓的界面卡顿，很不好的用户体验。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/68SdWF&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/09/68SdWF.md.png&quot; alt=&quot;68SdWF.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;现有的React版本，当组件树很大的时候就会出现这种问题，因为更新过程是同步地一层组件套一层组件，逐渐深入的过程，在更新完所有组件之前不停止，函数的调用栈就像下图这样，调用得很深，而且很长时间不会返回。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入理解React</title>
     <link href="https://yangyfeng.github.io//posts/93b51ba9.html"/>
     <id>https://yangyfeng.github.io//posts/93b51ba9.html</id>
@@ -147,24 +263,23 @@
   </entry>
   
   <entry>
-    <title>React Fiber原理解析</title>
-    <link href="https://yangyfeng.github.io//posts/8e322b93.html"/>
-    <id>https://yangyfeng.github.io//posts/8e322b93.html</id>
-    <published>2021-03-07T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.619Z</updated>
+    <title>React知识点集合</title>
+    <link href="https://yangyfeng.github.io//posts/13437c1d.html"/>
+    <id>https://yangyfeng.github.io//posts/13437c1d.html</id>
+    <published>2021-03-06T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.635Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt; &lt;code&gt;React&lt;/code&gt;团队重写了&lt;code&gt;React&lt;/code&gt; 的核心算法—&lt;code&gt;reconciliation&lt;/code&gt;,一般将之前的算法叫&lt;code&gt;stack reconciliation&lt;/code&gt;，现在的叫&lt;code&gt;fiber reconciliation&lt;/code&gt;。 &lt;/p&gt;
-&lt;h3 id=&quot;React-Fiber是什么&quot;&gt;&lt;a href=&quot;#React-Fiber是什么&quot; class=&quot;headerlink&quot; title=&quot;React Fiber是什么&quot;&gt;&lt;/a&gt;React Fiber是什么&lt;/h3&gt;&lt;p&gt; React Fiber是个什么东西呢？官方的一句话解释是“&lt;strong&gt;React Fiber是对核心算法的一次重新实现”&lt;/strong&gt;。 &lt;/p&gt;
-&lt;p&gt; 为什么Facebook要搞React Fiber呢？  在现有React中，更新过程是同步的，这可能会导致性能问题。 &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;同步更新过程的局限&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;当React决定要加载或者更新组件树时，会做很多事，比如调用各个组件的生命周期函数，计算和比对Virtual DOM，最后更新DOM树，这整个过程是同步进行的，也就是说只要一个加载或者更新过程开始，那React就以不破楼兰终不还的气概，一鼓作气运行到底，中途绝不停歇。&lt;/p&gt;
-&lt;p&gt;表面上看，这样的设计也是挺合理的，因为更新过程不会有任何I/O操作嘛，完全是CPU计算，所以无需异步操作，的确只要一路狂奔就行了，但是，当组件树比较庞大的时候，问题就来了。&lt;/p&gt;
-&lt;p&gt;假如更新一个组件需要1毫秒，如果有200个组件要更新，那就需要200毫秒，在这200毫秒的更新过程中，浏览器那个唯一的主线程都在专心运行更新操作，无暇去做任何其他的事情。想象一下，在这200毫秒内，用户往一个input元素中输入点什么，敲击键盘也不会获得响应，因为渲染输入按键结果也是浏览器主线程的工作，但是浏览器主线程被React占着呢，抽不出空，最后的结果就是用户敲了按键看不到反应，等React更新过程结束之后，咔咔咔那些按键一下子出现在input元素里了。&lt;/p&gt;
-&lt;p&gt;这就是所谓的界面卡顿，很不好的用户体验。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/68SdWF&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/09/68SdWF.md.png&quot; alt=&quot;68SdWF.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;现有的React版本，当组件树很大的时候就会出现这种问题，因为更新过程是同步地一层组件套一层组件，逐渐深入的过程，在更新完所有组件之前不停止，函数的调用栈就像下图这样，调用得很深，而且很长时间不会返回。&lt;/p&gt;
+      &lt;h3 id=&quot;React&quot;&gt;&lt;a href=&quot;#React&quot; class=&quot;headerlink&quot; title=&quot;React&quot;&gt;&lt;/a&gt;React&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;什么时候使用状态管理器？&lt;/li&gt;
+&lt;li&gt;render函数中return如果没有使用()会有什么问题？&lt;/li&gt;
+&lt;li&gt;componentWillUpdate可以直接修改state的值吗？&lt;/li&gt;
+&lt;li&gt;说说你对React的渲染原理的理解&lt;/li&gt;
+&lt;li&gt;什么渲染劫持？&lt;/li&gt;
+&lt;li&gt;React Intl是什么原理？&lt;/li&gt;
+&lt;li&gt;你有使用过React Intl吗？&lt;/li&gt;
+&lt;li&gt;怎么实现React组件的国际化呢？
     
     </summary>
     
@@ -172,6 +287,8 @@
     
     
       <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
+    
+      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     
   </entry>
   
@@ -199,36 +316,6 @@
     
     
       <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
-    
-      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React知识点集合</title>
-    <link href="https://yangyfeng.github.io//posts/13437c1d.html"/>
-    <id>https://yangyfeng.github.io//posts/13437c1d.html</id>
-    <published>2021-03-06T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.635Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;React&quot;&gt;&lt;a href=&quot;#React&quot; class=&quot;headerlink&quot; title=&quot;React&quot;&gt;&lt;/a&gt;React&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;什么时候使用状态管理器？&lt;/li&gt;
-&lt;li&gt;render函数中return如果没有使用()会有什么问题？&lt;/li&gt;
-&lt;li&gt;componentWillUpdate可以直接修改state的值吗？&lt;/li&gt;
-&lt;li&gt;说说你对React的渲染原理的理解&lt;/li&gt;
-&lt;li&gt;什么渲染劫持？&lt;/li&gt;
-&lt;li&gt;React Intl是什么原理？&lt;/li&gt;
-&lt;li&gt;你有使用过React Intl吗？&lt;/li&gt;
-&lt;li&gt;怎么实现React组件的国际化呢？
-    
-    </summary>
-    
-      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
     
       <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     
@@ -419,7 +506,7 @@
     <link href="https://yangyfeng.github.io//posts/5f998618.html"/>
     <id>https://yangyfeng.github.io//posts/5f998618.html</id>
     <published>2021-02-02T01:22:00.000Z</published>
-    <updated>2021-03-27T06:24:34.646Z</updated>
+    <updated>2021-04-29T09:37:29.131Z</updated>
     
     <summary type="html">
     
@@ -582,72 +669,6 @@
     
     
       <category term="代码优化" scheme="https://yangyfeng.github.io/blogpost/tags/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>js的事件循环是什么</title>
-    <link href="https://yangyfeng.github.io//posts/62b88241.html"/>
-    <id>https://yangyfeng.github.io//posts/62b88241.html</id>
-    <published>2020-12-21T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.633Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;事件循环的机制&quot;&gt;&lt;a href=&quot;#事件循环的机制&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="EventLoop" scheme="https://yangyfeng.github.io/blogpost/tags/EventLoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>互联网是如何运作的</title>
-    <link href="https://yangyfeng.github.io//posts/c35109d5.html"/>
-    <id>https://yangyfeng.github.io//posts/c35109d5.html</id>
-    <published>2020-12-21T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.633Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;互联网所有的传输都通过RCP/IP协议族来传输，TCP/IP是&lt;strong&gt;面向连接&lt;/strong&gt;的&lt;strong&gt;可靠&lt;/strong&gt;字节流服务协议&lt;/p&gt;
-&lt;h2 id=&quot;什么是协议&quot;&gt;&lt;a href=&quot;#什么是协议&quot; class=&quot;headerlink&quot; title=&quot;什么是协议&quot;&gt;&lt;/a&gt;什么是协议&lt;/h2&gt;&lt;p&gt;协议是一组&lt;strong&gt;规则&lt;/strong&gt;，用于指定计算机应该如何通过网络来交互通信&lt;/p&gt;
-&lt;h2 id=&quot;TCP-IP协议族&quot;&gt;&lt;a href=&quot;#TCP-IP协议族&quot; class=&quot;headerlink&quot; title=&quot;TCP/IP协议族&quot;&gt;&lt;/a&gt;TCP/IP协议族&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;有四层&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;应用层：提供特定于应用程序的协议  HTTP   FTP   IMAP(邮件)&lt;/li&gt;
-&lt;li&gt;网络控制层： 发送数据包到计算机上使用特定的端口号的应用程序&lt;/li&gt;
-&lt;li&gt;网络层： 使用IP地址将数据包发送到特定的计算&lt;/li&gt;
-&lt;li&gt;链路层：  将二进制数据包与网络信号相互之间转换&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;TCP的可靠&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;tcp在建立连接会进行三次握手，每个收到的数据包都会向发送方发送ack确认，已确保发送成功&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;IP的传输&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;IP是不可靠的无连接协议，它并不关心数据包是否到达目的地，也不关系连接和端口号，目的是连接到目标IP&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/rDwiod&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/22/rDwiod.png&quot; alt=&quot;rDwiod.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;TCP传输的质量和顺序&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;当数据包过大，在网络层会进行分包，分包后传输的链路不一样，到达的时间不一样，TCP会根据数据包上携带序列号来进行排序重组，如果发送方在一个特定时间内（也就是重试时间）没有接受到接收方的ack确认，会再次重新发送&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;IP和IP地址的区别&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Ip是一种协议  有两种标准  IPv4 2^32次方和IPv6  2^128&lt;/p&gt;
-&lt;p&gt;IP地址是一串数字192.0.0.1&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/rDaLgf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/22/rDaLgf.png&quot; alt=&quot;rDaLgf.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/rDajKS&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/12/22/rDajKS.png&quot; alt=&quot;rDajKS.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="Http" scheme="https://yangyfeng.github.io/blogpost/tags/Http/"/>
     
   </entry>
   

@@ -34,13 +34,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
   
   
-  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/favicon.ico">
   
 
   
 
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/css/style.css">
   
 
   <script>
@@ -358,6 +358,158 @@
       
         
   <h2 class="title">
+    <a href="/posts/c00659d0.html">
+      深入前端模块化
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-12-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/前端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>前端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>2.8k字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>11分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>什么是前端的模块化？理解的不太透彻。</p>
+<p>平常一直用的也只有ES6模块化，对于其他几种模块化规范用的也少，理解不够深，但是经常会见到一些面试题是问这几种模块化规范的区别，所以这次做一个整理总结</p>
+<h1 id="一、对于模块化的理解"><a href="#一、对于模块化的理解" class="headerlink" title="一、对于模块化的理解"></a>一、对于模块化的理解</h1><h2 id="1、什么是模块化？"><a href="#1、什么是模块化？" class="headerlink" title="1、什么是模块化？"></a>1、什么是模块化？</h2><p>模块化开发是一种管理方式，是一种生产方式，一种解决问题的方案，一个模块就是实现特定功能的文件，有了模块，我们就可以更方便地使用别人的代码，想要什么功能，就加载什么模块，但是模块开发需要遵循一定的规范，否则就都乱套了，因此，才有了后来大家熟悉的AMD规范，CMD规范，以及ES6自带的模块化规范</p>
+<h2 id="2、模块化带来的好处？"><a href="#2、模块化带来的好处？" class="headerlink" title="2、模块化带来的好处？"></a>2、模块化带来的好处？</h2><ul>
+<li>解决命名冲突</li>
+<li>提供复用性</li>
+<li>提高代码可维护性</li>
+<li>灵活架构，焦点分离，方便模块间组合、分解</li>
+<li>多人协作互不干扰</li>
+</ul>
+<h2 id="3、模块化规范的发展进程"><a href="#3、模块化规范的发展进程" class="headerlink" title="3、模块化规范的发展进程"></a>3、模块化规范的发展进程</h2><ul>
+<li><strong>原始写法（全局function）</strong></li>
+</ul>
+<p>模块就是实现特定**功能的一组方法，只要把不同的函数（以及记录状态的变量）简单的放在一起，就算是一个模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">m1</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">m2</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>这样写上面的函数 m1() 和 m2() ，组成了一个模块，在使用的时候直接调用就可以了。
+但是带来的问题也很明显：&quot;污染&quot;了全局变量 ，无法保证不与其他模块发生变量名冲突，而且模块成员之间看不出直接关系</code></p>
+<ul>
+<li><strong>namespace写法（简单对象）</strong></li>
+</ul>
+<p>为了解决上面写法带来的缺点，可以吧模块写成一个对象，所有的模块成员都放到这个对象里面，这样减少了全局变量，减少命名冲突</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myModule = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;</span><br><span class="line">  count: <span class="number">0</span>,</span><br><span class="line">  m1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m1:'</span> + <span class="keyword">this</span>.count);</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line">  m2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m2:'</span> + <span class="keyword">this</span>.count)</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">myModule.m1() <span class="comment">// m1:0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 改变模块内部状态</span></span><br><span class="line">myModule.count = <span class="number">5</span>;</span><br><span class="line">myModule.m1() <span class="comment">// m1:5</span></span><br></pre></td></tr></table></figure>
+<p><code>上面的函数 m1 和 m2 ，都封装在myModule对象里。使用的时候，就是调用这个对象的属性。但是，这样的写法会暴露所有模块成员，内部状态可以被外部改写。比如，外部代码可以直接改变内部计数器的值。</code></p>
+<ul>
+<li><strong>立即执行函数写法（匿名函数自执行 ，闭包）</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myModule = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> m1 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m1:'</span> + count)</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">let</span> m2 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m2:'</span> + count)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123; m1, m2 &#125;;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这样写在外面就无法读取内部的 count 变量</span></span><br><span class="line"><span class="built_in">console</span>.log(myModule.count); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>立即执行函数增强(引入依赖)</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myModule = (<span class="function"><span class="keyword">function</span> (<span class="params">$</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这里面就可以使用JQuery</span></span><br><span class="line">&#125;)(JQuery)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这样做除了保证模块的独立性，还使得模块之间的依赖关系变得明显</span></span><br></pre></td></tr></table></figure>
+      
+        <div class="readmore">
+          <a href="/posts/c00659d0.html" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/前端工程化/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>前端工程化</a>
+        
+          <a href="/blogpost/tags/模块化/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>模块化</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
     <a href="/posts/a441c8bd.html">
       深入webpack
     </a>
@@ -466,8 +618,6 @@
 </article>
 
           </div>
-        
-      
         
       
         
@@ -640,8 +790,133 @@
       
         
   <h2 class="title">
-    <a href="/posts/d3643a0f.html">
-      手写简易版vue，minivue的实现
+    <a href="/posts/93532fe.html">
+      vue性能优化
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-12-11</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/前端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>前端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>705字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>2分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h2 id="1、使用单文件组件"><a href="#1、使用单文件组件" class="headerlink" title="1、使用单文件组件"></a>1、使用单文件组件</h2><p>我们写的tmplate配置，实际上需要编译为render函数在执行的</p>
+<p>当使用DOM内模板或者JS内的字符串模板时，模板会在运行时被编译为render函数，通常情况这个过程已经足够快乐，但是对性能敏感的应用还是有影响的。</p>
+<p><a href="https://imgchr.com/i/rAis9f" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2020/12/11/rAis9f.png" alt="rAis9f.png"></a></p>
+<p>预编译模板最简单的方式就是使用<strong>单文件组件</strong>，单文件组件将相关的构建设置自动预编译好了，所以构建的代码已经包含了编译出来的render函数了，而不是原始的模板字符串了，减少了重新编译的过程了。（单文件组件导入使用直接使用vue-loader来处理，没有vue-tmplate的出来，使用起来会足够快速的。）</p>
+      
+        <div class="readmore">
+          <a href="/posts/93532fe.html" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
+        
+          <a href="/blogpost/tags/性能优化/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>性能优化</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/posts/ce0a6a78.html">
+      如何使用JavaScript实现纯前端读取和导出excel文件
     </a>
   </h2>
 
@@ -703,14 +978,14 @@
           <div class="new-meta-item size">
             <a class="notlink">
               <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>2.1k字</p>
+              <p>1.6k字</p>
             </a>
           </div>
           <!-- 阅读时间 -->
           <div class="new-meta-item read-time">
             <a class="notlink">
               <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>10分</p>
+              <p>7分</p>
             </a>
           </div>
         
@@ -724,28 +999,14 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p>基于vue2.*</p>
-<p><code>vue采取数据劫持，配合观察者模式，通过Object.defineProperty() 来劫持各个属性的setter和getter，在数据变动时，发布消息给依赖收集器dep，去通知观察者，做出对应的回调函数，去更新视图。（也就是在getter中收集依赖，在setter中通知依赖更新。</code></p>
-<blockquote>
-<p>其实vue主要就是整合Observer，compile和watcher三者，通过Observer来监听 model数据变化表，通过compile来解析编译模板指令，最终利用Watcher搭起observer 和compile的通信桥梁，达到数据变化=&gt;视图变化，视图变化=&gt;数据变化的双向绑定效果。</p>
-</blockquote>
-<p> 下面来一张图↓ </p>
-<p><a href="https://imgchr.com/i/rSsjT1" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2020/12/08/rSsjT1.png" alt="rSsjT1.png"></a></p>
-<p> 这个流程图已经非常形象深刻的表达了vue的运行模式，当你理解了这个流程，再去看vue源码时就会容易很多了 </p>
-<p> 声明一下，下面的代码只简单实现了vue里的 </p>
-<ol>
-<li>v-model（数据的双向绑定）</li>
-<li>v-bind/v-on</li>
-<li>v-text/v-html</li>
-<li>没有实现虚拟dom，采用文档碎片（createDocumentFragment）代替</li>
-<li><p>数据只劫持了Object，数组Array没有做处理</p>
-<p>代码大致结构如下，初步定义了6个类 </p>
-</li>
-</ol>
-<p><a href="https://imgchr.com/i/rSyiOH" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2020/12/08/rSyiOH.png" alt="rSyiOH.png"></a></p>
+      <h1 id="1、js-xlsx-介绍"><a href="#1、js-xlsx-介绍" class="headerlink" title="1、js-xlsx 介绍"></a>1、js-xlsx 介绍</h1><p><code>由SheetJS出品的js-xlsx是一款非常方便的只需要纯JS即可读取和导出excel的工具库，功能强大，支持格式众多，支持xls、xlsx、ods(一种OpenOffice专有表格文件格式)等十几种格式。本文全部都是以xlsx格式为例。</code></p>
+<ul>
+<li>官方github：<a href="https://github.com/SheetJS/js-xlsx" target="_blank" rel="noopener">https://github.com/SheetJS/js-xlsx</a></li>
+<li>本文配套demo在线演示地址：<a href="http://demo.haoji.me/2017/02/08-js-xlsx/" target="_blank" rel="noopener">http://demo.haoji.me/2017/02/08-js-xlsx/</a></li>
+</ul>
       
         <div class="readmore">
-          <a href="/posts/d3643a0f.html" class="flat-box">
+          <a href="/posts/ce0a6a78.html" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
             阅读全文
           </a>
@@ -755,7 +1016,9 @@
     
       <div class="full-width auto-padding tags">
         
-          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
+          <a href="/blogpost/tags/Excel/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Excel</a>
+        
+          <a href="/blogpost/tags/插件/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>插件</a>
         
       </div>
     
@@ -914,8 +1177,8 @@
       
         
   <h2 class="title">
-    <a href="/posts/ce0a6a78.html">
-      如何使用JavaScript实现纯前端读取和导出excel文件
+    <a href="/posts/d3643a0f.html">
+      手写简易版vue，minivue的实现
     </a>
   </h2>
 
@@ -977,14 +1240,14 @@
           <div class="new-meta-item size">
             <a class="notlink">
               <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>1.6k字</p>
+              <p>2.1k字</p>
             </a>
           </div>
           <!-- 阅读时间 -->
           <div class="new-meta-item read-time">
             <a class="notlink">
               <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>7分</p>
+              <p>10分</p>
             </a>
           </div>
         
@@ -998,14 +1261,28 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <h1 id="1、js-xlsx-介绍"><a href="#1、js-xlsx-介绍" class="headerlink" title="1、js-xlsx 介绍"></a>1、js-xlsx 介绍</h1><p><code>由SheetJS出品的js-xlsx是一款非常方便的只需要纯JS即可读取和导出excel的工具库，功能强大，支持格式众多，支持xls、xlsx、ods(一种OpenOffice专有表格文件格式)等十几种格式。本文全部都是以xlsx格式为例。</code></p>
-<ul>
-<li>官方github：<a href="https://github.com/SheetJS/js-xlsx" target="_blank" rel="noopener">https://github.com/SheetJS/js-xlsx</a></li>
-<li>本文配套demo在线演示地址：<a href="http://demo.haoji.me/2017/02/08-js-xlsx/" target="_blank" rel="noopener">http://demo.haoji.me/2017/02/08-js-xlsx/</a></li>
-</ul>
+      <p>基于vue2.*</p>
+<p><code>vue采取数据劫持，配合观察者模式，通过Object.defineProperty() 来劫持各个属性的setter和getter，在数据变动时，发布消息给依赖收集器dep，去通知观察者，做出对应的回调函数，去更新视图。（也就是在getter中收集依赖，在setter中通知依赖更新。</code></p>
+<blockquote>
+<p>其实vue主要就是整合Observer，compile和watcher三者，通过Observer来监听 model数据变化表，通过compile来解析编译模板指令，最终利用Watcher搭起observer 和compile的通信桥梁，达到数据变化=&gt;视图变化，视图变化=&gt;数据变化的双向绑定效果。</p>
+</blockquote>
+<p> 下面来一张图↓ </p>
+<p><a href="https://imgchr.com/i/rSsjT1" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2020/12/08/rSsjT1.png" alt="rSsjT1.png"></a></p>
+<p> 这个流程图已经非常形象深刻的表达了vue的运行模式，当你理解了这个流程，再去看vue源码时就会容易很多了 </p>
+<p> 声明一下，下面的代码只简单实现了vue里的 </p>
+<ol>
+<li>v-model（数据的双向绑定）</li>
+<li>v-bind/v-on</li>
+<li>v-text/v-html</li>
+<li>没有实现虚拟dom，采用文档碎片（createDocumentFragment）代替</li>
+<li><p>数据只劫持了Object，数组Array没有做处理</p>
+<p>代码大致结构如下，初步定义了6个类 </p>
+</li>
+</ol>
+<p><a href="https://imgchr.com/i/rSyiOH" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2020/12/08/rSyiOH.png" alt="rSyiOH.png"></a></p>
       
         <div class="readmore">
-          <a href="/posts/ce0a6a78.html" class="flat-box">
+          <a href="/posts/d3643a0f.html" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
             阅读全文
           </a>
@@ -1015,9 +1292,7 @@
     
       <div class="full-width auto-padding tags">
         
-          <a href="/blogpost/tags/Excel/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Excel</a>
-        
-          <a href="/blogpost/tags/插件/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>插件</a>
+          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
         
       </div>
     
@@ -1292,8 +1567,6 @@
         
       
         
-      
-        
           <div class='post-wrapper'>
             <article class="post reveal ">
   
@@ -1306,8 +1579,8 @@
       
         
   <h2 class="title">
-    <a href="/posts/6a5e2f06.html">
-      http协议
+    <a href="/posts/37eb3f8a.html">
+      ⼤⼚⾯试章法
     </a>
   </h2>
 
@@ -1335,7 +1608,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2020-09-09</p>
+    <p>2020-11-16</p>
   </a>
 </div>
 
@@ -1369,14 +1642,14 @@
           <div class="new-meta-item size">
             <a class="notlink">
               <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>2.4k字</p>
+              <p>2.3k字</p>
             </a>
           </div>
           <!-- 阅读时间 -->
           <div class="new-meta-item read-time">
             <a class="notlink">
               <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>8分</p>
+              <p>11分</p>
             </a>
           </div>
         
@@ -1390,92 +1663,56 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p><strong>HTTP 简介：</strong></p>
-<p>HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写</p>
-<p>HTTP是因特网上应用最为广泛的一种网络传输协议，是一个无状态的请求/响应协议</p>
-<p>HTTP是基于客户端/服务端（C/S）的架构模型</p>
-<p>HTTP是一个基于TCP/IP通信协议来传递数据</p>
-<p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS默认HTTP的端口号为80，HTTPS的端口号为443</p>
-<p><strong>HTTP的请求响应模型：</strong></p>
-<p>HTTP协议永远都是客户端发起请求，服务器回送响应</p>
-<p>这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
-<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有对应关系</p>
-<p><strong>HTTP 工作原理：</strong></p>
-<p>HTTP协议工作于客户端-服务端架构上。浏览器作为Http客户端通过地址栏 Url将请求发送到Http服务端即Web服务器上。</p>
-<p>Web服务器有：Apache服务器，IIS服务器（Internet Information Services）等</p>
-<p><strong>HTTP三点注意事项：</strong></p>
-<p>HTTP是无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。<br>HTTP是媒体独立的：这意味着，只要客户端和服务器知道如何处理数据内容，任何类型的数据都可以通过HTTP发送。客户端以及服务器指定使用适合的MIME-type内容类型。<br>HTTP是无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
-<p><strong>工作流程：</strong></p>
-<p>一次完整的Http事务：<a href="http://blog.csdn.net/yipiankongbai/article/details/25029183" target="_blank" rel="noopener">http://blog.csdn.net/yipiankongbai/article/details/25029183</a></p>
-<p>一次HTTP操作称为一个事务，其工作过程可分为六步：</p>
-<p>域名解析 –&gt; 发起TCP的3次握手 –&gt; 建立TCP连接后发起http请求 –&gt; 服务器响应http请求，浏览器得到html代码 –&gt; 浏览器解析html代码，并请求html代码中的资源（如js、css、图片等） –&gt; 浏览器对页面进行渲染呈现给用户</p>
-<p>域名解析 -&gt; 三次握手 -&gt; 建立连接 -&gt; 发送请求 -&gt; 响应请求 -&gt; 接收响应</p>
-<p>任何一步发生错误，都会将错误信息返回到客户端</p>
-<p>1）域名解析 ：将网站名称转变成IP地址：localhost–&gt;127.0.0.1 2）发起TCP的3次握手 ：</p>
-<p>客户端发出一个SYN消息 -》</p>
-<p>服务器使用SYN+ACK应答表示接收到了这个消息 -》</p>
-<p>客户机再以ACK消息响应 -》</p>
-<p>建立起可靠的TCP连接，数据传递</p>
-<p>3）客户端与服务端建立连接</p>
-<p>4）客户端发送请求给服务端，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容。</p>
-<p>5）服务端接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。</p>
-<p>6）客户端接收服务端所返回的信息通过浏览器显示在用户的显示屏上，然后客户机与服务器断开连接。</p>
-<p><strong>HTTP请求方法：</strong></p>
-<p>HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。</p>
-<p>HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。</p>
-<p>GET 请求指定的页面信息，并返回实体主体。</p>
-<p>HEAD 类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头</p>
-<p>POST 向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。</p>
-<p>PUT 从客户端向服务器传送的数据取代指定的文档的内容。</p>
-<p>DELETE 请求服务器删除指定的页面。</p>
-<p>CONNECT HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</p>
-<p>OPTIONS 允许客户端查看服务器的性能。</p>
-<p>TRACE 回显服务器收到的请求，主要用于测试或诊断。</p>
-<p><strong>HTTP 响应头信息：</strong></p>
-<p>HTTP请求头提供了关于请求，响应或者其他的发送实体的信息。</p>
-<p>服务器支持哪些请求方法（如GET、POST等）。</p>
-<p>Content-Encoding</p>
-<p>文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。</p>
-<p>Content-Length</p>
-<p>表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入 ByteArrayOutputStream，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。</p>
-<p>Content-Type</p>
-<p>表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。</p>
-<p>Date</p>
-<p>当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦。</p>
-<p>Expires</p>
-<p>应该在什么时候认为文档已经过期，从而不再缓存它？</p>
-<p>Last-Modified</p>
-<p>文档的最后改动时间。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置。</p>
-<p>Location</p>
-<p>表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302。</p>
-<p>Refresh</p>
-<p>表示浏览器应该在多少时间之后刷新文档，以秒计。除了刷新当前文档之外，你还可以通过setHeader(“Refresh”, “5; URL=<a href="http://host/path&quot;)让浏览器读取指定的页面。" target="_blank" rel="noopener">http://host/path&quot;)让浏览器读取指定的页面。</a> </p>
-<p>注意这种功能通常是通过设置HTML页面HEAD区的＜META HTTP-EQUIV=”Refresh” CONTENT=”5;URL=<a href="http://host/path&quot;＞实现，这是因为，自动刷新或重定向对于那些不能使用CGI或Servlet的HTML编写者十分重要。但是，对于Servlet来说，直接设置Refresh头更加方便。" target="_blank" rel="noopener">http://host/path&quot;＞实现，这是因为，自动刷新或重定向对于那些不能使用CGI或Servlet的HTML编写者十分重要。但是，对于Servlet来说，直接设置Refresh头更加方便。</a> </p>
-<p>注意Refresh的意义是”N秒之后刷新本页面或访问指定页面”，而不是”每隔N秒刷新本页面或访问指定页面”。因此，连续刷新要求每次都发送一个Refresh头，而发送204状态代码则可以阻止浏览器继续刷新，不管是使用Refresh头还是＜META HTTP-EQUIV=”Refresh” …＞。 </p>
-<p>注意Refresh头不属于HTTP 1.1正式规范的一部分，而是一个扩展，但Netscape和IE都支持它。</p>
-<p>Server</p>
-<p>服务器名字。Servlet一般不设置这个值，而是由Web服务器自己设置。</p>
-<p>Set-Cookie</p>
-<p>设置和页面关联的Cookie。Servlet不应使用response.setHeader(“Set-Cookie”, …)，而是应使用HttpServletResponse提供的专用方法addCookie。参见下文有关Cookie设置的讨论。</p>
-<p>WWW-Authenticate</p>
-<p>客户应该在Authorization头中提供什么类型的授权信息？在包含401（Unauthorized）状态行的应答中这个头是必需的。例如，response.setHeader(“WWW-Authenticate”, “BASIC realm=＼”executives＼””)。 </p>
-<p>注意Servlet一般不进行这方面的处理，而是让Web服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。</p>
-<p><strong>HTTP状态码：</strong></p>
-<p>下面是常见的HTTP状态码：</p>
-<p>200 - 请求成功<br>301 - 资源（网页等）被永久转移到其它URL<br>404 - 请求的资源（网页等）不存在<br>500 - 内部服务器错误<br>HTTP状态码由三个十进制数字组成，第一个十进制数字定义了状态码的类型，后两个数字没有分类的作用。HTTP状态码共分为5种类型：</p>
-<p>1** 信息，服务器收到请求，需要请求者继续执行操作</p>
-<p>2** 成功，操作被成功接收并处理</p>
-<p>3** 重定向，需要进一步的操作以完成请求</p>
-<p>4** 客户端错误，请求包含语法错误或无法完成请求</p>
-<p>5** 服务器错误，服务器在处理请求的过程中发生了错误</p>
-<p>HTTP content-type：<a href="http://www.runoob.com/http/http-content-type.html" target="_blank" rel="noopener">http://www.runoob.com/http/http-content-type.html</a></p>
-
+      <h2 id="简历"><a href="#简历" class="headerlink" title="简历"></a>简历</h2><p>2⻚以内，简历有点类似相亲的介绍，⼩时候拿过三好学</p>
+<p>⽣就别说了，就像别写你会html+css，别写你⽤vue做 </p>
+<p>过todolist⼀样</p>
+<p>突出⾃⼰的技术亮点</p>
+<p>别瞎写精通</p>
+<p>markdown就好，别⽤word</p>
+<p>突出亮点！</p>
+<h2 id="⽬标公司"><a href="#⽬标公司" class="headerlink" title="⽬标公司"></a>⽬标公司</h2><p>天眼查，脉脉，知乎</p>
+<h2 id="如何描述做过的项⽬"><a href="#如何描述做过的项⽬" class="headerlink" title="如何描述做过的项⽬"></a>如何描述做过的项⽬</h2><ol>
+<li><p>做过的明星项⽬</p>
+</li>
+<li><p>项⽬技术栈和细节</p>
+</li>
+<li><p>源码深度</p>
+</li>
+<li><p>优化，性能，体验，极客</p>
+</li>
+<li><p>填坑</p>
+</li>
+<li><p>成⻓</p>
+</li>
+</ol>
+<h2 id="⾯试技巧合计"><a href="#⾯试技巧合计" class="headerlink" title="⾯试技巧合计"></a>⾯试技巧合计</h2><ol>
+<li><p>认识⾃⼰（市场）</p>
+</li>
+<li><p>阐述优势</p>
+</li>
+<li><p>谈判得来的 都是纯利润</p>
+</li>
+<li><p>hr细节(考勤，补贴，996，五险⼀⾦，补贴</p>
+</li>
+<li>⼀个⾯试题的精讲</li>
+</ol>
+<h2 id="精讲面试题之前端⽂件上传"><a href="#精讲面试题之前端⽂件上传" class="headerlink" title="精讲面试题之前端⽂件上传"></a>精讲面试题之前端⽂件上传</h2><p><strong>1、原理概述</strong></p>
+<p>考察全栈思维，http协议 ，node⽂件处理</p>
+<p>我⽤vue+element+nodejs来演示</p>
+<p>基本答案 （<strong>10K</strong>）</p>
+      
+        <div class="readmore">
+          <a href="/posts/37eb3f8a.html" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
       
     </div>
     
       <div class="full-width auto-padding tags">
         
-          <a href="/blogpost/tags/Http/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Http</a>
+          <a href="/blogpost/tags/面试题/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>面试题</a>
         
       </div>
     
@@ -1712,11 +1949,11 @@
         
           <li><a class="flat-box" title="/blogpost/categories/个人项目/" href="/blogpost/categories/个人项目/"><div class='name'>个人项目</div><div class='badge'>(7)</div></a></li>
         
-          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(29)</div></a></li>
+          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(30)</div></a></li>
         
           <li><a class="flat-box" title="/blogpost/categories/博客文档/" href="/blogpost/categories/博客文档/"><div class='name'>博客文档</div><div class='badge'>(2)</div></a></li>
         
-          <li><a class="flat-box" title="/blogpost/categories/后端/" href="/blogpost/categories/后端/"><div class='name'>后端</div><div class='badge'>(3)</div></a></li>
+          <li><a class="flat-box" title="/blogpost/categories/后端/" href="/blogpost/categories/后端/"><div class='name'>后端</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box" title="/blogpost/categories/开发工具/" href="/blogpost/categories/开发工具/"><div class='name'>开发工具</div><div class='badge'>(8)</div></a></li>
         
@@ -1751,7 +1988,7 @@
 </header>
 
     <div class='content material'>
-      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.67px; color: #8e8e8e">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.67px; color: #8e8e8e">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 17.33px; color: #828282">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 17.33px; color: #828282">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 17.33px; color: #828282">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 15.67px; color: #8e8e8e">Node</a> <a href="/blogpost/tags/React/" style="font-size: 20.67px; color: #6c6c6c">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.67px; color: #8e8e8e">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Webpack/" style="font-size: 15.67px; color: #8e8e8e">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.33px; color: #606060">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 19px; color: #777">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 17.33px; color: #828282">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 19px; color: #777">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.33px; color: #606060">面试题</a>
+      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.67px; color: #8e8e8e">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.67px; color: #8e8e8e">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 17.33px; color: #828282">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 17.33px; color: #828282">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 17.33px; color: #828282">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 17.33px; color: #828282">Node</a> <a href="/blogpost/tags/React/" style="font-size: 20.67px; color: #6c6c6c">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.67px; color: #8e8e8e">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Vue3/" style="font-size: 14px; color: #999">Vue3</a> <a href="/blogpost/tags/Webpack/" style="font-size: 15.67px; color: #8e8e8e">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.33px; color: #606060">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 19px; color: #777">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 17.33px; color: #828282">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 19px; color: #777">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.33px; color: #606060">面试题</a>
     </div>
   </section>
 
@@ -1864,7 +2101,7 @@
     
       <span>
         <b class="fas fa-database"></b>
-        本站字数：<span class="post-count">72.4k</span>
+        本站字数：<span class="post-count">76.4k</span>
       </span>
     
     <!-- 网站运行时间 -->
@@ -1969,14 +2206,14 @@
       $(function(){
         if ('.cover') {
           $('.cover').backstretch(
-          ["https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gb3.jpg"],
+          ["https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gb3.jpg"],
           {
             duration: "60000",
             fade: "1000"
           });
         } else {
           $.backstretch(
-          ["https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gb3.jpg"],
+          ["https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gb3.jpg"],
           {
             duration: "60000",
             fade: "1000"
@@ -1996,10 +2233,10 @@
 
 
 
-  <script src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/app.js"></script>
 
 
-  <script src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/search.js"></script>
 
 
 
@@ -2115,30 +2352,30 @@
 
   <script>setLoadingBarProgress(100);</script>
   <!-- 浮动小人 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/sipng.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/sipng.js"></script> -->
   <!-- 页面点击小红心 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/love.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/love.js"></script> -->
   <!--动态线条背景-->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/canvas-nest.min.js" color="111,111,111" opacity='0.65' zIndex="-10" count="120" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/canvas-nest.min.js" color="111,111,111" opacity='0.65' zIndex="-10" count="120" ></script>
   <!-- 飘动丝带 -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/piao.js" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/piao.js" ></script>
   <!-- 跳动的字 -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/chakhsu.js" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/chakhsu.js" ></script>
   <!-- 樱花飘落 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/sakura.js" ></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/sakura.js" ></script> -->
   <!-- 人体时钟背景透明 -->
-  <!-- <script type="text/javascript" charset="Shift_JIS" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/clock.js"></script> -->
+  <!-- <script type="text/javascript" charset="Shift_JIS" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/clock.js"></script> -->
   <!-- 浏览器搞笑标题 -->
   <script type="text/javascript" id="bowerTitle">
     var OriginTitle = document.title;
     var titleTime;
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
-        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/error_favicon.ico");
+        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/error_favicon.ico");
         document.title = '你的页面走丢了...';
         clearTimeout(titleTime);
       } else {
-        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/favicon.ico");
+        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/favicon.ico");
         document.title = '欢迎回来!'
         titleTime = setTimeout(function () {
           document.title = OriginTitle;

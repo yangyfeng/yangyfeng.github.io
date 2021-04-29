@@ -34,13 +34,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
   
   
-  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/favicon.ico">
   
 
   
 
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/css/style.css">
   
 
   <script>
@@ -358,8 +358,8 @@
       
         
   <h2 class="title">
-    <a href="/posts/35755b8d.html">
-      谈谈Vue 和 React 的diff有什么不同
+    <a href="/posts/d69ba86b.html">
+      vue3学习起始
     </a>
   </h2>
 
@@ -387,7 +387,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-04-16</p>
+    <p>2021-04-29</p>
   </a>
 </div>
 
@@ -428,14 +428,14 @@
           <div class="new-meta-item size">
             <a class="notlink">
               <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>51字</p>
+              <p>3.9k字</p>
             </a>
           </div>
           <!-- 阅读时间 -->
           <div class="new-meta-item read-time">
             <a class="notlink">
               <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>1分</p>
+              <p>19分</p>
             </a>
           </div>
         
@@ -449,20 +449,61 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p><strong>说几个问题</strong></p>
-<ul>
-<li>Computed 属性为什么能够在依赖改变的时候，自己发生变化？</li>
-<li>Vuex 的 Mutation 和 Action 的区别？</li>
-<li>React Fiber的理解和原理</li>
-<li>Vue和React的diff有什么不同</li>
+      <h2 id="快速起始"><a href="#快速起始" class="headerlink" title="快速起始"></a>快速起始</h2><h3 id="cdn"><a href="#cdn" class="headerlink" title="cdn"></a>cdn</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcdn.net/ajax/libs/vue/3.0.0-rc.7/vue.global.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h3><p>升级vue-cli v4.5</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> i -g @vue/cli@next</span><br></pre></td></tr></table></figure>
+<h3 id="vite"><a href="#vite" class="headerlink" title="vite"></a>vite</h3><p>使用vite体验更快速</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm init vite-app &lt;project-name&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;project-name&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm run dev</span></span><br></pre></td></tr></table></figure>
+<h2 id="从vue2迁移"><a href="#从vue2迁移" class="headerlink" title="从vue2迁移"></a>从vue2迁移</h2><h3 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h3><ul>
+<li><a href="https://v3.vuejs.org/guide/composition-api-introduction.html" target="_blank" rel="noopener">Composition API</a></li>
+<li><a href="https://v3.vuejs.org/guide/teleport.html" target="_blank" rel="noopener">Teleport</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/fragments.html" target="_blank" rel="noopener">Fragments</a></li>
+<li><a href="https://v3.vuejs.org/guide/component-custom-events.html" target="_blank" rel="noopener">Emits Component Option</a></li>
+<li><code>createRenderer</code> API用于创建自定义渲染器</li>
 </ul>
-
+<h3 id="破坏性变化"><a href="#破坏性变化" class="headerlink" title="破坏性变化"></a>破坏性变化</h3><ul>
+<li><a href="https://v3.vuejs.org/guide/migration/global-api.html" target="_blank" rel="noopener">Global API 改为应用程序实例调用</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/global-api-treeshaking.html" target="_blank" rel="noopener">Global and internal APIs重构为可做摇树优化</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/v-model.html" target="_blank" rel="noopener"><code>model</code>选项和<code>v-bind</code>的<code>sync</code> 修饰符被移除，统一为v-model参数形式</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/render-function-api.html" target="_blank" rel="noopener">渲染函数API修改</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/functional-components.html" target="_blank" rel="noopener">函数式组件仅能通过简单函数方式创建</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/functional-components.html" target="_blank" rel="noopener">废弃在SFC的template上使用functional或者添加functional选项的方式声明函数式组件</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/async-components.html" target="_blank" rel="noopener">异步组件要求使用<code>defineAsyncComponent</code> 方法创建</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/data-option.html" target="_blank" rel="noopener">组件data选项应该总是声明为函数</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/custom-elements-interop.html" target="_blank" rel="noopener">自定义组件白名单执行于编译时</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/custom-elements-interop.html" target="_blank" rel="noopener"><code>is</code>属性仅限于用在<code>component</code>标签上</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/slots-unification.html" target="_blank" rel="noopener"><code>$scopedSlots</code> 属性被移除，都用<code>$slots</code>代替</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/attribute-coercion.html" target="_blank" rel="noopener">特性强制策略变更</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/custom-directives.html" target="_blank" rel="noopener">自定义指令API和组件一致</a></li>
+<li>一些transition类名修改:<ul>
+<li><code>v-enter</code> -&gt; <code>v-enter-from</code></li>
+<li><code>v-leave</code> -&gt; <code>v-leave-from</code></li>
+</ul>
+</li>
+<li><a href="https://v3.vuejs.org/api/options-data.html#watch" target="_blank" rel="noopener">watch 选项</a> 和<a href="https://v3.vuejs.org/api/instance-methods.html#watch" target="_blank" rel="noopener"><code>$watch</code></a> 不再支持点分隔符字符串路径, 使用计算函数作为其参数</li>
+<li>Vue 2.x中应用程序根容器的 <code>outerHTML</code> 会被根组件的模板替换 (或被编译为template)。Vue 3.x现在使用应用根容器的<code>innerHTML</code>取代.</li>
+</ul>
+<h3 id="移除"><a href="#移除" class="headerlink" title="移除"></a>移除</h3><ul>
+<li><a href="https://v3.vuejs.org/guide/migration/keycode-modifiers.html" target="_blank" rel="noopener">移除<code>keyCode</code> 作为 <code>v-on</code> 修饰符</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/events-api.html" target="_blank" rel="noopener">on,on, on,off and $once 移除</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/filters.html" target="_blank" rel="noopener">Filters移除</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/inline-template-attribute.html" target="_blank" rel="noopener">Inline templates attributes移除</a></li>
+</ul>
+      
+        <div class="readmore">
+          <a href="/posts/d69ba86b.html" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
       
     </div>
     
       <div class="full-width auto-padding tags">
         
-          <a href="/blogpost/tags/深入前端/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>深入前端</a>
+          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
+        
+          <a href="/blogpost/tags/Vue3/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue3</a>
         
       </div>
     
@@ -628,6 +669,126 @@
     
     
       
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/posts/35755b8d.html">
+      谈谈Vue 和 React 的diff有什么不同
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2021-04-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/前端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>前端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>51字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>1分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p><strong>说几个问题</strong></p>
+<ul>
+<li>Computed 属性为什么能够在依赖改变的时候，自己发生变化？</li>
+<li>Vuex 的 Mutation 和 Action 的区别？</li>
+<li>React Fiber的理解和原理</li>
+<li>Vue和React的diff有什么不同</li>
+</ul>
+
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/深入前端/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>深入前端</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
         
       
         
@@ -906,6 +1067,8 @@
         
       
         
+      
+        
           <div class='post-wrapper'>
             <article class="post reveal ">
   
@@ -1033,8 +1196,6 @@
 </article>
 
           </div>
-        
-      
         
       
         
@@ -1606,7 +1767,7 @@
 <p>Decorator是ES7中的提案，概念借鉴于python， 它作用于一个目标类为其添加属性于方法</p>
 <p>我们用一个比喻来理解Decorator, 把孙悟空看成是一个类，那么棒子就是装饰器为其装备的武器</p>
 <p> 代码理解: </p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@stick</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stick</span><span class="params">(target)</span> </span>&#123;<span class="comment">// 第一个参数就是目标类的本身</span></span><br><span class="line">  target.ATK = <span class="number">100000</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Monkey.ATK<span class="comment">// 为悟空装备了棒子，攻击力提高了100000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果一个参数不够用，可以在装饰器外层再包一层</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stick</span><span class="params">(atk)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(targt)</span> </span>&#123;</span><br><span class="line">    target.ATK = atk</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@stick(<span class="number">200000</span>)<span class="comment">// 这样我们就为悟空增加了200000攻击力</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@stick</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stick</span>(<span class="params">target</span>) </span>&#123;<span class="comment">// 第一个参数就是目标类的本身</span></span><br><span class="line">  target.ATK = <span class="number">100000</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Monkey.ATK<span class="comment">// 为悟空装备了棒子，攻击力提高了100000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果一个参数不够用，可以在装饰器外层再包一层</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stick</span>(<span class="params">atk</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">targt</span>) </span>&#123;</span><br><span class="line">    target.ATK = atk</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@stick(<span class="number">200000</span>)<span class="comment">// 这样我们就为悟空增加了200000攻击力</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
 <p> Decorator 不仅能修饰类，也能修饰类的方法 </p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123;</span><br><span class="line">  <span class="meta">@setName</span></span><br><span class="line">  name() &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'孙悟空'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> Decorator 只能修饰类及类的方法,不能修饰于函数,因为存在函数提升 </p>
@@ -1626,158 +1787,6 @@
       <div class="full-width auto-padding tags">
         
           <a href="/blogpost/tags/面试题/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>面试题</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/c00659d0.html">
-      深入前端模块化
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2020-12-16</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/前端/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>前端</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>2.8k字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>11分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>什么是前端的模块化？理解的不太透彻。</p>
-<p>平常一直用的也只有ES6模块化，对于其他几种模块化规范用的也少，理解不够深，但是经常会见到一些面试题是问这几种模块化规范的区别，所以这次做一个整理总结</p>
-<h1 id="一、对于模块化的理解"><a href="#一、对于模块化的理解" class="headerlink" title="一、对于模块化的理解"></a>一、对于模块化的理解</h1><h2 id="1、什么是模块化？"><a href="#1、什么是模块化？" class="headerlink" title="1、什么是模块化？"></a>1、什么是模块化？</h2><p>模块化开发是一种管理方式，是一种生产方式，一种解决问题的方案，一个模块就是实现特定功能的文件，有了模块，我们就可以更方便地使用别人的代码，想要什么功能，就加载什么模块，但是模块开发需要遵循一定的规范，否则就都乱套了，因此，才有了后来大家熟悉的AMD规范，CMD规范，以及ES6自带的模块化规范</p>
-<h2 id="2、模块化带来的好处？"><a href="#2、模块化带来的好处？" class="headerlink" title="2、模块化带来的好处？"></a>2、模块化带来的好处？</h2><ul>
-<li>解决命名冲突</li>
-<li>提供复用性</li>
-<li>提高代码可维护性</li>
-<li>灵活架构，焦点分离，方便模块间组合、分解</li>
-<li>多人协作互不干扰</li>
-</ul>
-<h2 id="3、模块化规范的发展进程"><a href="#3、模块化规范的发展进程" class="headerlink" title="3、模块化规范的发展进程"></a>3、模块化规范的发展进程</h2><ul>
-<li><strong>原始写法（全局function）</strong></li>
-</ul>
-<p>模块就是实现特定**功能的一组方法，只要把不同的函数（以及记录状态的变量）简单的放在一起，就算是一个模块。</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">m1</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">m2</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>这样写上面的函数 m1() 和 m2() ，组成了一个模块，在使用的时候直接调用就可以了。
-但是带来的问题也很明显：&quot;污染&quot;了全局变量 ，无法保证不与其他模块发生变量名冲突，而且模块成员之间看不出直接关系</code></p>
-<ul>
-<li><strong>namespace写法（简单对象）</strong></li>
-</ul>
-<p>为了解决上面写法带来的缺点，可以吧模块写成一个对象，所有的模块成员都放到这个对象里面，这样减少了全局变量，减少命名冲突</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myModule = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;</span><br><span class="line">  count: <span class="number">0</span>,</span><br><span class="line">  m1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m1:'</span> + <span class="keyword">this</span>.count);</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line">  m2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m2:'</span> + <span class="keyword">this</span>.count)</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">myModule.m1() <span class="comment">// m1:0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 改变模块内部状态</span></span><br><span class="line">myModule.count = <span class="number">5</span>;</span><br><span class="line">myModule.m1() <span class="comment">// m1:5</span></span><br></pre></td></tr></table></figure>
-<p><code>上面的函数 m1 和 m2 ，都封装在myModule对象里。使用的时候，就是调用这个对象的属性。但是，这样的写法会暴露所有模块成员，内部状态可以被外部改写。比如，外部代码可以直接改变内部计数器的值。</code></p>
-<ul>
-<li><strong>立即执行函数写法（匿名函数自执行 ，闭包）</strong></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myModule = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> m1 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m1:'</span> + count)</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">let</span> m2 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'m2:'</span> + count)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123; m1, m2 &#125;;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这样写在外面就无法读取内部的 count 变量</span></span><br><span class="line"><span class="built_in">console</span>.log(myModule.count); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>立即执行函数增强(引入依赖)</strong></li>
-</ul>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myModule = (<span class="function"><span class="keyword">function</span> <span class="params">($)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 这里面就可以使用JQuery</span></span><br><span class="line">&#125;)(JQuery)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这样做除了保证模块的独立性，还使得模块之间的依赖关系变得明显</span></span><br></pre></td></tr></table></figure>
-      
-        <div class="readmore">
-          <a href="/posts/c00659d0.html" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/前端工程化/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>前端工程化</a>
-        
-          <a href="/blogpost/tags/模块化/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>模块化</a>
         
       </div>
     
@@ -2008,11 +2017,11 @@
         
           <li><a class="flat-box" title="/blogpost/categories/个人项目/" href="/blogpost/categories/个人项目/"><div class='name'>个人项目</div><div class='badge'>(7)</div></a></li>
         
-          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(29)</div></a></li>
+          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(30)</div></a></li>
         
           <li><a class="flat-box" title="/blogpost/categories/博客文档/" href="/blogpost/categories/博客文档/"><div class='name'>博客文档</div><div class='badge'>(2)</div></a></li>
         
-          <li><a class="flat-box" title="/blogpost/categories/后端/" href="/blogpost/categories/后端/"><div class='name'>后端</div><div class='badge'>(3)</div></a></li>
+          <li><a class="flat-box" title="/blogpost/categories/后端/" href="/blogpost/categories/后端/"><div class='name'>后端</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box" title="/blogpost/categories/开发工具/" href="/blogpost/categories/开发工具/"><div class='name'>开发工具</div><div class='badge'>(8)</div></a></li>
         
@@ -2047,7 +2056,7 @@
 </header>
 
     <div class='content material'>
-      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.67px; color: #8e8e8e">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.67px; color: #8e8e8e">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 17.33px; color: #828282">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 17.33px; color: #828282">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 17.33px; color: #828282">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 15.67px; color: #8e8e8e">Node</a> <a href="/blogpost/tags/React/" style="font-size: 20.67px; color: #6c6c6c">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.67px; color: #8e8e8e">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Webpack/" style="font-size: 15.67px; color: #8e8e8e">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.33px; color: #606060">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 19px; color: #777">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 17.33px; color: #828282">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 19px; color: #777">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.33px; color: #606060">面试题</a>
+      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.67px; color: #8e8e8e">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.67px; color: #8e8e8e">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 17.33px; color: #828282">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 17.33px; color: #828282">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 17.33px; color: #828282">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 17.33px; color: #828282">Node</a> <a href="/blogpost/tags/React/" style="font-size: 20.67px; color: #6c6c6c">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.67px; color: #8e8e8e">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Vue3/" style="font-size: 14px; color: #999">Vue3</a> <a href="/blogpost/tags/Webpack/" style="font-size: 15.67px; color: #8e8e8e">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.33px; color: #606060">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 19px; color: #777">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 17.33px; color: #828282">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 19px; color: #777">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.33px; color: #606060">面试题</a>
     </div>
   </section>
 
@@ -2160,7 +2169,7 @@
     
       <span>
         <b class="fas fa-database"></b>
-        本站字数：<span class="post-count">72.4k</span>
+        本站字数：<span class="post-count">76.4k</span>
       </span>
     
     <!-- 网站运行时间 -->
@@ -2265,14 +2274,14 @@
       $(function(){
         if ('.cover') {
           $('.cover').backstretch(
-          ["https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gb3.jpg"],
+          ["https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gb3.jpg"],
           {
             duration: "60000",
             fade: "1000"
           });
         } else {
           $.backstretch(
-          ["https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gb3.jpg"],
+          ["https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gb3.jpg"],
           {
             duration: "60000",
             fade: "1000"
@@ -2292,10 +2301,10 @@
 
 
 
-  <script src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/app.js"></script>
 
 
-  <script src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/search.js"></script>
 
 
 
@@ -2411,30 +2420,30 @@
 
   <script>setLoadingBarProgress(100);</script>
   <!-- 浮动小人 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/sipng.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/sipng.js"></script> -->
   <!-- 页面点击小红心 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/love.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/love.js"></script> -->
   <!--动态线条背景-->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/canvas-nest.min.js" color="111,111,111" opacity='0.65' zIndex="-10" count="120" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/canvas-nest.min.js" color="111,111,111" opacity='0.65' zIndex="-10" count="120" ></script>
   <!-- 飘动丝带 -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/piao.js" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/piao.js" ></script>
   <!-- 跳动的字 -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/chakhsu.js" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/chakhsu.js" ></script>
   <!-- 樱花飘落 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/sakura.js" ></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/sakura.js" ></script> -->
   <!-- 人体时钟背景透明 -->
-  <!-- <script type="text/javascript" charset="Shift_JIS" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/clock.js"></script> -->
+  <!-- <script type="text/javascript" charset="Shift_JIS" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/clock.js"></script> -->
   <!-- 浏览器搞笑标题 -->
   <script type="text/javascript" id="bowerTitle">
     var OriginTitle = document.title;
     var titleTime;
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
-        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/error_favicon.ico");
+        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/error_favicon.ico");
         document.title = '你的页面走丢了...';
         clearTimeout(titleTime);
       } else {
-        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/favicon.ico");
+        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/favicon.ico");
         document.title = '欢迎回来!'
         titleTime = setTimeout(function () {
           document.title = OriginTitle;

@@ -34,13 +34,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
   
   
-  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/favicon.ico">
   
 
   
 
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/css/style.css">
   
 
   <script>
@@ -344,8 +344,6 @@
       
         
           
-        
-          
             <div class='post-wrapper'>
               <article class="post reveal ">
   
@@ -358,8 +356,8 @@
       
         
   <h2 class="title">
-    <a href="/posts/35755b8d.html">
-      谈谈Vue 和 React 的diff有什么不同
+    <a href="/posts/d69ba86b.html">
+      vue3学习起始
     </a>
   </h2>
 
@@ -387,7 +385,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-04-16</p>
+    <p>2021-04-29</p>
   </a>
 </div>
 
@@ -428,14 +426,14 @@
           <div class="new-meta-item size">
             <a class="notlink">
               <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>51字</p>
+              <p>3.9k字</p>
             </a>
           </div>
           <!-- 阅读时间 -->
           <div class="new-meta-item read-time">
             <a class="notlink">
               <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>1分</p>
+              <p>19分</p>
             </a>
           </div>
         
@@ -449,20 +447,61 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p><strong>说几个问题</strong></p>
-<ul>
-<li>Computed 属性为什么能够在依赖改变的时候，自己发生变化？</li>
-<li>Vuex 的 Mutation 和 Action 的区别？</li>
-<li>React Fiber的理解和原理</li>
-<li>Vue和React的diff有什么不同</li>
+      <h2 id="快速起始"><a href="#快速起始" class="headerlink" title="快速起始"></a>快速起始</h2><h3 id="cdn"><a href="#cdn" class="headerlink" title="cdn"></a>cdn</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcdn.net/ajax/libs/vue/3.0.0-rc.7/vue.global.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h3><p>升级vue-cli v4.5</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> i -g @vue/cli@next</span><br></pre></td></tr></table></figure>
+<h3 id="vite"><a href="#vite" class="headerlink" title="vite"></a>vite</h3><p>使用vite体验更快速</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm init vite-app &lt;project-name&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;project-name&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm run dev</span></span><br></pre></td></tr></table></figure>
+<h2 id="从vue2迁移"><a href="#从vue2迁移" class="headerlink" title="从vue2迁移"></a>从vue2迁移</h2><h3 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h3><ul>
+<li><a href="https://v3.vuejs.org/guide/composition-api-introduction.html" target="_blank" rel="noopener">Composition API</a></li>
+<li><a href="https://v3.vuejs.org/guide/teleport.html" target="_blank" rel="noopener">Teleport</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/fragments.html" target="_blank" rel="noopener">Fragments</a></li>
+<li><a href="https://v3.vuejs.org/guide/component-custom-events.html" target="_blank" rel="noopener">Emits Component Option</a></li>
+<li><code>createRenderer</code> API用于创建自定义渲染器</li>
 </ul>
-
+<h3 id="破坏性变化"><a href="#破坏性变化" class="headerlink" title="破坏性变化"></a>破坏性变化</h3><ul>
+<li><a href="https://v3.vuejs.org/guide/migration/global-api.html" target="_blank" rel="noopener">Global API 改为应用程序实例调用</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/global-api-treeshaking.html" target="_blank" rel="noopener">Global and internal APIs重构为可做摇树优化</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/v-model.html" target="_blank" rel="noopener"><code>model</code>选项和<code>v-bind</code>的<code>sync</code> 修饰符被移除，统一为v-model参数形式</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/render-function-api.html" target="_blank" rel="noopener">渲染函数API修改</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/functional-components.html" target="_blank" rel="noopener">函数式组件仅能通过简单函数方式创建</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/functional-components.html" target="_blank" rel="noopener">废弃在SFC的template上使用functional或者添加functional选项的方式声明函数式组件</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/async-components.html" target="_blank" rel="noopener">异步组件要求使用<code>defineAsyncComponent</code> 方法创建</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/data-option.html" target="_blank" rel="noopener">组件data选项应该总是声明为函数</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/custom-elements-interop.html" target="_blank" rel="noopener">自定义组件白名单执行于编译时</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/custom-elements-interop.html" target="_blank" rel="noopener"><code>is</code>属性仅限于用在<code>component</code>标签上</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/slots-unification.html" target="_blank" rel="noopener"><code>$scopedSlots</code> 属性被移除，都用<code>$slots</code>代替</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/attribute-coercion.html" target="_blank" rel="noopener">特性强制策略变更</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/custom-directives.html" target="_blank" rel="noopener">自定义指令API和组件一致</a></li>
+<li>一些transition类名修改:<ul>
+<li><code>v-enter</code> -&gt; <code>v-enter-from</code></li>
+<li><code>v-leave</code> -&gt; <code>v-leave-from</code></li>
+</ul>
+</li>
+<li><a href="https://v3.vuejs.org/api/options-data.html#watch" target="_blank" rel="noopener">watch 选项</a> 和<a href="https://v3.vuejs.org/api/instance-methods.html#watch" target="_blank" rel="noopener"><code>$watch</code></a> 不再支持点分隔符字符串路径, 使用计算函数作为其参数</li>
+<li>Vue 2.x中应用程序根容器的 <code>outerHTML</code> 会被根组件的模板替换 (或被编译为template)。Vue 3.x现在使用应用根容器的<code>innerHTML</code>取代.</li>
+</ul>
+<h3 id="移除"><a href="#移除" class="headerlink" title="移除"></a>移除</h3><ul>
+<li><a href="https://v3.vuejs.org/guide/migration/keycode-modifiers.html" target="_blank" rel="noopener">移除<code>keyCode</code> 作为 <code>v-on</code> 修饰符</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/events-api.html" target="_blank" rel="noopener">on,on, on,off and $once 移除</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/filters.html" target="_blank" rel="noopener">Filters移除</a></li>
+<li><a href="https://v3.vuejs.org/guide/migration/inline-template-attribute.html" target="_blank" rel="noopener">Inline templates attributes移除</a></li>
+</ul>
+      
+        <div class="readmore">
+          <a href="/posts/d69ba86b.html" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
       
     </div>
     
       <div class="full-width auto-padding tags">
         
-          <a href="/blogpost/tags/深入前端/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>深入前端</a>
+          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
+        
+          <a href="/blogpost/tags/Vue3/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue3</a>
         
       </div>
     
@@ -470,6 +509,14 @@
 </article>
 
             </div>
+          
+        
+          
+        
+          
+        
+          
+        
           
         
           
@@ -616,15 +663,126 @@
         
           
         
-          
-        
-          
-        
-          
-        
       
     
     
+      
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/posts/43f370af.html">
+      nvm工具切换node版本
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2021-04-27</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/后端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>后端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>100字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>1分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p><strong>node以往的版本</strong> <a href="https://nodejs.org/zh-cn/download/releases/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/releases/</a><br><strong>nvm工具Windows版下载</strong> <a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener">https://github.com/coreybutler/nvm-windows/releases</a><br><strong>nvm安装教程</strong> <a href="https://www.html.cn/qa/node-js/11997.html" target="_blank" rel="noopener">https://www.html.cn/qa/node-js/11997.html</a><br><strong>使用过程遇到的问题</strong> <a href="https://segmentfault.com/q/1010000009258340" target="_blank" rel="noopener">https://segmentfault.com/q/1010000009258340</a><br><strong>解决nvm use无权限问题</strong> <a href="https://github.com/coreybutler/nvm-windows/issues/221" target="_blank" rel="noopener">https://github.com/coreybutler/nvm-windows/issues/221</a></p>
+<p>注意事项：<br>1、安装路径不能含有中文和空格<br>2、命令行运行使用管理员方式</p>
+
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/Node/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Node</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -729,7 +887,7 @@
 <p>2、获取要访问的相关网站的IP</p>
 <p>访问<a href="https://www.ipaddress.com/" target="_blank" rel="noopener">查询IP</a></p>
 <p>搜索框内分别输入<code>github.com</code>和<code>github.global.ssl.fastly.net</code>查询对应的IP地址，然后如上图所示格式添加上配置就可以了</p>
-<p><a href="https://imgtu.com/i/cbYzMF" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://z3.ax1x.com/2021/04/21/cbYzMF.png" alt="cbYzMF.png"></a></p>
+<p><a href="https://imgtu.com/i/cbYzMF" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/04/21/cbYzMF.png" alt="cbYzMF.png"></a></p>
 <p>3、测试</p>
 <p>powershell里<code>ping</code>一下</p>
 <p><code>ping github.com</code></p>
@@ -749,6 +907,124 @@
           </div>
         
       
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/posts/35755b8d.html">
+      谈谈Vue 和 React 的diff有什么不同
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2021-04-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/前端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>前端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>51字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>1分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p><strong>说几个问题</strong></p>
+<ul>
+<li>Computed 属性为什么能够在依赖改变的时候，自己发生变化？</li>
+<li>Vuex 的 Mutation 和 Action 的区别？</li>
+<li>React Fiber的理解和原理</li>
+<li>Vue和React的diff有什么不同</li>
+</ul>
+
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/深入前端/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>深入前端</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
         
       
         
@@ -922,6 +1198,135 @@
       
         
   <h2 class="title">
+    <a href="/posts/8e322b93.html">
+      React Fiber原理解析
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2021-03-08</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/前端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>前端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>928字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>3分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p> <code>React</code>团队重写了<code>React</code> 的核心算法—<code>reconciliation</code>,一般将之前的算法叫<code>stack reconciliation</code>，现在的叫<code>fiber reconciliation</code>。 </p>
+<h3 id="React-Fiber是什么"><a href="#React-Fiber是什么" class="headerlink" title="React Fiber是什么"></a>React Fiber是什么</h3><p> React Fiber是个什么东西呢？官方的一句话解释是“<strong>React Fiber是对核心算法的一次重新实现”</strong>。 </p>
+<p> 为什么Facebook要搞React Fiber呢？  在现有React中，更新过程是同步的，这可能会导致性能问题。 </p>
+<p><strong>同步更新过程的局限</strong></p>
+<p>当React决定要加载或者更新组件树时，会做很多事，比如调用各个组件的生命周期函数，计算和比对Virtual DOM，最后更新DOM树，这整个过程是同步进行的，也就是说只要一个加载或者更新过程开始，那React就以不破楼兰终不还的气概，一鼓作气运行到底，中途绝不停歇。</p>
+<p>表面上看，这样的设计也是挺合理的，因为更新过程不会有任何I/O操作嘛，完全是CPU计算，所以无需异步操作，的确只要一路狂奔就行了，但是，当组件树比较庞大的时候，问题就来了。</p>
+<p>假如更新一个组件需要1毫秒，如果有200个组件要更新，那就需要200毫秒，在这200毫秒的更新过程中，浏览器那个唯一的主线程都在专心运行更新操作，无暇去做任何其他的事情。想象一下，在这200毫秒内，用户往一个input元素中输入点什么，敲击键盘也不会获得响应，因为渲染输入按键结果也是浏览器主线程的工作，但是浏览器主线程被React占着呢，抽不出空，最后的结果就是用户敲了按键看不到反应，等React更新过程结束之后，咔咔咔那些按键一下子出现在input元素里了。</p>
+<p>这就是所谓的界面卡顿，很不好的用户体验。</p>
+<p><a href="https://imgtu.com/i/68SdWF" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/09/68SdWF.md.png" alt="68SdWF.md.png"></a></p>
+<p>现有的React版本，当组件树很大的时候就会出现这种问题，因为更新过程是同步地一层组件套一层组件，逐渐深入的过程，在更新完所有组件之前不停止，函数的调用栈就像下图这样，调用得很深，而且很长时间不会返回。</p>
+      
+        <div class="readmore">
+          <a href="/posts/8e322b93.html" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/React/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>React</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
     <a href="/posts/93b51ba9.html">
       深入理解React
     </a>
@@ -1068,137 +1473,6 @@
       
         
   <h2 class="title">
-    <a href="/posts/8e322b93.html">
-      React Fiber原理解析
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-03-08</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/前端/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>前端</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>928字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>3分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p> <code>React</code>团队重写了<code>React</code> 的核心算法—<code>reconciliation</code>,一般将之前的算法叫<code>stack reconciliation</code>，现在的叫<code>fiber reconciliation</code>。 </p>
-<h3 id="React-Fiber是什么"><a href="#React-Fiber是什么" class="headerlink" title="React Fiber是什么"></a>React Fiber是什么</h3><p> React Fiber是个什么东西呢？官方的一句话解释是“<strong>React Fiber是对核心算法的一次重新实现”</strong>。 </p>
-<p> 为什么Facebook要搞React Fiber呢？  在现有React中，更新过程是同步的，这可能会导致性能问题。 </p>
-<p><strong>同步更新过程的局限</strong></p>
-<p>当React决定要加载或者更新组件树时，会做很多事，比如调用各个组件的生命周期函数，计算和比对Virtual DOM，最后更新DOM树，这整个过程是同步进行的，也就是说只要一个加载或者更新过程开始，那React就以不破楼兰终不还的气概，一鼓作气运行到底，中途绝不停歇。</p>
-<p>表面上看，这样的设计也是挺合理的，因为更新过程不会有任何I/O操作嘛，完全是CPU计算，所以无需异步操作，的确只要一路狂奔就行了，但是，当组件树比较庞大的时候，问题就来了。</p>
-<p>假如更新一个组件需要1毫秒，如果有200个组件要更新，那就需要200毫秒，在这200毫秒的更新过程中，浏览器那个唯一的主线程都在专心运行更新操作，无暇去做任何其他的事情。想象一下，在这200毫秒内，用户往一个input元素中输入点什么，敲击键盘也不会获得响应，因为渲染输入按键结果也是浏览器主线程的工作，但是浏览器主线程被React占着呢，抽不出空，最后的结果就是用户敲了按键看不到反应，等React更新过程结束之后，咔咔咔那些按键一下子出现在input元素里了。</p>
-<p>这就是所谓的界面卡顿，很不好的用户体验。</p>
-<p><a href="https://imgtu.com/i/68SdWF" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/09/68SdWF.md.png" alt="68SdWF.md.png"></a></p>
-<p>现有的React版本，当组件树很大的时候就会出现这种问题，因为更新过程是同步地一层组件套一层组件，逐渐深入的过程，在更新完所有组件之前不停止，函数的调用栈就像下图这样，调用得很深，而且很长时间不会返回。</p>
-      
-        <div class="readmore">
-          <a href="/posts/8e322b93.html" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/React/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>React</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
     <a href="/posts/13437c1d.html">
       React知识点集合
     </a>
@@ -1317,6 +1591,8 @@
         
       
         
+      
+        
           <div class='post-wrapper'>
             <article class="post reveal ">
   
@@ -1428,270 +1704,13 @@
 <p><strong>涉案金额分析</strong>：案件类型划分涉案金额等内容。</p>
 <p><strong>时间维度分析</strong>：按不同的时间点分析不同的数据，如“近六个月案发量环比增长”，年度，季度，月份，选定时间段等内容。</p>
 <p><strong>关联分析</strong>：包括关系图谱在内的各种，多维度分析内容。</p>
-<p><a href="https://imgtu.com/i/6ejTQe" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ejTQe.md.png" alt="6ejTQe.md.png"></a></p>
-<p><a href="https://imgtu.com/i/6eOzAP" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eOzAP.md.jpg" alt="6eOzAP.md.jpg"></a></p>
+<p><a href="https://imgtu.com/i/6ejTQe" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ejTQe.md.png" alt="6ejTQe.md.png"></a></p>
+<p><a href="https://imgtu.com/i/6eOzAP" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eOzAP.md.jpg" alt="6eOzAP.md.jpg"></a></p>
 <h2 id="功能详解"><a href="#功能详解" class="headerlink" title="功能详解"></a>功能详解</h2><p><strong>GIS地图展示案件关系</strong></p>
-<p><a href="https://imgtu.com/i/6eXb5V" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eXb5V.md.jpg" alt="6eXb5V.md.jpg"></a><br><a href="https://imgtu.com/i/6eXLCT" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eXLCT.md.jpg" alt="6eXLCT.md.jpg"></a><br><a href="https://imgtu.com/i/6eX7Eq" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eX7Eq.md.png" alt="6eX7Eq.md.png"></a></p>
+<p><a href="https://imgtu.com/i/6eXb5V" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eXb5V.md.jpg" alt="6eXb5V.md.jpg"></a><br><a href="https://imgtu.com/i/6eXLCT" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eXLCT.md.jpg" alt="6eXLCT.md.jpg"></a><br><a href="https://imgtu.com/i/6eX7Eq" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6eX7Eq.md.png" alt="6eX7Eq.md.png"></a></p>
 <p><strong>案件数据统计与分析</strong></p>
-<p><a href="https://imgtu.com/i/6ejYrj" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ejYrj.md.jpg" alt="6ejYrj.md.jpg"></a><br><a href="https://imgtu.com/i/6ejtqs" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ejtqs.md.jpg" alt="6ejtqs.md.jpg"></a></p>
+<p><a href="https://imgtu.com/i/6ejYrj" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ejYrj.md.jpg" alt="6ejYrj.md.jpg"></a><br><a href="https://imgtu.com/i/6ejtqs" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ejtqs.md.jpg" alt="6ejtqs.md.jpg"></a></p>
 
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
-        
-          <a href="/blogpost/tags/前端/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>前端</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/aab0fbb9.html">
-      可视化定制开发
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-03-05</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/个人项目/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>个人项目</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>187字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>1分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p><strong>定制开发</strong></p>
-<p>用户业务需求为基础，设计出客户满意的方案，前端根据设计图1:1完成开发。</p>
-<p>包括各类图表展示元素，地理位置信息展示单元（Gis、矢量、3d地球等），交互效果（酷炫动画，用户交互，展示效果等），实数数据监控，告警反馈，控制等。</p>
-<p>交互给客户就是一套完整的可运行的程序，数据接口我们可以开发或者直接对接客户提供的数据接口。</p>
-<h4 id="慧盾网络监控"><a href="#慧盾网络监控" class="headerlink" title="慧盾网络监控"></a>慧盾网络监控</h4><p>设备网络监控，数据安全。</p>
-<p><strong>视频安全指挥中心</strong></p>
-<p><a href="https://imgtu.com/i/6ezRds" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ezRds.md.png" alt="6ezRds.md.png"></a></p>
-<p><strong>全局安全监测</strong></p>
-<p><a href="https://imgtu.com/i/6ezIzT" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/05/6ezIzT.md.png" alt="6ezIzT.md.png"></a></p>
-<h3 id="东胜电厂"><a href="#东胜电厂" class="headerlink" title="东胜电厂"></a>东胜电厂</h3><p><a href="https://imgtu.com/i/6uBkEq" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/06/6uBkEq.md.jpg" alt="6uBkEq.md.jpg"></a></p>
-<h3 id="中国石化安徽石油可视化智慧调度平台"><a href="#中国石化安徽石油可视化智慧调度平台" class="headerlink" title="中国石化安徽石油可视化智慧调度平台"></a>中国石化安徽石油可视化智慧调度平台</h3><p><a href="https://imgtu.com/i/6uIcWQ" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif" data-original="https://s3.ax1x.com/2021/03/06/6uIcWQ.md.jpg" alt="6uIcWQ.md.jpg"></a></p>
-
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
-        
-          <a href="/blogpost/tags/前端/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>前端</a>
-        
-          <a href="/blogpost/tags/数据可视化/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>数据可视化</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/b1fde4c6.html">
-      QTV2直播商城
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-03-04</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/个人项目/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>个人项目</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>583字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>1分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h2><p>QTV-2直播生活供货商入驻系统，运行在微信公众号， 集资讯短视频，电商直播，购物商城为一体的青岛广电生活服务平台 。 其功能主要有直播打赏，直播抽奖，会员制，商品分享，弹幕评论等。微信搜索“QTV蛤蜊帮”，即可进入。 </p>
-<h2 id="系统结构说明"><a href="#系统结构说明" class="headerlink" title="系统结构说明"></a>系统结构说明</h2><p><strong>核心模型</strong></p>
-<p><a href="https://imgtu.com/i/6VwFh9" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/04/6VwFh9.md.png" alt="6VwFh9.md.png"></a></p>
-<p><strong>业务架构</strong></p>
-<p><a href="https://imgtu.com/i/6ehCSx" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/05/6ehCSx.md.png" alt="6ehCSx.md.png"></a><br><a href="https://imgtu.com/i/6ehpf1" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/05/6ehpf1.md.png" alt="6ehpf1.md.png"></a></p>
-<h2 id="业务介绍"><a href="#业务介绍" class="headerlink" title="业务介绍"></a>业务介绍</h2><p><strong>产品分类</strong></p>
-<p>推荐、大牌MALL（商超大牌）、扶农助农、工厂清仓、母婴亲子、美食美味、珠光宝气、潮搭攻略、乐家生活、美妆心得等</p>
-<p><a href="https://imgtu.com/i/6V0Nx1" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/04/6V0Nx1.md.png" alt="6V0Nx1.md.png"></a></p>
-      
-        <div class="readmore">
-          <a href="/posts/b1fde4c6.html" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
       
     </div>
     
@@ -1928,11 +1947,11 @@
         
           <li><a class="flat-box" title="/blogpost/categories/个人项目/" href="/blogpost/categories/个人项目/"><div class='name'>个人项目</div><div class='badge'>(7)</div></a></li>
         
-          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(29)</div></a></li>
+          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(30)</div></a></li>
         
           <li><a class="flat-box" title="/blogpost/categories/博客文档/" href="/blogpost/categories/博客文档/"><div class='name'>博客文档</div><div class='badge'>(2)</div></a></li>
         
-          <li><a class="flat-box" title="/blogpost/categories/后端/" href="/blogpost/categories/后端/"><div class='name'>后端</div><div class='badge'>(3)</div></a></li>
+          <li><a class="flat-box" title="/blogpost/categories/后端/" href="/blogpost/categories/后端/"><div class='name'>后端</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box" title="/blogpost/categories/开发工具/" href="/blogpost/categories/开发工具/"><div class='name'>开发工具</div><div class='badge'>(8)</div></a></li>
         
@@ -1967,7 +1986,7 @@
 </header>
 
     <div class='content material'>
-      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.67px; color: #8e8e8e">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.67px; color: #8e8e8e">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 17.33px; color: #828282">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 17.33px; color: #828282">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 17.33px; color: #828282">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 15.67px; color: #8e8e8e">Node</a> <a href="/blogpost/tags/React/" style="font-size: 20.67px; color: #6c6c6c">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.67px; color: #8e8e8e">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Webpack/" style="font-size: 15.67px; color: #8e8e8e">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.33px; color: #606060">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 19px; color: #777">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 17.33px; color: #828282">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 19px; color: #777">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.33px; color: #606060">面试题</a>
+      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.67px; color: #8e8e8e">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.67px; color: #8e8e8e">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 19px; color: #777">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 17.33px; color: #828282">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 17.33px; color: #828282">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 17.33px; color: #828282">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 17.33px; color: #828282">Node</a> <a href="/blogpost/tags/React/" style="font-size: 20.67px; color: #6c6c6c">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.67px; color: #8e8e8e">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Vue3/" style="font-size: 14px; color: #999">Vue3</a> <a href="/blogpost/tags/Webpack/" style="font-size: 15.67px; color: #8e8e8e">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.33px; color: #606060">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 19px; color: #777">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 17.33px; color: #828282">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 19px; color: #777">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.33px; color: #606060">面试题</a>
     </div>
   </section>
 
@@ -2080,7 +2099,7 @@
     
       <span>
         <b class="fas fa-database"></b>
-        本站字数：<span class="post-count">72.4k</span>
+        本站字数：<span class="post-count">76.4k</span>
       </span>
     
     <!-- 网站运行时间 -->
@@ -2193,14 +2212,14 @@
       $(function(){
         if ('.cover') {
           $('.cover').backstretch(
-          ["https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gb3.jpg"],
+          ["https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gb3.jpg"],
           {
             duration: "60000",
             fade: "1000"
           });
         } else {
           $.backstretch(
-          ["https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gb3.jpg"],
+          ["https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gb3.jpg"],
           {
             duration: "60000",
             fade: "1000"
@@ -2220,10 +2239,10 @@
 
 
 
-  <script src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/app.js"></script>
 
 
-  <script src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/search.js"></script>
 
 
 
@@ -2339,30 +2358,30 @@
 
   <script>setLoadingBarProgress(100);</script>
   <!-- 浮动小人 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/sipng.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/sipng.js"></script> -->
   <!-- 页面点击小红心 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/love.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/love.js"></script> -->
   <!--动态线条背景-->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/canvas-nest.min.js" color="111,111,111" opacity='0.65' zIndex="-10" count="120" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/canvas-nest.min.js" color="111,111,111" opacity='0.65' zIndex="-10" count="120" ></script>
   <!-- 飘动丝带 -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/piao.js" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/piao.js" ></script>
   <!-- 跳动的字 -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/chakhsu.js" ></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/chakhsu.js" ></script>
   <!-- 樱花飘落 -->
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/sakura.js" ></script> -->
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/sakura.js" ></script> -->
   <!-- 人体时钟背景透明 -->
-  <!-- <script type="text/javascript" charset="Shift_JIS" src="https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/clock.js"></script> -->
+  <!-- <script type="text/javascript" charset="Shift_JIS" src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/clock.js"></script> -->
   <!-- 浏览器搞笑标题 -->
   <script type="text/javascript" id="bowerTitle">
     var OriginTitle = document.title;
     var titleTime;
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
-        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/error_favicon.ico");
+        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/error_favicon.ico");
         document.title = '你的页面走丢了...';
         clearTimeout(titleTime);
       } else {
-        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/favicon.ico");
+        $('[rel="shortcut icon"]').attr('href', "https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/favicon.ico");
         document.title = '欢迎回来!'
         titleTime = setTimeout(function () {
           document.title = OriginTitle;
