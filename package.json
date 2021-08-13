@@ -6,7 +6,7 @@
     "version": "3.9.0"
   },
   "scripts": {
-    "dev": "hexo clean && hexo s", 
+    "dev": "hexo clean && hexo s",
     "build": "hexo clean && hexo g && gulp && hexo d && node gitalk.init",
     "gitalk": "node gitalk.init",
     "push": "hexo d",
