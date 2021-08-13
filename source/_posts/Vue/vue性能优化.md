@@ -1,6 +1,5 @@
 ---
 type: blog
-top: true
 title: vue性能优化
 categories:
   - 前端

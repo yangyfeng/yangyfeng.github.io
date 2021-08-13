@@ -58,7 +58,7 @@ abbrlink:
 lazyload:
   enable: true 
   onlypost: true
-  loadingImg: https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/loading.gif
+  loadingImg: https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif
 
 # 目录
 # 资源文件夹，这个文件夹用来存放内容。默认source
@@ -226,7 +226,7 @@ import:
     - "<meta name='theme-color' content='#FFFFFF'>"
     - "<meta name='msapplication-TileColor' content='#1BC3FB'>"
   link:
-    - "<link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/favicon.ico'>"
+    - "<link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/favicon.ico'>"
   # script:
 
 # valine评论系统

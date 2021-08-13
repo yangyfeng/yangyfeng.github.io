@@ -12,7 +12,9 @@ const config = {
   // GitHub 用户名
   username: "yangyfeng",
   // GitHub Token
-  token: "f2b57a04eb80228fcdd44ee22d01be12faf0b912",
+  // token: "f2b57a04eb80228fcdd44ee22d01be12faf0b912",
+  // token: "a79086fbf20bfd57ce12632d54a0c285502cfdca",
+  token: "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",
   // 存放 issues的git仓库
   repo: "yangyfeng.github.io",
   // sitemap.xml的路径，commit.js放置在根目录下，无需修改，其他情况自行处理
@@ -43,8 +45,9 @@ console.log("开始初始化评论...");
     let urls = sitemapXmlReader(config.sitemapUrl);
     console.log(`共检索到${urls.length}个链接`);
     console.log("开始获取已经初始化的issues...");
+    console.log('url: ', requestGetOpt.url);
     const issues = await send(requestGetOpt);
-    debugger
+    console.log('issues: ', issues);
     if (issues.length) {
       console.log(`已经存在${issues.length}个issues`)
     } else {
@@ -106,14 +109,16 @@ console.log("开始初始化评论...");
     });
     console.log("可以愉快的发表评论了！");
   } catch (e) {
-    console.log('检索失败')
+    console.log('检索失败', e)
   }
 })();
 
 function sitemapXmlReader(file) {
   let data = fs.readFileSync(file, "utf8");
   let sitemap = xmlParser(data);
-  return sitemap.root.children.map(function (url) {
+  const children = sitemap.root.children
+  console.log('children: ', children)
+  return children.map(function (url) {
     let loc = url.children.filter(function (item) {
       return item.name === "loc";
     })[0];

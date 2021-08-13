@@ -4,11 +4,11 @@ info:
   docs: https://github.com/Dazmk/hexo-theme-material-x
   cdn: # 把对应的那一行注释掉就使用本地的文件
     css:
-      style: https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/css/style.css
+      style: https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/css/style.css
     js:
-      app: https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/app.js
-      search: https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/search.js
-      volantis: https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/js/volantis.min.js
+      app: https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/app.js
+      search: https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/search.js
+      volantis: https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/js/volantis.min.js
 
 ############################### 主题风格 ###############################
 style: material    # material: 导航栏和标题栏背景是主题色
@@ -53,12 +53,12 @@ backstretch:
   duration: 60000 # 持续时间（毫秒）
   fade: 1000     # 渐变（毫秒）
   images:
-    - https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gb3.jpg
-    # - https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/jxjy.jpg
-    # - https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gd.jpg
-    # - https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/stzz.jpg
-    # - https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/gd2.jpg
-    # - https://cdn.jsdelivr.net/gh/yangyfeng/yangyfeng.github.io@gh-pages/assets_blog/img/jxjy2.jpg
+    - https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gb3.jpg
+    # - https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/jxjy.jpg
+    # - https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gd.jpg
+    # - https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/stzz.jpg
+    # - https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/gd2.jpg
+    # - https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/jxjy2.jpg
 
 rss: ./atom.xml
 ############################### 自定义 ###############################
