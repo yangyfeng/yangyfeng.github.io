@@ -22,20 +22,6 @@
     </url>
 
     <url>
-        <loc>https://yangyfeng.github.io/blogpost/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</loc>
-        <lastmod>2021-04-21T07:11:29.156Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://yangyfeng.github.io/blogpost/categories/%E5%90%8E%E7%AB%AF/</loc>
-        <lastmod>2021-04-27T10:36:19.707Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/</loc>
         <lastmod>2021-04-29T09:37:29.131Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -45,6 +31,20 @@
     <url>
         <loc>https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/</loc>
         <lastmod>2021-04-29T09:39:58.954Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://yangyfeng.github.io/blogpost/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</loc>
+        <lastmod>2021-08-13T08:24:12.719Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://yangyfeng.github.io/blogpost/categories/%E5%90%8E%E7%AB%AF/</loc>
+        <lastmod>2021-08-13T10:20:57.975Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

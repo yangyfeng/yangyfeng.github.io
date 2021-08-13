@@ -143,20 +143,6 @@
     </url>
 
     <url>
-        <loc>https://yangyfeng.github.io/blogpost/tags/Git/</loc>
-        <lastmod>2021-04-21T07:11:29.156Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://yangyfeng.github.io/blogpost/tags/Node/</loc>
-        <lastmod>2021-04-27T10:36:19.707Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://yangyfeng.github.io/blogpost/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
         <lastmod>2021-04-29T09:36:32.443Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -201,6 +187,20 @@
     <url>
         <loc>https://yangyfeng.github.io/blogpost/tags/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/</loc>
         <lastmod>2021-04-29T09:39:58.954Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://yangyfeng.github.io/blogpost/tags/Git/</loc>
+        <lastmod>2021-08-13T08:24:12.719Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://yangyfeng.github.io/blogpost/tags/Node/</loc>
+        <lastmod>2021-08-13T10:20:57.975Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
