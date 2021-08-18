@@ -6,7 +6,7 @@
   <link href="/./atom.xml" rel="self"/>
   
   <link href="https://yangyfeng.github.io/"/>
-  <updated>2021-08-13T08:24:12.719Z</updated>
+  <updated>2021-08-18T09:02:49.561Z</updated>
   <id>https://yangyfeng.github.io/</id>
   
   <author>
@@ -15,6 +15,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Github API v3 介绍文档</title>
+    <link href="https://yangyfeng.github.io//posts/ef2e5c8.html"/>
+    <id>https://yangyfeng.github.io//posts/ef2e5c8.html</id>
+    <published>2021-08-17T16:00:00.000Z</published>
+    <updated>2021-08-18T09:02:49.561Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;对于常用Github的用户来说，经常有一些自动化的需求。比如我的需求是定时备份Github的issues和comments到本地。以下为Github的API的使用参考。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.github.com/v3/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;v3版API的文档链接&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://developer.github.com/v3/guides/getting-started/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;v3版API的官方教程&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;基本访问路径-Root-Endpoints&quot;&gt;&lt;a href=&quot;#基本访问路径-Root-Endpoints&quot; class=&quot;headerlink&quot; title=&quot;基本访问路径 (Root Endpoints)&quot;&gt;&lt;/a&gt;基本访问路径 (Root Endpoints)&lt;/h2&gt;&lt;p&gt;一开始读文档的时候，照着它的事例直接在命令行里&lt;code&gt;curl&lt;/code&gt;，或者在InSomnia或Postman软件里访问，都完美显示200状态。可是一旦把链接里改写成自己的用户名就各种显示404无页面。还以为是授权问题，然后在页头HEADER中按照各种方式试了username和token密钥，都没用还是404。结果发现，原来不是方法的问题，纯粹是链接地址没写对！&lt;br&gt;&lt;code&gt;实际上只是读取的话，完全不用任何授权&lt;/code&gt;，可以在命令行、Insomnia、网页等各种情况下直接输入链接访问任何人的所有公开信息。&lt;br&gt;然后对照&lt;a href=&quot;https://api.github.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官方路径列表Root Endpoints&lt;/a&gt;得到的链接，好像怎么访问都不对。反而在Stackoverflow中看到的一个链接，顺藤摸瓜自己发现了各种正确的访问路径，总结如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;首先！访问的链接最后不能有&lt;code&gt;/&lt;/code&gt;。如&lt;code&gt;https://api.github.com/users/solomonxie&lt;/code&gt;是可以访问到我个人信息的，但是&lt;code&gt;https://api.github.com/users/solomonxie/&lt;/code&gt;就不行了，唯一不同是多了一个&lt;code&gt;/&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;其次！不同于一般URL访问，GIthub的API访问链接是&lt;code&gt;区分大小写&lt;/code&gt;的！&lt;/li&gt;
+&lt;li&gt;个人主要信息。 &lt;code&gt;https://api.github.com/users/用户名&lt;/code&gt;,得到数据如下图：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/fTZ6nf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://z3.ax1x.com/2021/08/18/fTZ6nf.png&quot; alt=&quot;fTZ6nf.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;个人所有repo。&lt;code&gt;https://api.github.com/users/用户名/repos&lt;/code&gt;。会得到一个repo的JSON格式列表。&lt;/li&gt;
+&lt;li&gt;repo详细信息。&lt;code&gt;https://api.github.com/repos/用户名/仓库名&lt;/code&gt;。repo的路径就开始和个人信息不同了。&lt;/li&gt;
+&lt;li&gt;获取某个repo的内容列表。&lt;code&gt;https://api.github.com/repos/solomonxie/gists/contents&lt;/code&gt;，注意这只会返回根目录的内容。&lt;/li&gt;
+&lt;li&gt;获取repo中子目录的内容列表。&lt;code&gt;https://api.github.com/repos/solomonxie/gists/contents/目录名&lt;/code&gt;。一定要注意这里一定要完全遵循原文件名的大小写，否则无法获得信息。如果是更深层的内容，则在链接列按照顺序逐级写上目录名称。&lt;/li&gt;
+&lt;li&gt;获取repo中某文件信息（不包括内容）。&lt;code&gt;https://api.github.com/repos/solomonxie/gists/contents/文件路径&lt;/code&gt;。文件路径是文件的完整路径，区分大小写。只会返回文件基本信息。&lt;/li&gt;
+&lt;li&gt;获取某文件的原始内容（Raw）。1. 通过上面的文件信息中提取&lt;code&gt;download_url&lt;/code&gt;这条链接，就能获取它的原始内容了。2. 或者直接访问：&lt;code&gt;https://raw.githubusercontent.com/用户名/仓库名/分支名/文件路径&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;repo中所有的commits列表。&lt;code&gt;https://api.github.com/repos/用户名/仓库名/commits&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;某一条commit详情。&lt;code&gt;https://api.github.com/repos/用户名/仓库名/commits/某一条commit的SHA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;issues列表。&lt;code&gt;https://api.github.com/repos/用户名/仓库名/issues&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;某条issue详情。&lt;code&gt;https://api.github.com/repos/用户名/仓库名/issues/序号&lt;/code&gt;。issues都是以1,2,3这样的序列排号的。&lt;/li&gt;
+&lt;li&gt;某issue中的comments列表。&lt;code&gt;https://api.github.com/repos/用户名/仓库名/issues/序号/comments&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;某comment详情。&lt;code&gt;https://api.github.com/repos/用户名/仓库名/issues/comments/评论详情的ID&lt;/code&gt;。其中评论ID是从issues列表中获得的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;查询参数-Parameters&quot;&gt;&lt;a href=&quot;#查询参数-Parameters&quot; class=&quot;headerlink&quot; title=&quot;查询参数 (Parameters)&quot;&gt;&lt;/a&gt;查询参数 (Parameters)&lt;/h2&gt;&lt;p&gt;如果在上面基本链接中加入查询条件，那么返回的数据就是filtered，过滤了的。比如要求只返回正在开放的issues，或者让列表数据分页显示。常用如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分页功能。格式是&lt;code&gt;?page=页数&amp;amp;per_page=每页包含数量&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如&lt;code&gt;https://api.github.com/users/solomonxie/repos?page=2&amp;amp;per_page=3&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;issues状态。格式是&lt;code&gt;?state=状态&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如&lt;code&gt;https://api.github.com/repos/solomonxie/solomonxie.github.io/issues?state=closed&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;权限认证-Authentication&quot;&gt;&lt;a href=&quot;#权限认证-Authentication&quot; class=&quot;headerlink&quot; title=&quot;权限认证 Authentication&quot;&gt;&lt;/a&gt;权限认证 Authentication&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;首先需要知道都是，到此为止之前所有都查询都是不需要任何权限的，给个地址就返回数据，全公开。&lt;br&gt;但是创建文件、更新、删除等就是必须用自己的账号”登录”才能实现的。所以为了下面的增删改做准备，需要先看一下权限问题。&lt;br&gt;官网虽然写的很简答，不过如果不熟悉API的话还是不能马上就理解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;常用的认证方法有三种，&lt;code&gt;Basic authentication&lt;/code&gt;, &lt;code&gt;OAuth2 token&lt;/code&gt;, &lt;code&gt;OAuth2 key/secret&lt;/code&gt;&lt;br&gt;三种方法效果一样，但是各有其特点和方便之处。选哪种就要看自己哪种方便了。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="开发工具" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://yangyfeng.github.io/blogpost/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>git cherry-pick 教程</title>
@@ -162,7 +219,7 @@
     <link href="https://yangyfeng.github.io//posts/d8976663.html"/>
     <id>https://yangyfeng.github.io//posts/d8976663.html</id>
     <published>2021-04-20T16:00:00.000Z</published>
-    <updated>2021-04-21T07:11:29.156Z</updated>
+    <updated>2021-08-18T08:48:56.108Z</updated>
     
     <summary type="html">
     
@@ -369,9 +426,9 @@
       <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    
       <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
+    
+      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     
   </entry>
   
@@ -465,6 +522,33 @@
   </entry>
   
   <entry>
+    <title>华北电力控制系统</title>
+    <link href="https://yangyfeng.github.io//posts/763ea06e.html"/>
+    <id>https://yangyfeng.github.io//posts/763ea06e.html</id>
+    <published>2021-02-22T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.645Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;项目概况&quot;&gt;&lt;a href=&quot;#项目概况&quot; class=&quot;headerlink&quot; title=&quot;项目概况&quot;&gt;&lt;/a&gt;项目概况&lt;/h2&gt;&lt;p&gt;数据可视化展示与开发中心，通过开发可视化设计器、可视化展示引擎、可视化控制平台、可视化后台服务及音视屏驱动软件，用于全方面、多角度展示智能发电运行控制系统整体架构与主要功能，开展发电设备三维可视化、发电过程音视频数据分析、状态识别与故障定位算法研究，最终形成“多业务，多窗口，多交互手段，少人工”的数据驾驶舱系统。&lt;/p&gt;
+&lt;h2 id=&quot;系统架构&quot;&gt;&lt;a href=&quot;#系统架构&quot; class=&quot;headerlink&quot; title=&quot;系统架构&quot;&gt;&lt;/a&gt;系统架构&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6V6DdP&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/04/6V6DdP.md.png&quot; alt=&quot;6V6DdP.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;总体应用框架分为六层框架结构，提供两类支撑，分别是“网络层”、“数据层”、“应用层”、“业务层”、“交互层”、“表现层”，支撑为“标准规范”与“硬件体系”。&lt;/p&gt;
+&lt;h2 id=&quot;系统业务&quot;&gt;&lt;a href=&quot;#系统业务&quot; class=&quot;headerlink&quot; title=&quot;系统业务&quot;&gt;&lt;/a&gt;系统业务&lt;/h2&gt;&lt;p&gt;业务主要包括，工业指标的数据可视化展示（数据监测），设备的精准控制（手动，阀值报警或制动，语音智能控制），对数据的多类方式分析并给出高价值结果，各类测试数据下指标对比（灵活筛选对比的指标），以及用户权限控制，报表分析与下载，3d场景下的工业数据的可视化展示等。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="数据可视化" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>国珍知识库管理系统</title>
     <link href="https://yangyfeng.github.io//posts/d02d7caa.html"/>
     <id>https://yangyfeng.github.io//posts/d02d7caa.html</id>
@@ -489,33 +573,6 @@
       <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
     
       <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>华北电力控制系统</title>
-    <link href="https://yangyfeng.github.io//posts/763ea06e.html"/>
-    <id>https://yangyfeng.github.io//posts/763ea06e.html</id>
-    <published>2021-02-22T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.645Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;项目概况&quot;&gt;&lt;a href=&quot;#项目概况&quot; class=&quot;headerlink&quot; title=&quot;项目概况&quot;&gt;&lt;/a&gt;项目概况&lt;/h2&gt;&lt;p&gt;数据可视化展示与开发中心，通过开发可视化设计器、可视化展示引擎、可视化控制平台、可视化后台服务及音视屏驱动软件，用于全方面、多角度展示智能发电运行控制系统整体架构与主要功能，开展发电设备三维可视化、发电过程音视频数据分析、状态识别与故障定位算法研究，最终形成“多业务，多窗口，多交互手段，少人工”的数据驾驶舱系统。&lt;/p&gt;
-&lt;h2 id=&quot;系统架构&quot;&gt;&lt;a href=&quot;#系统架构&quot; class=&quot;headerlink&quot; title=&quot;系统架构&quot;&gt;&lt;/a&gt;系统架构&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://imgtu.com/i/6V6DdP&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2021/03/04/6V6DdP.md.png&quot; alt=&quot;6V6DdP.md.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;总体应用框架分为六层框架结构，提供两类支撑，分别是“网络层”、“数据层”、“应用层”、“业务层”、“交互层”、“表现层”，支撑为“标准规范”与“硬件体系”。&lt;/p&gt;
-&lt;h2 id=&quot;系统业务&quot;&gt;&lt;a href=&quot;#系统业务&quot; class=&quot;headerlink&quot; title=&quot;系统业务&quot;&gt;&lt;/a&gt;系统业务&lt;/h2&gt;&lt;p&gt;业务主要包括，工业指标的数据可视化展示（数据监测），设备的精准控制（手动，阀值报警或制动，语音智能控制），对数据的多类方式分析并给出高价值结果，各类测试数据下指标对比（灵活筛选对比的指标），以及用户权限控制，报表分析与下载，3d场景下的工业数据的可视化展示等。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="个人项目" scheme="https://yangyfeng.github.io/blogpost/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
-    
-      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-      <category term="数据可视化" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
   </entry>
   
@@ -641,32 +698,6 @@
     
     
       <category term="Javascript" scheme="https://yangyfeng.github.io/blogpost/tags/Javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Babel转码器</title>
-    <link href="https://yangyfeng.github.io//posts/390a51fc.html"/>
-    <id>https://yangyfeng.github.io//posts/390a51fc.html</id>
-    <published>2021-01-07T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.613Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt; &lt;a href=&quot;https://babeljs.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Babel&lt;/a&gt; 是一个广泛使用的 ES6 转码器(下一代的JavaScript编译器)，可以将 ES6 代码转为 ES5
-        
-      
-    
-    </summary>
-    
-      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="Es6" scheme="https://yangyfeng.github.io/blogpost/tags/Es6/"/>
     
   </entry>
   

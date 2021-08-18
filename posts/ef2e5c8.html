@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>浏览器是如何运作的 | 峰享会</title>
+  <title>Github API v3 介绍文档 | 峰享会</title>
   
   <meta name="keywords" content="前端开发,科技,数据可视化,移动开发,小程序,客户端">
   
@@ -352,8 +352,8 @@
         
   
     <h1 class="title">
-      <a href="/posts/41e3ecae.html">
-        浏览器是如何运作的
+      <a href="/posts/ef2e5c8.html">
+        Github API v3 介绍文档
       </a>
     </h1>
   
@@ -382,7 +382,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2020-12-22</p>
+    <p>2021-08-18</p>
   </a>
 </div>
 
@@ -392,9 +392,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/blogpost/categories/深入前端/' rel="nofollow">
+    <a href='/blogpost/categories/开发工具/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>深入前端</p>
+      <p>开发工具</p>
     </a>
   </div>
 
@@ -429,14 +429,14 @@
           <div class="new-meta-item size">
             <a class="notlink">
               <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>1.1k字</p>
+              <p>2.9k字</p>
             </a>
           </div>
           <!-- 阅读时间 -->
           <div class="new-meta-item read-time">
             <a class="notlink">
               <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>3分</p>
+              <p>11分</p>
             </a>
           </div>
         
@@ -450,58 +450,184 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h2 id="浏览器是多进程结构的"><a href="#浏览器是多进程结构的" class="headerlink" title="浏览器是多进程结构的"></a>浏览器是多进程结构的</h2><p><strong>进程</strong></p>
-<p>操作系统进行资源分配和调度的基本单元。可以申请和拥有计算机资源，进程是程序的基本执行实体。两个进程分配的资源和内存是独立，如果需要通信就要使用进程通信管道IPC来传递信息。</p>
-<p><strong>线程</strong></p>
-<p>操作系统能够进行运算调度的最小单位，一个进程中可以并发多个线程，每条线程并行执行不同的任务。</p>
-<p><strong>浏览器功能进程拆解</strong></p>
-<p><a href="https://imgchr.com/i/rDbTde" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2020/12/22/rDbTde.png" alt="rDbTde.png"></a></p>
-<ol>
-<li><p>浏览器进程</p>
-<p>控制除标签页外的用户界面，包括地址，书签，后退，前进按钮等，以及负责与浏览器其他进程负责协调工作</p>
-</li>
-<li><p>缓存进程</p>
-<p>负责控制浏览器的存储数据的缓存和读取</p>
-</li>
-<li><p>网络进程 </p>
-<p>发起和接受网络请求</p>
-</li>
-<li><p>渲染器进程 </p>
-<p>渲染Tab  有可能会为每个标签页是一个渲染进程</p>
-</li>
-<li><p>GPU进程</p>
-<p>整个浏览器界面的渲染</p>
-</li>
-<li><p>插件进程</p>
-<p>控制网站使用的所有内置插件，例如：flash</p>
-</li>
-</ol>
-<p><strong>浏览器结构图</strong></p>
-<p><a href="https://imgchr.com/i/rDoRuF" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2020/12/22/rDoRuF.png" alt="rDoRuF.png"></a></p>
-<p>说明：</p>
-<p>用户界面：展示除了标签页窗口之外的其他用户用户界面内容</p>
-<p>渲染引擎：渲染用户获取数据的渲染内容。一下还有很多小的功能模块，如负责网络请求的网络模块，用于解析和执行js的js解释器</p>
-<p>浏览器引擎：用户界面和渲染引擎之间传递数据</p>
-<p>数据持久层：帮助浏览器存储持久数据，如cokies和storage。</p>
-<p><strong>我们称呼的内核就是指的渲染引擎，是整个浏览器的核心和灵魂</strong></p>
-<p>Chromium会给用户创建的每一个访问实例分配一个进程，确保每一个页面是独立呈现的，并且对每个网站的独立访问也是彼此隔离的。访问不同站点和同一站点的不同页面都会创建新的进程。一个标签就是一个新的渲染器进程。</p>
+          <blockquote>
+<p>对于常用Github的用户来说，经常有一些自动化的需求。比如我的需求是定时备份Github的issues和comments到本地。以下为Github的API的使用参考。</p>
+</blockquote>
+<p><a href="https://developer.github.com/v3/" target="_blank" rel="noopener">v3版API的文档链接</a><br><a href="https://developer.github.com/v3/guides/getting-started/" target="_blank" rel="noopener">v3版API的官方教程</a></p>
+<h2 id="基本访问路径-Root-Endpoints"><a href="#基本访问路径-Root-Endpoints" class="headerlink" title="基本访问路径 (Root Endpoints)"></a>基本访问路径 (Root Endpoints)</h2><p>一开始读文档的时候，照着它的事例直接在命令行里<code>curl</code>，或者在InSomnia或Postman软件里访问，都完美显示200状态。可是一旦把链接里改写成自己的用户名就各种显示404无页面。还以为是授权问题，然后在页头HEADER中按照各种方式试了username和token密钥，都没用还是404。结果发现，原来不是方法的问题，纯粹是链接地址没写对！<br><code>实际上只是读取的话，完全不用任何授权</code>，可以在命令行、Insomnia、网页等各种情况下直接输入链接访问任何人的所有公开信息。<br>然后对照<a href="https://api.github.com/" target="_blank" rel="noopener">官方路径列表Root Endpoints</a>得到的链接，好像怎么访问都不对。反而在Stackoverflow中看到的一个链接，顺藤摸瓜自己发现了各种正确的访问路径，总结如下：</p>
+<ul>
+<li>首先！访问的链接最后不能有<code>/</code>。如<code>https://api.github.com/users/solomonxie</code>是可以访问到我个人信息的，但是<code>https://api.github.com/users/solomonxie/</code>就不行了，唯一不同是多了一个<code>/</code>.</li>
+<li>其次！不同于一般URL访问，GIthub的API访问链接是<code>区分大小写</code>的！</li>
+<li>个人主要信息。 <code>https://api.github.com/users/用户名</code>,得到数据如下图：</li>
+</ul>
+<p><a href="https://imgtu.com/i/fTZ6nf" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTZ6nf.png" alt="fTZ6nf.png"></a></p>
+<ul>
+<li>个人所有repo。<code>https://api.github.com/users/用户名/repos</code>。会得到一个repo的JSON格式列表。</li>
+<li>repo详细信息。<code>https://api.github.com/repos/用户名/仓库名</code>。repo的路径就开始和个人信息不同了。</li>
+<li>获取某个repo的内容列表。<code>https://api.github.com/repos/solomonxie/gists/contents</code>，注意这只会返回根目录的内容。</li>
+<li>获取repo中子目录的内容列表。<code>https://api.github.com/repos/solomonxie/gists/contents/目录名</code>。一定要注意这里一定要完全遵循原文件名的大小写，否则无法获得信息。如果是更深层的内容，则在链接列按照顺序逐级写上目录名称。</li>
+<li>获取repo中某文件信息（不包括内容）。<code>https://api.github.com/repos/solomonxie/gists/contents/文件路径</code>。文件路径是文件的完整路径，区分大小写。只会返回文件基本信息。</li>
+<li>获取某文件的原始内容（Raw）。1. 通过上面的文件信息中提取<code>download_url</code>这条链接，就能获取它的原始内容了。2. 或者直接访问：<code>https://raw.githubusercontent.com/用户名/仓库名/分支名/文件路径</code></li>
+<li>repo中所有的commits列表。<code>https://api.github.com/repos/用户名/仓库名/commits</code>。</li>
+<li>某一条commit详情。<code>https://api.github.com/repos/用户名/仓库名/commits/某一条commit的SHA</code></li>
+<li>issues列表。<code>https://api.github.com/repos/用户名/仓库名/issues</code>。</li>
+<li>某条issue详情。<code>https://api.github.com/repos/用户名/仓库名/issues/序号</code>。issues都是以1,2,3这样的序列排号的。</li>
+<li>某issue中的comments列表。<code>https://api.github.com/repos/用户名/仓库名/issues/序号/comments</code>。</li>
+<li>某comment详情。<code>https://api.github.com/repos/用户名/仓库名/issues/comments/评论详情的ID</code>。其中评论ID是从issues列表中获得的。</li>
+</ul>
+<h2 id="查询参数-Parameters"><a href="#查询参数-Parameters" class="headerlink" title="查询参数 (Parameters)"></a>查询参数 (Parameters)</h2><p>如果在上面基本链接中加入查询条件，那么返回的数据就是filtered，过滤了的。比如要求只返回正在开放的issues，或者让列表数据分页显示。常用如下：</p>
+<ul>
+<li>分页功能。格式是<code>?page=页数&amp;per_page=每页包含数量</code>。</li>
+</ul>
+<p>如<code>https://api.github.com/users/solomonxie/repos?page=2&amp;per_page=3</code></p>
+<ul>
+<li>issues状态。格式是<code>?state=状态</code>。</li>
+</ul>
+<p>如<code>https://api.github.com/repos/solomonxie/solomonxie.github.io/issues?state=closed</code></p>
+<h2 id="权限认证-Authentication"><a href="#权限认证-Authentication" class="headerlink" title="权限认证 Authentication"></a>权限认证 Authentication</h2><blockquote>
+<p>首先需要知道都是，到此为止之前所有都查询都是不需要任何权限的，给个地址就返回数据，全公开。<br>但是创建文件、更新、删除等就是必须用自己的账号”登录”才能实现的。所以为了下面的增删改做准备，需要先看一下权限问题。<br>官网虽然写的很简答，不过如果不熟悉API的话还是不能马上就理解。</p>
+</blockquote>
+<p>常用的认证方法有三种，<code>Basic authentication</code>, <code>OAuth2 token</code>, <code>OAuth2 key/secret</code><br>三种方法效果一样，但是各有其特点和方便之处。选哪种就要看自己哪种方便了。</p>
 <a id="more"></a>
-<h2 id="渲染进程的过程"><a href="#渲染进程的过程" class="headerlink" title="渲染进程的过程"></a>渲染进程的过程</h2><ol start="0">
-<li>网络进程获取数据后通过SafeBrowsing来检查是不是恶意站点，如果是则会展示一个警告页面并提示，浏览器会阻止你的访问。SafeBrowsing：谷歌内部的站点安全检测系统获取数据后网络线程通知UI线程，然后UI线程创建一个渲染器进程（renderer thread）来渲染页面。</li>
-<li>浏览器通过网络请求后获取html数据，通过tcp传给渲染器进程，正式进入渲染流程。</li>
-<li>DOM - 通过tokeniser进行词法分析器生成标记，根据识别后的标记进行dom tree构造，创建DOM对象。主线程将html解析构造DOM树</li>
-<li>style - 样式计算，生成css tree</li>
-<li>layoutTree - dom+style 根据dom树和样式生成layoutTree</li>
-<li>paint -绘制  通过遍历 Layout Tree生成绘制顺序表。将图形块转化为像素点绘制在屏幕上，这个过程叫做<strong>栅格化</strong>（rastering）。</li>
-<li>laryer - 布局  然后根据主进程将layoutTree 和绘制信息表传给合成器线程</li>
-<li>合成器线程  - 将得到的信息分图层分成更小的图块</li>
-<li>栅格线程    -    将更小的图块进行栅格化raster，返还给合成器线程draw quads图块信息  存储在GPU中</li>
-<li>frame 合成器帧通过IPC将栅格线程返回的图块合成帧交给浏览器进程</li>
-<li>浏览器进程  收到一帧的图像后传给GPU进行渲染</li>
+<h3 id="认证方法一：Basic-authentication"><a href="#认证方法一：Basic-authentication" class="headerlink" title="认证方法一：Basic authentication"></a>认证方法一：Basic authentication</h3><p>这种最简单，如果是用curl的话，就：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u <span class="string">"用户名:密码"</span> <span class="string">https:</span><span class="comment">//api.github.com</span></span><br></pre></td></tr></table></figure>
+<p>如果是用Insomnia等api调试工具的话，直接在Auth选项栏里选Basic Auth，然后填上用户名密码即可。</p>
+<h3 id="认证方法二：OAuth2-token"><a href="#认证方法二：OAuth2-token" class="headerlink" title="认证方法二：OAuth2 token"></a>认证方法二：OAuth2 token</h3><h4 id="关于token"><a href="#关于token" class="headerlink" title="关于token"></a>关于token</h4><blockquote>
+<p>这种token方式，说实话如果不是操作过API或深度了解REST的话，是很难理解的东西。<br>说白了就是<code>第二个密码</code>，你既不用到处泄露自己的用户名密码，又可以专门给这个”第二密码”设置不同需要的权限，如有的只可读有的还可以写等。而且这个“第二密码”是既包括用户名又包括密码功能的，全站只此一个绝对不会和别人重复。初次之外，你还可以设置很多个token，也就是第三、第四、第五…密码。很方便。</p>
+</blockquote>
+<h4 id="设置token方法"><a href="#设置token方法" class="headerlink" title="设置token方法"></a>设置token方法</h4><p>就位于github个人账号设置-&gt;开发者设置-&gt;个人token里。创建一个新token时，可以选择具体的权限，创建成功时一定要复制到本地哪里保存，只会让你看见一次，如果忘记的话就需要重新生成（其实丢了也不算麻烦）。</p>
+<p><a href="https://imgtu.com/i/fTZWNQ" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTZWNQ.png" alt="fTZWNQ.png"></a></p>
+<p>另外！注意：</p>
+<blockquote>
+<p>token字符串不能存储在github的repo中，经过测试，一旦提交的文件中包含这个token字符串，那么github就会自动删除这个token -_-! 我用了很久才明白过来，创建的Personal Access Token总是自动消失，还以为是有时限的。</p>
+</blockquote>
+<h4 id="用token通过权限认证"><a href="#用token通过权限认证" class="headerlink" title="用token通过权限认证"></a>用token通过权限认证</h4><p>有两种传送方法，哪种都可以：</p>
+<ol>
+<li>作为url中的参数明文传输：</li>
 </ol>
-<p><a href="https://imgchr.com/i/rrSaRg" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://s3.ax1x.com/2020/12/22/rrSaRg.png" alt="rrSaRg.png"></a></p>
-<p><strong>重排</strong><br>当改变dom的属性时，会重新进行样式计算，会重新布局和绘制<br><strong>重绘</strong><br>当改变颜色时，只会发生样式计算和绘制(layer)<br><strong>requestAnimationFrame()</strong><br>会将主线程的任务分散到每一帧的间隔，从而不影响动画的流程<br><strong>Fiber</strong><br>react最新的渲染引擎利用浏览器的空闲时间做优化。 <code>requestIdlCallback</code>，这个会在每一帧最后的空余时间判断是否运行，react  fiber在每一个单元任务执行前判断空余时间以及设定的最大timeout值来决定是否执行。<br><strong>Transform</strong><br>会直接运行合成器线程，所以不会感染主线程的渲染<br>在移动端使用3d转换可以优化性能（如果设备有3d加速引擎 GPU 可以提高性能 , 2d转换是无法调用GPU，2G是靠的CPU）</p>
-<p><strong><a href="https://www.bilibili.com/video/BV1x54y1B7RE/?spm_id_from=333.788.recommend_more_video.0" target="_blank" rel="noopener">原文地址</a></strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">https:</span><span class="comment">//api.github.com/?access_token=OAUTH-TOKEN</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>作为header中的参数传输：</li>
+</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H <span class="string">"Authorization: token OAUTH-TOKEN"</span> <span class="string">https:</span><span class="comment">//api.github.com</span></span><br></pre></td></tr></table></figure>
+<p>如果不是用curl而是Insomnia测试的话，和上面basic auth是大同小异的，很容易操作就不复述了。<br>到此为止，权限认证就算搞清了，而且也实际验证过有效了。强烈建议用insomnia工具操作，有GUI界面方便理解，成功后再转为curl或python等程序语言。</p>
+<h3 id="认证方法三：OAuth2-key-secret"><a href="#认证方法三：OAuth2-key-secret" class="headerlink" title="认证方法三：OAuth2 key/secret"></a>认证方法三：OAuth2 key/secret</h3><p>这个是除了Personal Access Token之外的另一种好用的方法，即创建自己的OAuth app，然后得到一对<code>client_id</code>和<code>client_secret</code>。如下：</p>
+<p><a href="https://imgtu.com/i/fTZ7uV" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTZ7uV.png" alt="fTZ7uV.png"></a></p>
+<p><a href="https://imgtu.com/i/fTZbHU" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTZbHU.png" alt="fTZbHU.png"></a></p>
+<p>得到这两个值之后，直接在访问任何api的url连接后面显性加上这两个参数即可完成认证，如：<br><code>https://api.github.com/users/yourusername?client_id=YOUR-CLIENT-ID&amp;client_secret=YOUR-CLIENT-SECRET</code><br>但是：</p>
+<blockquote>
+<p>目前这种认证方式<strong>不支持</strong>查询以外的操作，也就是只能GET获取某些api信息，不能执行request里的任何PUT/PATCH/DELETE操作。</p>
+</blockquote>
+<h2 id="创建新文件-Create-content"><a href="#创建新文件-Create-content" class="headerlink" title="创建新文件 Create content"></a>创建新文件 Create content</h2><blockquote>
+<p><a href="https://developer.github.com/v3/repos/contents/#get-contents" target="_blank" rel="noopener">Contents操作 官方文档</a></p>
+</blockquote>
+<ul>
+<li>传输方法：<code>PUT</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/contents/文件路径</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"commit from INSOMNIA"</span>,</span><br><span class="line">  <span class="attr">"content"</span>: <span class="string">"bXkgbmV3IGZpbGUgY29udGVudHM="</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JSON填写如下图：</p>
+<p><a href="https://imgtu.com/i/fTePHO" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTePHO.png" alt="fTePHO.png"></a></p>
+<ul>
+<li>注意：1.必须添加权限验证（上面有写） 2. 数据传送格式选择JSON 3. 文件内容必须是把文件整体转为Base64字符串再存到JSON变量中 4. 文件路径中如果有不存在的文件夹，则会自动创建</li>
+</ul>
+<p>起初不管怎么尝试都一直报同样都错误，400 Invalid JSON，如下图：<br><a href="https://imgtu.com/i/fTeVCd" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTeVCd.png" alt="fTeVCd.png"></a></p>
+<p>最后发现原来是犯了很小很小都错误才导致如此：</p>
+<p>正确的token的处理模式是：token中间有空格</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Authorization:</span>token c092xxxxxx</span><br></pre></td></tr></table></figure>
+<p>增加文件成功后返回的消息：</p>
+<p><a href="https://imgtu.com/i/fTeUK0" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTeUK0.png" alt="fTeUK0.png"></a></p>
+<h2 id="更新文件-Update-content"><a href="#更新文件-Update-content" class="headerlink" title="更新文件 Update content"></a>更新文件 Update content</h2><blockquote>
+<p>主要这几点： 1. 传送方式用<code>PUT</code> 和创建文件一样 2. 需要权限验证，3. 传输内容数据用JSON 4. 需要指定该文件的SHA码 4. 路径和访问content时一样 5. 文件内容必须是把文件整体转为Base64字符串再存到JSON变量中</p>
+</blockquote>
+<ul>
+<li>传输方法：<code>PUT</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/contents/文件路径</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"update from INSOMNIA"</span>,</span><br><span class="line">  <span class="attr">"content"</span>: <span class="string">"Y3JlYXRlIGZpbGUgZnJvbSBJTlNPTU5JQQoKSXQncyB1cGRhdGVkISEhCgpJdCdzIHVwZGF0ZWQgYWdhaW4hIQ=="</span>,</span><br><span class="line">  <span class="attr">"sha"</span>: <span class="string">"57642f5283c98f6ffa75d65e2bf49d05042b4a6d"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：必须指定该文件的<code>SHA码</code>，相当于文件的ID。</li>
+</ul>
+<h2 id="SHA虽然是对文件的唯一识别码，相当于ID，但是它是会随着文件内容变化而变化的！所以必须每次都重新获取才行。"><a href="#SHA虽然是对文件的唯一识别码，相当于ID，但是它是会随着文件内容变化而变化的！所以必须每次都重新获取才行。" class="headerlink" title="SHA虽然是对文件的唯一识别码，相当于ID，但是它是会随着文件内容变化而变化的！所以必须每次都重新获取才行。"></a><code>SHA</code>虽然是对文件的唯一识别码，相当于ID，但是它是会随着文件内容变化而变化的！所以必须每次都重新获取才行。</h2><p>至于获取方式，验证后发现，目前最靠谱的是用前面的<code>get content</code>获取到该文件的信息，然后里面找到<code>sha</code>。</p>
+<p>对上传时的JSON格式另有要求，如果没有按照要求把必填项输入，则会出现422错误信息：</p>
+<p><a href="https://imgtu.com/i/fTeRr6" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTeRr6.png" alt="fTeRr6.png"></a></p>
+<p>或者如果用错了SHA，会出现409错误消息：</p>
+<p><a href="https://imgtu.com/i/fTeTGd" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTeTGd.png" alt="fTeTGd.png"></a></p>
+<p>如果正确传送，就会显示200完成更新：</p>
+<p><a href="https://imgtu.com/i/fTevdS" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTevdS.png" alt="fTevdS.png"></a></p>
+<h2 id="删除文件-Delete-content"><a href="#删除文件-Delete-content" class="headerlink" title="删除文件 Delete content"></a>删除文件 Delete content</h2><ul>
+<li>传输方法：<code>DELETE</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/contents/文件路径</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"delete a file"</span>,</span><br><span class="line">  <span class="attr">"sha"</span>: <span class="string">"46d2b1f2ef54669a974165d0b37979e9adba1ab2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除成功后，会返回200消息：</p>
+<p><a href="https://imgtu.com/i/fTmKzR" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTmKzR.png" alt="fTmKzR.png"></a></p>
+<h2 id="增删改issues"><a href="#增删改issues" class="headerlink" title="增删改issues"></a>增删改issues</h2><blockquote>
+<p>如果做过了上面文件的增删改，这里大同小异，不同的访问路径和JSON的格式而已。唯一不同的是，issues是不用把内容转为Base64码的。</p>
+</blockquote>
+<p>参考链接：<a href="https://developer.github.com/v3/issues/#create-an-issue" target="_blank" rel="noopener">github官方文档</a></p>
+<h3 id="增加一条issue"><a href="#增加一条issue" class="headerlink" title="增加一条issue"></a>增加一条issue</h3><ul>
+<li>传输方法：<code>POST</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/issues</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"title"</span>: <span class="string">"Creating issue from API"</span>,</span><br><span class="line">  <span class="attr">"body"</span>: <span class="string">"Posting a issue from Insomnia"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：issue的数据里面是可以加label，milestone和assignees的。但是必须注意milestone和assignees必须是已有的名次完全对应才行，否则无法完成创建。</li>
+</ul>
+<h3 id="更改某条issue"><a href="#更改某条issue" class="headerlink" title="更改某条issue"></a>更改某条issue</h3><ul>
+<li>传输方法：<code>PATCH</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/issues/序号</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"title"</span>: <span class="string">"Creating issue from API ---updated"</span>,</span><br><span class="line">  <span class="attr">"body"</span>: <span class="string">"Posting a issue from Insomnia \n\n Updated from insomnia."</span>,</span><br><span class="line">  <span class="attr">"state"</span>: <span class="string">"open"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：如果JSON中加入空白的labels或assignees，如<code>&quot;labels&quot;: []</code>，作用就是清空所有的标签和相关人。</li>
+</ul>
+<h3 id="锁住某条issue"><a href="#锁住某条issue" class="headerlink" title="锁住某条issue"></a>锁住某条issue</h3><p>不允许别人评论（自己可以）</p>
+<p><a href="https://imgtu.com/i/fTm8eK" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/18/fTm8eK.png" alt="fTm8eK.png"></a></p>
+<ul>
+<li>传输方法：<code>PUT</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/issues/序号/lock</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"locked"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"active_lock_reason"</span>: <span class="string">"too heated"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：active_lock_reason只能有4种值可选：<code>off-topic</code>, <code>too heated</code>, <code>resolved</code>, <code>spam</code>，否则报错。</li>
+</ul>
+<p>另外，成功锁住，会返回<code>204 No Content</code>信息。</p>
+<h3 id="解锁某条issue"><a href="#解锁某条issue" class="headerlink" title="解锁某条issue"></a>解锁某条issue</h3><ul>
+<li>传输方法：<code>DELETE</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/issues/序号/lock</code></li>
+<li>无JSON传输</li>
+</ul>
+<h2 id="增删改comments"><a href="#增删改comments" class="headerlink" title="增删改comments"></a>增删改comments</h2><blockquote>
+<p>参考<a href="https://developer.github.com/v3/issues/comments/#create-a-comment" target="_blank" rel="noopener">官方文档</a></p>
+</blockquote>
+<h3 id="增加comment"><a href="#增加comment" class="headerlink" title="增加comment"></a>增加comment</h3><ul>
+<li>传输方法：<code>POST</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/issues/序号/comments</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"body"</span>: <span class="string">"Create a comment from API"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更改comment"><a href="#更改comment" class="headerlink" title="更改comment"></a>更改comment</h3><ul>
+<li>传输方法：<code>PATCH</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/issues/comments/评论ID</code></li>
+<li>JSON格式：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"body"</span>: <span class="string">"Create a comment from API \n\n----Updated"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：地址中，issues后不用序号了，因为可以通过唯一的<code>评论ID</code>追查到。查看评论ID的方法，直接在上面查询链接中找。</li>
+</ul>
+<h3 id="删除comment"><a href="#删除comment" class="headerlink" title="删除comment"></a>删除comment</h3><ul>
+<li>传输方法：<code>DELETE</code></li>
+<li>访问路径：<code>https://api.github.com/repos/用户名/仓库名/issues/comments/评论ID</code></li>
+<li>无传输数据</li>
+</ul>
+<p>原文地址：<a href="https://www.cnblogs.com/chen-xing/p/github_api_v3.html" target="_blank" rel="noopener">https://www.cnblogs.com/chen-xing/p/github_api_v3.html</a></p>
 
         </div>
         
@@ -513,10 +639,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-27T14:24:34+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-18T17:02:49+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2021年3月27日</p>
+    <p>最后更新于 2021年8月18日</p>
   </a>
 </div>
 
@@ -525,7 +651,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/blogpost/tags/浏览器运行原理/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>浏览器运行原理</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/blogpost/tags/Git/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Git</p></a></div>
 
 
         
@@ -538,41 +664,44 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yangyfeng.github.io/posts/41e3ecae.html&title=浏览器是如何运作的 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=浏览器是多进程结构的进程
-操作系统进行资源分配和调度的基本单元。可以申请和拥有计算机资源，进程是程序的基本执行实体。两个进程分配的资源和内存是独立，如果需要通信就要使用进程通信管道IPC来传递信息。
-线程
-操作系统能够进行运算调度的最小单位，一个进程中可以并发多个线程，每条线程并行执行不同的任务。
-浏览器功能进程拆解
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yangyfeng.github.io/posts/ef2e5c8.html&title=Github API v3 介绍文档 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=
+对于常用Github的用户来说，经常有一些自动化的需求。比如我的需求是定时备份Github的issues和comments到本地。以下为Github的API的使用参考。
+
+v3版API的文档链接v3版API的官方教程
+基本访问路径 (Root Endpoints)一开始读文档的时候，照着它的事例直接在命令行里curl，或者在InSomnia或Postman软件里访问，都完美显示200状态。可是一旦把链接里改写成自己的用户名就各种显示404无页面。还以为是授权问题，然后在页头HEADER中按照各种方式试了username和token密钥，都没用还是404。结果发现，原来不是方法的问题，纯粹是链接地址没写对！实际上只是读取的话，完全不用任何授权，可以在命令行、Insomnia、网页等各种情况下直接输入链接访问任何人的所有公开信息。然后对照官方路径列表Root Endpoints得到的链接，好像怎么访问都不对。反而在Stackoverflow中看到的一个链接，顺藤摸瓜自己发现了各种正确的访问路径，总结如下：
+
+首先！访问的链接最后不能有/。如https://api.github.com/users/solomonxie是可以访问到我个人信息的，但是https://api.github.com/users/solomonxie/就不行了，唯一不同是多了一个/.
+其次！不同于一般URL访问，GIthub的API访问链接是区分大小写的！
+个人主要信息。 https://api.github.com/users/用户名,得到数据如下图：
 
 
-浏览器进程
-控制除标签页外的用户界面，包括地址，书签，后退，前进按钮等，以及负责与浏览器其他进程负责协调工作
 
-缓存进程
-负责控制浏览器的存储数据的缓存和读取
+个人所有repo。https://api.github.com/users/用户名/repos。会得到一个repo的JSON格式列表。
+repo详细信息。https://api.github.com/repos/用户名/仓库名。repo的路径就开始和个人信息不同了。
+获取某个repo的内容列表。https://api.github.com/repos/solomonxie/gists/contents，注意这只会返回根目录的内容。
+获取repo中子目录的内容列表。https://api.github.com/repos/solomonxie/gists/contents/目录名。一定要注意这里一定要完全遵循原文件名的大小写，否则无法获得信息。如果是更深层的内容，则在链接列按照顺序逐级写上目录名称。
+获取repo中某文件信息（不包括内容）。https://api.github.com/repos/solomonxie/gists/contents/文件路径。文件路径是文件的完整路径，区分大小写。只会返回文件基本信息。
+获取某文件的原始内容（Raw）。1. 通过上面的文件信息中提取download_url这条链接，就能获取它的原始内容了。2. 或者直接访问：https://raw.githubusercontent.com/用户名/仓库名/分支名/文件路径
+repo中所有的commits列表。https://api.github.com/repos/用户名/仓库名/commits。
+某一条commit详情。https://api.github.com/repos/用户名/仓库名/commits/某一条commit的SHA
+issues列表。https://api.github.com/repos/用户名/仓库名/issues。
+某条issue详情。https://api.github.com/repos/用户名/仓库名/issues/序号。issues都是以1,2,3这样的序列排号的。
+某issue中的comments列表。https://api.github.com/repos/用户名/仓库名/issues/序号/comments。
+某comment详情。https://api.github.com/repos/用户名/仓库名/issues/comments/评论详情的ID。其中评论ID是从issues列表中获得的。
 
-网络进程 
-发起和接受网络请求
+查询参数 (Parameters)如果在上面基本链接中加入查询条件，那么返回的数据就是filtered，过滤了的。比如要求只返回正在开放的issues，或者让列表数据分页显示。常用如下：
 
-渲染器进程 
-渲染Tab  有可能会为每个标签页是一个渲染进程
+分页功能。格式是?page=页数&amp;per_page=每页包含数量。
 
-GPU进程
-整个浏览器界面的渲染
+如https://api.github.com/users/solomonxie/repos?page=2&amp;per_page=3
 
-插件进程
-控制网站使用的所有内置插件，例如：flash
+issues状态。格式是?state=状态。
 
+如https://api.github.com/repos/solomonxie/solomonxie.github.io/issues?state=closed
+权限认证 Authentication
+首先需要知道都是，到此为止之前所有都查询都是不需要任何权限的，给个地址就返回数据，全公开。但是创建文件、更新、删除等就是必须用自己的账号”登录”才能实现的。所以为了下面的增删改做准备，需要先看一下权限问题。官网虽然写的很简答，不过如果不熟悉API的话还是不能马上就理解。
 
-浏览器结构图
-
-说明：
-用户界面：展示除了标签页窗口之外的其他用户用户界面内容
-渲染引擎：渲染用户获取数据的渲染内容。一下还有很多小的功能模块，如负责网络请求的网络模块，用于解析和执行js的js解释器
-浏览器引擎：用户界面和渲染引擎之间传递数据
-数据持久层：帮助浏览器存储持久数据，如cokies和storage。
-我们称呼的内核就是指的渲染引擎，是整个浏览器的核心和灵魂
-Chromium会给用户创建的每一个访问实例分配一个进程，确保每一个页面是独立呈现的，并且对每个网站的独立访问也是彼此隔离的。访问不同站点和同一站点的不同页面都会创建新的进程。一个标签就是一个新的渲染器进程。"
+常用的认证方法有三种，Basic authentication, OAuth2 token, OAuth2 key/secret三种方法效果一样，但是各有其特点和方便之处。选哪种就要看自己哪种方便了。"
           
           >
           
@@ -584,41 +713,44 @@ Chromium会给用户创建的每一个访问实例分配一个进程，确保每
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yangyfeng.github.io/posts/41e3ecae.html&title=浏览器是如何运作的 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=浏览器是多进程结构的进程
-操作系统进行资源分配和调度的基本单元。可以申请和拥有计算机资源，进程是程序的基本执行实体。两个进程分配的资源和内存是独立，如果需要通信就要使用进程通信管道IPC来传递信息。
-线程
-操作系统能够进行运算调度的最小单位，一个进程中可以并发多个线程，每条线程并行执行不同的任务。
-浏览器功能进程拆解
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yangyfeng.github.io/posts/ef2e5c8.html&title=Github API v3 介绍文档 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=
+对于常用Github的用户来说，经常有一些自动化的需求。比如我的需求是定时备份Github的issues和comments到本地。以下为Github的API的使用参考。
+
+v3版API的文档链接v3版API的官方教程
+基本访问路径 (Root Endpoints)一开始读文档的时候，照着它的事例直接在命令行里curl，或者在InSomnia或Postman软件里访问，都完美显示200状态。可是一旦把链接里改写成自己的用户名就各种显示404无页面。还以为是授权问题，然后在页头HEADER中按照各种方式试了username和token密钥，都没用还是404。结果发现，原来不是方法的问题，纯粹是链接地址没写对！实际上只是读取的话，完全不用任何授权，可以在命令行、Insomnia、网页等各种情况下直接输入链接访问任何人的所有公开信息。然后对照官方路径列表Root Endpoints得到的链接，好像怎么访问都不对。反而在Stackoverflow中看到的一个链接，顺藤摸瓜自己发现了各种正确的访问路径，总结如下：
+
+首先！访问的链接最后不能有/。如https://api.github.com/users/solomonxie是可以访问到我个人信息的，但是https://api.github.com/users/solomonxie/就不行了，唯一不同是多了一个/.
+其次！不同于一般URL访问，GIthub的API访问链接是区分大小写的！
+个人主要信息。 https://api.github.com/users/用户名,得到数据如下图：
 
 
-浏览器进程
-控制除标签页外的用户界面，包括地址，书签，后退，前进按钮等，以及负责与浏览器其他进程负责协调工作
 
-缓存进程
-负责控制浏览器的存储数据的缓存和读取
+个人所有repo。https://api.github.com/users/用户名/repos。会得到一个repo的JSON格式列表。
+repo详细信息。https://api.github.com/repos/用户名/仓库名。repo的路径就开始和个人信息不同了。
+获取某个repo的内容列表。https://api.github.com/repos/solomonxie/gists/contents，注意这只会返回根目录的内容。
+获取repo中子目录的内容列表。https://api.github.com/repos/solomonxie/gists/contents/目录名。一定要注意这里一定要完全遵循原文件名的大小写，否则无法获得信息。如果是更深层的内容，则在链接列按照顺序逐级写上目录名称。
+获取repo中某文件信息（不包括内容）。https://api.github.com/repos/solomonxie/gists/contents/文件路径。文件路径是文件的完整路径，区分大小写。只会返回文件基本信息。
+获取某文件的原始内容（Raw）。1. 通过上面的文件信息中提取download_url这条链接，就能获取它的原始内容了。2. 或者直接访问：https://raw.githubusercontent.com/用户名/仓库名/分支名/文件路径
+repo中所有的commits列表。https://api.github.com/repos/用户名/仓库名/commits。
+某一条commit详情。https://api.github.com/repos/用户名/仓库名/commits/某一条commit的SHA
+issues列表。https://api.github.com/repos/用户名/仓库名/issues。
+某条issue详情。https://api.github.com/repos/用户名/仓库名/issues/序号。issues都是以1,2,3这样的序列排号的。
+某issue中的comments列表。https://api.github.com/repos/用户名/仓库名/issues/序号/comments。
+某comment详情。https://api.github.com/repos/用户名/仓库名/issues/comments/评论详情的ID。其中评论ID是从issues列表中获得的。
 
-网络进程 
-发起和接受网络请求
+查询参数 (Parameters)如果在上面基本链接中加入查询条件，那么返回的数据就是filtered，过滤了的。比如要求只返回正在开放的issues，或者让列表数据分页显示。常用如下：
 
-渲染器进程 
-渲染Tab  有可能会为每个标签页是一个渲染进程
+分页功能。格式是?page=页数&amp;per_page=每页包含数量。
 
-GPU进程
-整个浏览器界面的渲染
+如https://api.github.com/users/solomonxie/repos?page=2&amp;per_page=3
 
-插件进程
-控制网站使用的所有内置插件，例如：flash
+issues状态。格式是?state=状态。
 
+如https://api.github.com/repos/solomonxie/solomonxie.github.io/issues?state=closed
+权限认证 Authentication
+首先需要知道都是，到此为止之前所有都查询都是不需要任何权限的，给个地址就返回数据，全公开。但是创建文件、更新、删除等就是必须用自己的账号”登录”才能实现的。所以为了下面的增删改做准备，需要先看一下权限问题。官网虽然写的很简答，不过如果不熟悉API的话还是不能马上就理解。
 
-浏览器结构图
-
-说明：
-用户界面：展示除了标签页窗口之外的其他用户用户界面内容
-渲染引擎：渲染用户获取数据的渲染内容。一下还有很多小的功能模块，如负责网络请求的网络模块，用于解析和执行js的js解释器
-浏览器引擎：用户界面和渲染引擎之间传递数据
-数据持久层：帮助浏览器存储持久数据，如cokies和storage。
-我们称呼的内核就是指的渲染引擎，是整个浏览器的核心和灵魂
-Chromium会给用户创建的每一个访问实例分配一个进程，确保每一个页面是独立呈现的，并且对每个网站的独立访问也是彼此隔离的。访问不同站点和同一站点的不同页面都会创建新的进程。一个标签就是一个新的渲染器进程。"
+常用的认证方法有三种，Basic authentication, OAuth2 token, OAuth2 key/secret三种方法效果一样，但是各有其特点和方便之处。选哪种就要看自己哪种方便了。"
           
           >
           
@@ -630,41 +762,44 @@ Chromium会给用户创建的每一个访问实例分配一个进程，确保每
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://yangyfeng.github.io/posts/41e3ecae.html&title=浏览器是如何运作的 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=浏览器是多进程结构的进程
-操作系统进行资源分配和调度的基本单元。可以申请和拥有计算机资源，进程是程序的基本执行实体。两个进程分配的资源和内存是独立，如果需要通信就要使用进程通信管道IPC来传递信息。
-线程
-操作系统能够进行运算调度的最小单位，一个进程中可以并发多个线程，每条线程并行执行不同的任务。
-浏览器功能进程拆解
+          href="http://service.weibo.com/share/share.php?url=https://yangyfeng.github.io/posts/ef2e5c8.html&title=Github API v3 介绍文档 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=
+对于常用Github的用户来说，经常有一些自动化的需求。比如我的需求是定时备份Github的issues和comments到本地。以下为Github的API的使用参考。
+
+v3版API的文档链接v3版API的官方教程
+基本访问路径 (Root Endpoints)一开始读文档的时候，照着它的事例直接在命令行里curl，或者在InSomnia或Postman软件里访问，都完美显示200状态。可是一旦把链接里改写成自己的用户名就各种显示404无页面。还以为是授权问题，然后在页头HEADER中按照各种方式试了username和token密钥，都没用还是404。结果发现，原来不是方法的问题，纯粹是链接地址没写对！实际上只是读取的话，完全不用任何授权，可以在命令行、Insomnia、网页等各种情况下直接输入链接访问任何人的所有公开信息。然后对照官方路径列表Root Endpoints得到的链接，好像怎么访问都不对。反而在Stackoverflow中看到的一个链接，顺藤摸瓜自己发现了各种正确的访问路径，总结如下：
+
+首先！访问的链接最后不能有/。如https://api.github.com/users/solomonxie是可以访问到我个人信息的，但是https://api.github.com/users/solomonxie/就不行了，唯一不同是多了一个/.
+其次！不同于一般URL访问，GIthub的API访问链接是区分大小写的！
+个人主要信息。 https://api.github.com/users/用户名,得到数据如下图：
 
 
-浏览器进程
-控制除标签页外的用户界面，包括地址，书签，后退，前进按钮等，以及负责与浏览器其他进程负责协调工作
 
-缓存进程
-负责控制浏览器的存储数据的缓存和读取
+个人所有repo。https://api.github.com/users/用户名/repos。会得到一个repo的JSON格式列表。
+repo详细信息。https://api.github.com/repos/用户名/仓库名。repo的路径就开始和个人信息不同了。
+获取某个repo的内容列表。https://api.github.com/repos/solomonxie/gists/contents，注意这只会返回根目录的内容。
+获取repo中子目录的内容列表。https://api.github.com/repos/solomonxie/gists/contents/目录名。一定要注意这里一定要完全遵循原文件名的大小写，否则无法获得信息。如果是更深层的内容，则在链接列按照顺序逐级写上目录名称。
+获取repo中某文件信息（不包括内容）。https://api.github.com/repos/solomonxie/gists/contents/文件路径。文件路径是文件的完整路径，区分大小写。只会返回文件基本信息。
+获取某文件的原始内容（Raw）。1. 通过上面的文件信息中提取download_url这条链接，就能获取它的原始内容了。2. 或者直接访问：https://raw.githubusercontent.com/用户名/仓库名/分支名/文件路径
+repo中所有的commits列表。https://api.github.com/repos/用户名/仓库名/commits。
+某一条commit详情。https://api.github.com/repos/用户名/仓库名/commits/某一条commit的SHA
+issues列表。https://api.github.com/repos/用户名/仓库名/issues。
+某条issue详情。https://api.github.com/repos/用户名/仓库名/issues/序号。issues都是以1,2,3这样的序列排号的。
+某issue中的comments列表。https://api.github.com/repos/用户名/仓库名/issues/序号/comments。
+某comment详情。https://api.github.com/repos/用户名/仓库名/issues/comments/评论详情的ID。其中评论ID是从issues列表中获得的。
 
-网络进程 
-发起和接受网络请求
+查询参数 (Parameters)如果在上面基本链接中加入查询条件，那么返回的数据就是filtered，过滤了的。比如要求只返回正在开放的issues，或者让列表数据分页显示。常用如下：
 
-渲染器进程 
-渲染Tab  有可能会为每个标签页是一个渲染进程
+分页功能。格式是?page=页数&amp;per_page=每页包含数量。
 
-GPU进程
-整个浏览器界面的渲染
+如https://api.github.com/users/solomonxie/repos?page=2&amp;per_page=3
 
-插件进程
-控制网站使用的所有内置插件，例如：flash
+issues状态。格式是?state=状态。
 
+如https://api.github.com/repos/solomonxie/solomonxie.github.io/issues?state=closed
+权限认证 Authentication
+首先需要知道都是，到此为止之前所有都查询都是不需要任何权限的，给个地址就返回数据，全公开。但是创建文件、更新、删除等就是必须用自己的账号”登录”才能实现的。所以为了下面的增删改做准备，需要先看一下权限问题。官网虽然写的很简答，不过如果不熟悉API的话还是不能马上就理解。
 
-浏览器结构图
-
-说明：
-用户界面：展示除了标签页窗口之外的其他用户用户界面内容
-渲染引擎：渲染用户获取数据的渲染内容。一下还有很多小的功能模块，如负责网络请求的网络模块，用于解析和执行js的js解释器
-浏览器引擎：用户界面和渲染引擎之间传递数据
-数据持久层：帮助浏览器存储持久数据，如cokies和storage。
-我们称呼的内核就是指的渲染引擎，是整个浏览器的核心和灵魂
-Chromium会给用户创建的每一个访问实例分配一个进程，确保每一个页面是独立呈现的，并且对每个网站的独立访问也是彼此隔离的。访问不同站点和同一站点的不同页面都会创建新的进程。一个标签就是一个新的渲染器进程。"
+常用的认证方法有三种，Basic authentication, OAuth2 token, OAuth2 key/secret三种方法效果一样，但是各有其特点和方便之处。选哪种就要看自己哪种方便了。"
           
           >
           
@@ -674,7 +809,7 @@ Chromium会给用户创建的每一个访问实例分配一个进程，确保每
       
     
       
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQW7DQAgF0Nz/0uk2VZXRh7ErmXleVVFj81yJMsDrFV/v1vX53fWd/z7ldceFgYHxWEYeyh2ffIshjw0DA+McRpIKk1yXvKD1d5PnYmBgYCS3W6fFJOFWSRgYGBg5Y03qJWUMDAyMhJG3zJKm2FXl4C1ncQwMjAcy8q77//98y3wDAwPjUYzeSLKXNPOSsRwVBgbGaEbvCJoje580j8QYGBgHMHpp99qgd14KBgbGOYxec7960qwWiFHLDwMDYzSjuhixMzbIE3fzlWFgYIxjVFtpVUx1zSJfAfnaNcTAwBjH6DW/9lNzDs4XxTAwMKYy1iEmKTJ5T72GXZKIf/3fwMDAGMqoLoFVb70/YKiOEDAwMGYzql26PNWuSXmpGsWJgYExlLFTDubrGnkazUkYGBgnM6qtt/tSc16SYmBgnMDYX7/orU0U2mfr14qBgTGa0Uu769/vrZRVUzwGBsaZjJ3hYnXzoVkCrlMzBgbGUEZe6lUXv64qOiMwBgbGMYxqwZc05pJRZe9ZUW2LgYExiFFdlegNRHvUy2pbDAyMBzLexat3WN1PtdHfAQMDYygjv/LgqgVoPtTsrXpgYGDMYOTH16Sh3zu+7iRuDAyMcxh54ts5AJdP2PkhGQMDAyNo2VdHocnT8zIRAwMDI0+X+2FVW3sYGBjnMKprFkkJmHySx4CBgXEyo9fLyoPeCfTioSYGBsbzGD8sxtsZl8CYPAAAAABJRU5ErkJggg=='>
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aS27DMAwFwNz/0ukBgsqPpBPA0ngVoInk0YLlR69X/Lw/ns+/fn4zX7P62+aDgYHxWMZ7+awZ6y2TFZL11++GgYFxDiN5iXWgXH+e7LX+PgYGBkae/K3XyYM1BgYGxpwxCZdJsMbAwMCYFLHRci1kArutFsfAwHggI++6//7zV+YbGBgYj2K8i8861OaJYB5So7fCwMDYmlFN7+YJYp4Clt8HAwNjU0ZSrCaAahMtD8dRcMfAwNiaUU3y5qPN5Dh6IwQMDIxdGdUNJoPMPDQngf41OScMDIxHMSbFZLVxVt0xSSj//b+BgYGxHeMr1xrije9KLjEwME5j3DWkzC+ZVYvbi6YbBgbGRoxqZ643SKgWwMlYojDCxMDA2I5RHVtWi9IJ7KIKx8DA2JRxV+NsEmTz4UShVsbAwNiUUW2fVcec8+FldMcNAwNjO8a7+Nw7TsgD7sVvMTAwDmDkw8L5tYke7+INMTAwtmY0p53jMrU62oxGnhgYGEcyem39vN1fPbiLvTAwMA5gVC9b5Ne/qgfUS1IxMDBOY1QbYdXt84K2kIxiYGBsyugNBnptuEmhe7EOBgbG1oxesOtd/8rHlqMEEQMDY1NGNcium/WT4eUofcTAwDiAMSlN8+OojhkKSAwMDIw4+Wv2/IrfvxgMYGBgHM/oXefqDTILoRwDA+MAxm+uTfTaeVFCiYGBsTWj18vqDSbXB/eNA8LAwHg44w9p57wquNIuXQAAAABJRU5ErkJggg=='>
         
           <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
         
@@ -682,7 +817,7 @@ Chromium会给用户创建的每一个访问实例分配一个进程，确保每
       
     
       
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQW7DQAgF0Nz/0uk2VZXRh7ErmXleVVFj81yJMsDrFV/v1vX53fWd/z7ldceFgYHxWEYeyh2ffIshjw0DA+McRpIKk1yXvKD1d5PnYmBgYCS3W6fFJOFWSRgYGBg5Y03qJWUMDAyMhJG3zJKm2FXl4C1ncQwMjAcy8q77//98y3wDAwPjUYzeSLKXNPOSsRwVBgbGaEbvCJoje580j8QYGBgHMHpp99qgd14KBgbGOYxec7960qwWiFHLDwMDYzSjuhixMzbIE3fzlWFgYIxjVFtpVUx1zSJfAfnaNcTAwBjH6DW/9lNzDs4XxTAwMKYy1iEmKTJ5T72GXZKIf/3fwMDAGMqoLoFVb70/YKiOEDAwMGYzql26PNWuSXmpGsWJgYExlLFTDubrGnkazUkYGBgnM6qtt/tSc16SYmBgnMDYX7/orU0U2mfr14qBgTGa0Uu769/vrZRVUzwGBsaZjJ3hYnXzoVkCrlMzBgbGUEZe6lUXv64qOiMwBgbGMYxqwZc05pJRZe9ZUW2LgYExiFFdlegNRHvUy2pbDAyMBzLexat3WN1PtdHfAQMDYygjv/LgqgVoPtTsrXpgYGDMYOTH16Sh3zu+7iRuDAyMcxh54ts5AJdP2PkhGQMDAyNo2VdHocnT8zIRAwMDI0+X+2FVW3sYGBjnMKprFkkJmHySx4CBgXEyo9fLyoPeCfTioSYGBsbzGD8sxtsZl8CYPAAAAABJRU5ErkJggg=='>
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aS27DMAwFwNz/0ukBgsqPpBPA0ngVoInk0YLlR69X/Lw/ns+/fn4zX7P62+aDgYHxWMZ7+awZ6y2TFZL11++GgYFxDiN5iXWgXH+e7LX+PgYGBkae/K3XyYM1BgYGxpwxCZdJsMbAwMCYFLHRci1kArutFsfAwHggI++6//7zV+YbGBgYj2K8i8861OaJYB5So7fCwMDYmlFN7+YJYp4Clt8HAwNjU0ZSrCaAahMtD8dRcMfAwNiaUU3y5qPN5Dh6IwQMDIxdGdUNJoPMPDQngf41OScMDIxHMSbFZLVxVt0xSSj//b+BgYGxHeMr1xrije9KLjEwME5j3DWkzC+ZVYvbi6YbBgbGRoxqZ643SKgWwMlYojDCxMDA2I5RHVtWi9IJ7KIKx8DA2JRxV+NsEmTz4UShVsbAwNiUUW2fVcec8+FldMcNAwNjO8a7+Nw7TsgD7sVvMTAwDmDkw8L5tYke7+INMTAwtmY0p53jMrU62oxGnhgYGEcyem39vN1fPbiLvTAwMA5gVC9b5Ne/qgfUS1IxMDBOY1QbYdXt84K2kIxiYGBsyugNBnptuEmhe7EOBgbG1oxesOtd/8rHlqMEEQMDY1NGNcium/WT4eUofcTAwDiAMSlN8+OojhkKSAwMDIw4+Wv2/IrfvxgMYGBgHM/oXefqDTILoRwDA+MAxm+uTfTaeVFCiYGBsTWj18vqDSbXB/eNA8LAwHg44w9p57wquNIuXQAAAABJRU5ErkJggg=='>
         
           <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qrcode.png">
         
@@ -704,40 +839,21 @@ Chromium会给用户创建的每一个访问实例分配一个进程，确保每
         
             <div class="prev-next">
                 
-                    <section class="prev">
-                        <span class="art-item-left">
-                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                            <h4>
-                                <a href="/posts/9926a09c.html" rel="prev" title="什么是JS调用栈">
-                                  
-                                      什么是JS调用栈
-                                  
-                                </a>
-                            </h4>
-                            
-                                
-                                <h6 class="tags">
-                                    <a class="tag" href="/blogpost/tags/JS运行原理/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>JS运行原理</a>
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
                 
                     <section class="next">
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/posts/e210f74f.html" rel="prev" title="vue面试题（2）">
+                                <a href="/posts/69a7e668.html" rel="prev" title="git cherry-pick 教程">
                                     
-                                        vue面试题（2）
+                                        git cherry-pick 教程
                                     
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/blogpost/tags/Vue/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Vue</a> <a class="tag" href="/blogpost/tags/面试题/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>面试题</a>
+                                    <a class="tag" href="/blogpost/tags/Git/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Git</a>
                                 </h6>
                             
                         </span>
@@ -768,7 +884,7 @@ Chromium会给用户创建的每一个访问实例分配一个进程，确保每
 
   <script>
     window.subData = {
-      title: '浏览器是如何运作的',
+      title: 'Github API v3 介绍文档',
       tools: true
     }
   </script>
@@ -1038,7 +1154,7 @@ Chromium会给用户创建的每一个访问实例分配一个进程，确保每
 </header>
 
     <div class="content material">
-      <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\cf2c43d.html" title="V8引擎是如何运行JS" rel="bookmark">V8引擎是如何运行JS</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\81adf3b6.html" title="javascript是如何被运行的" rel="bookmark">javascript是如何被运行的</a></h3></div></li></ul>
+      <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\d8976663.html" title="github连接超时问题" rel="bookmark">github连接超时问题</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\69a7e668.html" title="git cherry-pick 教程" rel="bookmark">git cherry-pick 教程</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\423abe9e.html" title="git常用命令" rel="bookmark">git常用命令</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\2bdc4097.html" title="git子目录创建分支" rel="bookmark">git子目录创建分支</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\596552e8.html" title="git提交规范" rel="bookmark">git提交规范</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\230490ec.html" title="microsoft vs code常用主题收集" rel="bookmark">microsoft vs code常用主题收集</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\cfdabafc.html" title="Devops是什么" rel="bookmark">Devops是什么</a></h3></div></li></ul>
     </div>
   </section>
 
