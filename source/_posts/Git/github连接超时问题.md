@@ -30,3 +30,26 @@ date: 2021-04-21 00:00:00
 powershell里`ping`一下
 
 `ping github.com`
+
+4、windows下host文件修改与刷新
+
+window环境：
+
+hosts文件位置：C:\windows\system32\drivers\etc
+
+刷新方式：
+
+win+r，输入CMD，回车
+
+在命令行执行:
+
+```bash
+ipconfig /flushdns     #清除DNS缓存内容。
+ps:ipconfig /displaydns #显示DNS缓存内容
+```
+
+linux环境
+
+文件位置：/etc/hosts
+
+刷新命令：systemctl restart nscd
