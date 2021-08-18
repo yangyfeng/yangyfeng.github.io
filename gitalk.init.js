@@ -5,6 +5,9 @@ const url = require("url");
 const xmlParser = require("xml-parser");
 const YAML = require("yamljs");
 const cheerio = require("cheerio");
+const chalk = require('chalk');
+const log = (word) => console.log(chalk.blue(word))
+const error = (word) => console.log(chalk.red(word))
 // 获取网站配置
 const websiteConfig = YAML.parse(fs.readFileSync(path.resolve(__dirname, "./_config.yml"), "utf8"));
 // 根据自己的情况进行配置
@@ -12,9 +15,7 @@ const config = {
   // GitHub 用户名
   username: "yangyfeng",
   // GitHub Token
-  // token: "f2b57a04eb80228fcdd44ee22d01be12faf0b912",
-  // token: "a79086fbf20bfd57ce12632d54a0c285502cfdca",
-  token: "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",
+  token: "a79086fbf20bfd57ce12632d54a0c285502cfdca",
   // 存放 issues的git仓库
   repo: "yangyfeng.github.io",
   // sitemap.xml的路径，commit.js放置在根目录下，无需修改，其他情况自行处理
@@ -22,36 +23,34 @@ const config = {
   // "Gitalk" or "Gitment"
   kind: "Gitalk",
 };
-let issuesUrl = `https://api.github.com/repos/${config.username}/${config.repo}/issues?access_token=${config.token}`;
-let requestGetOpt = {
+let issuesUrl = `https://api.github.com/repos/${config.username}/${config.repo}/issues`;
+// 请求参数
+let requestOpt = {
   method: "GET",
-  url: `${issuesUrl}&page=1&per_page=100&state=all`,
+  url: issuesUrl,
   json: true,
   headers: {
     "User-Agent": "github-user",
-    accept: "application/vnd.github.v3+json"
+    accept: "application/vnd.github.v3+json",
+    Authorization: `${config.token}`
   }
 };
-let requestPostOpt = {
-  ...requestGetOpt,
-  url: issuesUrl,
-  method: "POST",
-  form: ""
-};
-console.log("开始初始化评论...");
+log("开始初始化评论...");
 (async function () {
-  console.log("开始检索链接，请稍等...");
+  log("开始检索链接，请稍等...");
   try {
     let urls = sitemapXmlReader(config.sitemapUrl);
-    console.log(`共检索到${urls.length}个链接`);
-    console.log("开始获取已经初始化的issues...");
-    console.log('url: ', requestGetOpt.url);
-    const issues = await send(requestGetOpt);
-    console.log('issues: ', issues);
+
+    log(`共检索到 ${urls.length - 1} 个链接`);
+    log("开始获取已经初始化的issues...");
+
+    const issues = await send(requestOpt);
+    console.log('已经有的issues: ', JSON.stringify(issues));
+
     if (issues.length) {
-      console.log(`已经存在${issues.length}个issues`)
+      log(`已经存在${issues.length}个issues`)
     } else {
-      console.log('issues个数未知')
+      error('已经存在的issues个数未知')
     }
     // 获取的所有链接
     let links = urls.filter((link) => {
@@ -73,7 +72,7 @@ console.log("开始初始化评论...");
     ]
     // 链接的头部
     const headUrl = `https://${config.username}.github.io/${config.repo}`
-    console.log('过滤不需要初始化的链接：', filterPages)
+    log('过滤不需要初始化的链接')
     // 过滤后的需要初始化的链接
     let notInitIssueLinks = []
     for (let index = 0; index < links.length; index++) {
@@ -83,15 +82,16 @@ console.log("开始初始化评论...");
         notInitIssueLinks.push(url)
       }
     }
-    console.log('开始初始化issue...')
+    log('开始初始化issue...')
     if (notInitIssueLinks.length === 0) {
-      console.log("本次发布无新增页面，无需初始化issue!!");
+      log("本次发布无新增页面，无需初始化issue!");
       return
     }
-    console.log(`本次有${notInitIssueLinks.length}个链接需要初始化issue：`, notInitIssueLinks);
+    log(`本次有${notInitIssueLinks.length}个链接需要初始化issue：`);
+    console.log(notInitIssueLinks)
     notInitIssueLinks.forEach(async (item) => {
       let html = await send({
-        ...requestGetOpt,
+        ...requestOpt,
         url: item
       });
       let title = cheerio.load(html)("title").text();
@@ -103,13 +103,14 @@ console.log("开始初始化评论...");
         title
       });
       send({
-        ...requestPostOpt,
+        ...requestOpt,
         form
       })
     });
-    console.log("可以愉快的发表评论了！");
+    log("可以愉快的发表评论了！");
   } catch (e) {
-    console.log('检索失败', e)
+    error('检索失败')
+    console.error(e)
   }
 })();
 
@@ -117,7 +118,6 @@ function sitemapXmlReader(file) {
   let data = fs.readFileSync(file, "utf8");
   let sitemap = xmlParser(data);
   const children = sitemap.root.children
-  console.log('children: ', children)
   return children.map(function (url) {
     let loc = url.children.filter(function (item) {
       return item.name === "loc";
