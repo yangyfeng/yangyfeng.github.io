@@ -6,7 +6,7 @@
   <link href="/./atom.xml" rel="self"/>
   
   <link href="https://yangyfeng.github.io/"/>
-  <updated>2021-08-18T09:02:49.561Z</updated>
+  <updated>2021-08-25T03:42:23.857Z</updated>
   <id>https://yangyfeng.github.io/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>keep-alive实现原理</title>
+    <link href="https://yangyfeng.github.io//posts/e9fee5eb.html"/>
+    <id>https://yangyfeng.github.io//posts/e9fee5eb.html</id>
+    <published>2021-08-24T16:00:00.000Z</published>
+    <updated>2021-08-25T03:42:23.857Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h1&gt;&lt;p&gt;本文介绍的内容包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;keep-alive用法：动态组件&amp;amp;vue-router&lt;/li&gt;
+&lt;li&gt;keep-alive源码解析&lt;/li&gt;
+&lt;li&gt;keep-alive组件及其包裹组件的钩子&lt;/li&gt;
+&lt;li&gt;keep-alive组件及其包裹组件的渲染&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;二、keep-alive介绍与应用&quot;&gt;&lt;a href=&quot;#二、keep-alive介绍与应用&quot; class=&quot;headerlink&quot; title=&quot;二、keep-alive介绍与应用&quot;&gt;&lt;/a&gt;二、keep-alive介绍与应用&lt;/h1&gt;&lt;h2 id=&quot;2-1-keep-alive是什么&quot;&gt;&lt;a href=&quot;#2-1-keep-alive是什么&quot; class=&quot;headerlink&quot; title=&quot;2.1 keep-alive是什么&quot;&gt;&lt;/a&gt;2.1 keep-alive是什么&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;keep-alive是一个抽象组件：它自身不会渲染一个DOM元素，也不会出现在父组件链中；使用keep-alive包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;一个场景&quot;&gt;&lt;a href=&quot;#一个场景&quot; class=&quot;headerlink&quot; title=&quot;一个场景&quot;&gt;&lt;/a&gt;一个场景&lt;/h2&gt;&lt;p&gt;用户在某个列表页面选择筛选条件过滤出一份数据列表，由列表页面进入数据详情页面，再返回该列表页面，我们希望：列表页面可以保留用户的筛选（或选中）状态。&lt;br&gt; keep-alive就是用来解决这种场景。当然keep-alive不仅仅是能够保存页面/组件的状态这么简单，它还可以避免组件反复创建和渲染，有效提升系统性能。总的来说，&lt;strong&gt;keep-alive用于保存组件的渲染状态。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;keep-alive用法&quot;&gt;&lt;a href=&quot;#keep-alive用法&quot; class=&quot;headerlink&quot; title=&quot;keep-alive用法&quot;&gt;&lt;/a&gt;keep-alive用法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在动态组件中的应用&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;keep-alive&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:include&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;whiteList&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:exclude&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;blackList&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:max&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;amount&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:is&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;currentComponent&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;component&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;keep-alive&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在vue-router中的应用&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;keep-alive&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:include&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;whiteList&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:exclude&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;blackList&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:max&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;amount&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;router-view&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;router-view&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;keep-alive&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;include&lt;/strong&gt;定义缓存白名单，keep-alive会缓存命中的组件；&lt;strong&gt;exclude&lt;/strong&gt;定义缓存黑名单，被命中的组件将不会被缓存；&lt;strong&gt;max&lt;/strong&gt;定义缓存组件上限，超出上限使用LRU的策略置换缓存数据。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://links.jianshu.com/go?to=https%3A%2F%2Fbaike.baidu.com%2Fitem%2F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%2F5633616&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;内存管理&lt;/a&gt;的一种页面置换算法，对于在内存中但又不用的&lt;a href=&quot;https://links.jianshu.com/go?to=https%3A%2F%2Fbaike.baidu.com%2Fitem%2F%E6%95%B0%E6%8D%AE%E5%9D%97%2F107672&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据块&lt;/a&gt;（内存块）叫做LRU，操作系统会根据哪些数据属于LRU而将其移出内存而腾出空间来加载另外的数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;三、源码剖析&quot;&gt;&lt;a href=&quot;#三、源码剖析&quot; class=&quot;headerlink&quot; title=&quot;三、源码剖析&quot;&gt;&lt;/a&gt;三、源码剖析&lt;/h1&gt;&lt;p&gt;keep-alive.js内部还定义了一些工具函数，我们按住不动，先看它对外暴露的对象&lt;/p&gt;
+&lt;figure class=&quot;highlight kotlin&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// src/core/components/keep-alive.js&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export &lt;span class=&quot;keyword&quot;&gt;default&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  name: &lt;span class=&quot;string&quot;&gt;&#39;keep-alive&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;abstract&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// 判断当前组件虚拟dom是否渲染成真实dom的关键&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  props: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      include: patternTypes, &lt;span class=&quot;comment&quot;&gt;// 缓存白名单&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      exclude: patternTypes, &lt;span class=&quot;comment&quot;&gt;// 缓存黑名单&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      max: [String, Number] &lt;span class=&quot;comment&quot;&gt;// 缓存的组件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  created() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.cache = Object.create(&lt;span class=&quot;literal&quot;&gt;null&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 缓存虚拟dom&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.keys = [] &lt;span class=&quot;comment&quot;&gt;// 缓存的虚拟dom的键集合&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  destroyed() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; key &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.cache) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       &lt;span class=&quot;comment&quot;&gt;// 删除所有的缓存&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       pruneCacheEntry(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.cache, key, &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.keys)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; mounted() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &lt;span class=&quot;comment&quot;&gt;// 实时监听黑白名单的变动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.$watch(&lt;span class=&quot;string&quot;&gt;&#39;include&#39;&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       pruneCache(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, name =&amp;gt; matched(&lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt;, name))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.$watch(&lt;span class=&quot;string&quot;&gt;&#39;exclude&#39;&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       pruneCache(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, name =&amp;gt; !matches(&lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt;, name))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; render() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 先省略...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
+    
+      <category term="Webpack" scheme="https://yangyfeng.github.io/blogpost/tags/Webpack/"/>
+    
+  </entry>
   
   <entry>
     <title>Github API v3 介绍文档</title>
@@ -374,35 +420,6 @@
   </entry>
   
   <entry>
-    <title>Vue知识点集合</title>
-    <link href="https://yangyfeng.github.io//posts/5b9a2dd2.html"/>
-    <id>https://yangyfeng.github.io//posts/5b9a2dd2.html</id>
-    <published>2021-03-06T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.636Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;vue&quot;&gt;&lt;a href=&quot;#vue&quot; class=&quot;headerlink&quot; title=&quot;vue&quot;&gt;&lt;/a&gt;vue&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2503&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue中watch和created哪个先执行？为什么？&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2429&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vue中mixins和extends有什么区别？&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2428&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vue中mixins有什么使用场景？&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2427&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue中created与activated有什么区别？&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2231&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue项目如何引入异步组件？&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2230&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue项目中scss scoped穿透符&amp;gt;&amp;gt;&amp;gt;无效的解决方案有哪些？&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2229&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;为什么在v-for中的key不推荐使用随机数或者index呢？那要怎么使用才比较好呢？&lt;/a&gt;
-    
-    </summary>
-    
-      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
-    
-      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
     <title>React知识点集合</title>
     <link href="https://yangyfeng.github.io//posts/13437c1d.html"/>
     <id>https://yangyfeng.github.io//posts/13437c1d.html</id>
@@ -427,6 +444,35 @@
     
     
       <category term="React" scheme="https://yangyfeng.github.io/blogpost/tags/React/"/>
+    
+      <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue知识点集合</title>
+    <link href="https://yangyfeng.github.io//posts/5b9a2dd2.html"/>
+    <id>https://yangyfeng.github.io//posts/5b9a2dd2.html</id>
+    <published>2021-03-06T16:00:00.000Z</published>
+    <updated>2021-03-27T06:24:34.636Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;vue&quot;&gt;&lt;a href=&quot;#vue&quot; class=&quot;headerlink&quot; title=&quot;vue&quot;&gt;&lt;/a&gt;vue&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2503&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue中watch和created哪个先执行？为什么？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2429&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vue中mixins和extends有什么区别？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2428&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vue中mixins有什么使用场景？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2427&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue中created与activated有什么区别？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2231&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue项目如何引入异步组件？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2230&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;在vue项目中scss scoped穿透符&amp;gt;&amp;gt;&amp;gt;无效的解决方案有哪些？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/haizlin/fe-interview/issues/2229&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;为什么在v-for中的key不推荐使用随机数或者index呢？那要怎么使用才比较好呢？&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Vue" scheme="https://yangyfeng.github.io/blogpost/tags/Vue/"/>
     
       <category term="面试题" scheme="https://yangyfeng.github.io/blogpost/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     
@@ -672,32 +718,6 @@
       <category term="前端" scheme="https://yangyfeng.github.io/blogpost/tags/%E5%89%8D%E7%AB%AF/"/>
     
       <category term="数据可视化" scheme="https://yangyfeng.github.io/blogpost/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2021年前端重修课</title>
-    <link href="https://yangyfeng.github.io//posts/cf2c43d.html"/>
-    <id>https://yangyfeng.github.io//posts/cf2c43d.html</id>
-    <published>2021-02-01T16:00:00.000Z</published>
-    <updated>2021-03-27T06:24:34.631Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;2021年前端重修课&quot;&gt;&lt;a href=&quot;#2021年前端重修课&quot; class=&quot;headerlink&quot; title=&quot;2021年前端重修课&quot;&gt;&lt;/a&gt;2021年前端重修课&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/ymtXrR&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="深入前端" scheme="https://yangyfeng.github.io/blogpost/categories/%E6%B7%B1%E5%85%A5%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="Javascript" scheme="https://yangyfeng.github.io/blogpost/tags/Javascript/"/>
     
   </entry>
   

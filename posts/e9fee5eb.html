@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Archives: 2021/8 | 峰享会</title>
+  <title>keep-alive实现原理 | 峰享会</title>
   
   <meta name="keywords" content="前端开发,科技,数据可视化,移动开发,小程序,客户端">
   
@@ -57,7 +57,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class='cover  half'>
+    <cover class='cover post half'>
       
         
   <h1 class='title'>漫道求索</h1>
@@ -337,28 +337,11 @@
   <div class="l_body">
     <div class='body-wrapper'>
       <div class='l_main'>
-	
-		
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
   
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -367,11 +350,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/posts/e9fee5eb.html">
-      keep-alive实现原理
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/posts/e9fee5eb.html">
+        keep-alive实现原理
+      </a>
+    </h1>
+  
 
 
       
@@ -418,6 +403,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -450,9 +448,9 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>本文介绍的内容包括：</p>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>本文介绍的内容包括：</p>
 <ul>
 <li>keep-alive用法：动态组件&amp;vue-router</li>
 <li>keep-alive源码解析</li>
@@ -477,520 +475,304 @@
 </blockquote>
 <h1 id="三、源码剖析"><a href="#三、源码剖析" class="headerlink" title="三、源码剖析"></a>三、源码剖析</h1><p>keep-alive.js内部还定义了一些工具函数，我们按住不动，先看它对外暴露的对象</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/core/components/keep-alive.js</span></span><br><span class="line">export <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'keep-alive'</span>,</span><br><span class="line">  <span class="keyword">abstract</span>: <span class="literal">true</span>, <span class="comment">// 判断当前组件虚拟dom是否渲染成真实dom的关键</span></span><br><span class="line">  props: &#123;</span><br><span class="line">      include: patternTypes, <span class="comment">// 缓存白名单</span></span><br><span class="line">      exclude: patternTypes, <span class="comment">// 缓存黑名单</span></span><br><span class="line">      max: [String, Number] <span class="comment">// 缓存的组件</span></span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">     <span class="keyword">this</span>.cache = Object.create(<span class="literal">null</span>) <span class="comment">// 缓存虚拟dom</span></span><br><span class="line">     <span class="keyword">this</span>.keys = [] <span class="comment">// 缓存的虚拟dom的键集合</span></span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> <span class="keyword">this</span>.cache) &#123;</span><br><span class="line">       <span class="comment">// 删除所有的缓存</span></span><br><span class="line">       pruneCacheEntry(<span class="keyword">this</span>.cache, key, <span class="keyword">this</span>.keys)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"> mounted() &#123;</span><br><span class="line">   <span class="comment">// 实时监听黑白名单的变动</span></span><br><span class="line">   <span class="keyword">this</span>.$watch(<span class="string">'include'</span>, <span class="keyword">val</span> =&gt; &#123;</span><br><span class="line">       pruneCache(<span class="keyword">this</span>, name =&gt; matched(<span class="keyword">val</span>, name))</span><br><span class="line">   &#125;)</span><br><span class="line">   <span class="keyword">this</span>.$watch(<span class="string">'exclude'</span>, <span class="keyword">val</span> =&gt; &#123;</span><br><span class="line">       pruneCache(<span class="keyword">this</span>, name =&gt; !matches(<span class="keyword">val</span>, name))</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;,</span><br><span class="line"></span><br><span class="line"> render() &#123;</span><br><span class="line">    <span class="comment">// 先省略...</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-        <div class="readmore">
-          <a href="/posts/e9fee5eb.html" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
+<a id="more"></a>
+<p>可以看出，与我们定义组件的过程一样，先是设置组件名为keep-alive，其次定义了一个abstract属性，值为true。这个属性在vue的官方教程并未提及，却至关重要，后面的渲染过程会用到。props属性定义了keep-alive组件支持的全部参数。</p>
+<p>keep-alive在它生命周期内定义了三个钩子函数：</p>
+<ul>
+<li>created<br> 初始化两个对象分别缓存VNode(虚拟DOM)和VNode对应的键集合</li>
+<li>destroyed<br> 删除this.cache中缓存的VNode实例。我们留意到，这不是简单地将this.cache置为null，而是遍历调用pruneCacheEntry函数删除。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// src/core/components/keep-alive.js</span><br><span class="line">function pruneCacheEntry (</span><br><span class="line">  cache: VNodeCache,</span><br><span class="line">  key: string,</span><br><span class="line">  keys: Array&lt;string&gt;,</span><br><span class="line">  current?: VNode</span><br><span class="line">) &#123;</span><br><span class="line"> const cached = cache[key]</span><br><span class="line"> if (cached &amp;&amp; (!current || cached.tag !== current.tag)) &#123;</span><br><span class="line">    cached.componentInstance.$destroyed() // 执行组件的destroy钩子函数</span><br><span class="line"> &#125;</span><br><span class="line"> cache[key] = null</span><br><span class="line"> remove(keys, key)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除缓存的VNode还要对应组件实例的destory钩子函数</p>
+<ul>
+<li>mounted<br> 在mounted这个钩子中对include和exclude参数进行监听，然后实时地更新（删除）this.cache对象数据。pruneCache函数的核心也是去调用pruneCacheEntry</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function pruneCache (keepAliveInstance: any, filter: Function) &#123;</span><br><span class="line">  const &#123; cache, keys, _vnode &#125; = keepAliveInstance</span><br><span class="line">  for (const key in cache) &#123;</span><br><span class="line">    const cachedNode: ?VNode = cache[key]</span><br><span class="line">    if (cachedNode) &#123;</span><br><span class="line">      const name: ?string = getComponentName(cachedNode.componentOptions)</span><br><span class="line">      if (name &amp;&amp; !filter(name)) &#123;</span><br><span class="line">        pruneCacheEntry(cache, key, keys, _vnode)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>render</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">  <span class="keyword">const</span> slot = <span class="keyword">this</span>.$slots.defalut</span><br><span class="line">  <span class="keyword">const</span> vnode: VNode = getFirstComponentChild(slot) <span class="comment">// 找到第一个子组件对象</span></span><br><span class="line">  <span class="keyword">const</span> componentOptions : ?VNodeComponentOptions = vnode &amp;&amp; vnode.componentOptions</span><br><span class="line">  <span class="keyword">if</span> (componentOptions) &#123; <span class="comment">// 存在组件参数</span></span><br><span class="line">    <span class="comment">// check pattern</span></span><br><span class="line">    <span class="keyword">const</span> name: ?string = getComponentName(componentOptions) <span class="comment">// 组件名</span></span><br><span class="line">    <span class="keyword">const</span> &#123; include, exclude &#125; = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="comment">// 条件匹配</span></span><br><span class="line">      <span class="comment">// not included</span></span><br><span class="line">      （include &amp;&amp; (!name || !matches(include, name))）||</span><br><span class="line">      <span class="comment">// excluded</span></span><br><span class="line">        (exclude &amp;&amp; name &amp;&amp; matches(exclude, name))</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">return</span> vnode</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> &#123; cache, keys &#125; = <span class="keyword">this</span></span><br><span class="line">    <span class="comment">// 定义组件的缓存key</span></span><br><span class="line">    <span class="keyword">const</span> key: ?string = vnode.key === <span class="literal">null</span> ? componentOptions.Ctor.cid + (componentOptions.tag ? `::$&#123;componentOptions.tag&#125;` : <span class="string">''</span>) : vnode.key</span><br><span class="line">     <span class="keyword">if</span> (cache[key]) &#123; <span class="comment">// 已经缓存过该组件</span></span><br><span class="line">        vnode.componentInstance = cache[key].componentInstance</span><br><span class="line">        remove(keys, key)</span><br><span class="line">        keys.push(key) <span class="comment">// 调整key排序</span></span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cache[key] = vnode <span class="comment">//缓存组件对象</span></span><br><span class="line">        keys.push(key)</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.max &amp;&amp; keys.length &gt; parseInt(<span class="keyword">this</span>.max)) &#123;</span><br><span class="line">          <span class="comment">//超过缓存数限制，将第一个删除</span></span><br><span class="line">          pruneCacheEntry(cahce, keys[<span class="number">0</span>], keys, <span class="keyword">this</span>._vnode)</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">      vnode.<span class="keyword">data</span>.keepAlive = <span class="literal">true</span> <span class="comment">//渲染和执行被包裹组件的钩子函数需要用到</span></span><br><span class="line"> </span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> vnode || (slot &amp;&amp; slot[<span class="number">0</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一步：获取keep-alive包裹着的第一个子组件对象及其组件名；</li>
+<li>第二步：根据设定的黑白名单（如果有）进行条件匹配，决定是否缓存。不匹配，直接返回组件实例（VNode），否则执行第三步；</li>
+<li>第三步：根据组件ID和tag生成缓存Key，并在缓存对象中查找是否已缓存过该组件实例。如果存在，直接取出缓存值并更新该key在this.keys中的位置（更新key的位置是实现LRU置换策略的关键），否则执行第四步；</li>
+<li>第四步：在this.cache对象中存储该组件实例并保存key值，之后检查缓存的实例数量是否超过max设置值，超过则根据LRU置换策略删除最近最久未使用的实例（即是下标为0的那个key）;</li>
+<li>第五步：最后并且很重要，将该组件实例的keepAlive属性值设置为true。</li>
+</ul>
+<h1 id="四、重头戏：渲染"><a href="#四、重头戏：渲染" class="headerlink" title="四、重头戏：渲染"></a>四、重头戏：渲染</h1><h2 id="4-1-Vue的渲染过程"><a href="#4-1-Vue的渲染过程" class="headerlink" title="4.1 Vue的渲染过程"></a>4.1 Vue的渲染过程</h2><p>借助一张图看下Vue渲染的整个过程：</p>
+<p><a href="https://imgtu.com/i/hE5pPU" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/25/hE5pPU.png" alt="hE5pPU.png"></a></p>
+<p>Vue的渲染是从图中render阶段开始的，但keep-alive的渲染是在patch阶段，这是构建组件树（虚拟DOM树），并将VNode转换成真正DOM节点的过程。<br><strong>简单描述从render到patch的过程</strong><br> 我们从最简单的new Vue开始：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;).$mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Vue在渲染的时候先调用原型上的_render函数将组件对象转化成一个VNode实例；而_render是通过调用createElement和createEmptyVNode两个函数进行转化；</li>
+<li>createElement的转化过程会根据不同的情形选择new VNode或者调用createComponent函数做VNode实例化；</li>
+<li>完成VNode实例化后，这时候Vue调用原型上的_update函数把VNode渲染成真实DOM，这个过程又是通过调用<strong>patch</strong>函数完成的（这就是patch阶段了）<br> 用一张图表达：</li>
+</ul>
+<p><a href="https://imgtu.com/i/hE53qI" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/25/hE53qI.png" alt="hE53qI.png"></a></p>
+<h2 id="4-2-keep-alive组件的渲染"><a href="#4-2-keep-alive组件的渲染" class="headerlink" title="4.2 keep-alive组件的渲染"></a>4.2 keep-alive组件的渲染</h2><p>我们用过keep-alive都知道，它不会生成真正的DOM节点，这是怎么做到的？</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/core/instance/lifecycle.js</span></span><br><span class="line">export <span class="function"><span class="keyword">function</span> <span class="title">initLifecycle</span> <span class="params">(vm: Component)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> options= vm.$options</span><br><span class="line">    <span class="comment">// 找到第一个非abstract父组件实例</span></span><br><span class="line">    let <span class="keyword">parent</span> = options.<span class="keyword">parent</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">parent</span> &amp;&amp; !options.<span class="keyword">abstract</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">parent</span>.$options.<span class="keyword">abstract</span> &amp;&amp; <span class="keyword">parent</span>.$parent) &#123;</span><br><span class="line">              <span class="keyword">parent</span> = <span class="keyword">parent</span>.$parent</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">parent</span>.$children.push(vm)</span><br><span class="line">    &#125;</span><br><span class="line">    vm.$parent = <span class="keyword">parent</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Vue在初始化生命周期的时候，为组件实例建立父子关系会根据abstract属性决定是否忽略某个组件。在keep-alive中，设置了abstract:true，那Vue就会跳过该组件实例。</p>
+<p><strong>最后构建的组件树中就不会包含keep-alive组件，那么由组件树渲染成的DOM树自然也不会有keep-alive相关的节点了。</strong></p>
+<p><strong>keep-alive包裹的组件是如何使用缓存的？</strong><br> 在patch阶段，会执行createComponent函数：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/core/vdom/patch.js</span></span><br><span class="line"><span class="function">function <span class="title">createComponent</span> (<span class="params">vnode, insertedVnodeQueue, parentElm, refElm</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> i = vnode.data</span><br><span class="line">    <span class="keyword">if</span> (isDef(i)) &#123;</span><br><span class="line">        <span class="keyword">const</span> isReactivated = isDef(vnode.componentInstance) &amp;&amp; i.keepAlive</span><br><span class="line">        <span class="keyword">if</span> (isDef(i = i.hook) &amp;&amp; isDef(i = i.init)) &#123;</span><br><span class="line">            i(vnode, <span class="literal">false</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (isDef(vnode.componentInstance)) &#123;</span><br><span class="line">            initComponent(vnode, insertedVnodeQueue)</span><br><span class="line">            insert(parentElem, vnode.elem, refElem) <span class="comment">// 将缓存的DOM(vnode.elem) 插入父元素中</span></span><br><span class="line">            <span class="keyword">if</span> (isTrue(isReactivated)) &#123;</span><br><span class="line">                reactivateComponent(vnode, insertedVnodeQueue, parentEle, refElm)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在首次加载被包裹组建时，由keep-alive.js中的render函数可知，vnode.componentInstance的值是undfined，keepAlive的值是true，因为keep-alive组件作为父组件，它的render函数会先于被包裹组件执行；那么只执行到i(vnode,false)，后面的逻辑不执行；</li>
+<li>再次访问被包裹组件时，vnode.componentInstance的值就是已经缓存的组件实例，那么会执行insert(parentElm, vnode.elm, refElm)逻辑，这样就直接把上一次的DOM插入到父元素中。</li>
+</ul>
+<h1 id="五、不可忽视：钩子函数"><a href="#五、不可忽视：钩子函数" class="headerlink" title="五、不可忽视：钩子函数"></a>五、不可忽视：钩子函数</h1><h2 id="5-1-只执行一次的钩子"><a href="#5-1-只执行一次的钩子" class="headerlink" title="5.1 只执行一次的钩子"></a>5.1 只执行一次的钩子</h2><p>一般的组件，每一次加载都会有完整的生命周期，即生命周期里面对于的钩子函数都会被触发，为什么被keep-alive包裹的组件却不是呢？<br> 被缓存的组件实例会为其设置keepAlive= true，而在初始化组件钩子函数中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// src/core/vdom/create-component.js</span><br><span class="line">const componentVNodeHooks = &#123;</span><br><span class="line">    init (vnode: VNodeWithData, hydrating: boolean): ?boolean&#123;</span><br><span class="line">        if (</span><br><span class="line">         vnode.componentInstance &amp;&amp;       </span><br><span class="line">         !vnode.componentInstance._isDestroyed &amp;&amp;</span><br><span class="line">         vnode.data.keepAlive</span><br><span class="line">        ) &#123;</span><br><span class="line">          // keep-alive components, treat as a patch</span><br><span class="line">          const mountedNode:any = vnode</span><br><span class="line">          componentVNodeHooks.prepatch(mountedNode, mountedNode)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          const child = vnode.componentInstance = createComponentInstanceForVnode (vnode, activeInstance)</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，当vnode.componentInstance和keepAlive同时为true时，不再进入$mount过程，那mounted之前的所有钩子函数（beforeCreate、created、mounted）都不再执行。</p>
+<h2 id="5-2-可重复的activated"><a href="#5-2-可重复的activated" class="headerlink" title="5.2 可重复的activated"></a>5.2 可重复的activated</h2><p>在patch的阶段，最后会执行invokeInsertHook函数，而这个函数就是去调用组件实例（VNode）自身的insert钩子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/core/vdom/patch.js</span></span><br><span class="line"><span class="function">function <span class="title">invokeInsertHook</span> <span class="params">(vnode, <span class="built_in">queue</span>, initial)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (isTrue(initial) &amp;&amp; isDef(vnode.parent)) &#123;</span><br><span class="line">          vnode.parent.data,pendingInsert = <span class="built_in">queue</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">for</span>(let i =<span class="number">0</span>; i&lt;<span class="built_in">queue</span>.length; ++i) &#123;</span><br><span class="line">                <span class="built_in">queue</span>[i].data.hook.insert(<span class="built_in">queue</span>[i]) <span class="comment">// 调用VNode自身的insert钩子函数</span></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再看insert钩子：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> componentVNodeHooks = &#123;</span><br><span class="line">      <span class="comment">// init()</span></span><br><span class="line">     insert (vnode: MountedComponentVNode) &#123;</span><br><span class="line">           <span class="keyword">const</span> &#123; context, componentInstance &#125; = vnode</span><br><span class="line">           <span class="keyword">if</span> (!componentInstance._isMounted) &#123;</span><br><span class="line">                 componentInstance._isMounted = <span class="literal">true</span></span><br><span class="line">                 callHook(componentInstance, <span class="string">'mounted'</span>)</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (vnode.data.keepAlive) &#123;</span><br><span class="line">                 <span class="keyword">if</span> (context._isMounted) &#123;</span><br><span class="line">                     queueActivatedComponent(componentInstance)</span><br><span class="line">                 &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                      activateChildComponent(componentInstance, <span class="literal">true</span><span class="comment">/* direct */</span>)</span><br><span class="line">                 &#125;</span><br><span class="line">          &#125;</span><br><span class="line">         <span class="comment">// ...</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个钩子里面，调用了activateChildComponent函数递归地去执行所有子组件的activated钩子函数：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/core/instance/lifecycle.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">activateChildComponent</span> (<span class="params">vm: Component, direct?: boolean</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (direct) &#123;</span><br><span class="line">    vm._directInactive = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">if</span> (isInInactiveTree(vm)) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (vm._directInactive) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (vm._inactive || vm._inactive === <span class="literal">null</span>) &#123;</span><br><span class="line">    vm._inactive = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; vm.$children.length; i++) &#123;</span><br><span class="line">      activateChildComponent(vm.$children[i])</span><br><span class="line">    &#125;</span><br><span class="line">    callHook(vm, <span class="string">'activated'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相反地，deactivated钩子函数也是一样的原理，在组件实例（VNode）的destroy钩子函数中调用deactivateChildComponent函数。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%2F%3Ftarget%3Dhttps%3A%2F%2Fustbhuangyi.github.io%2Fvue-analysis%2Fextend%2Fkeep-alive.html%23%25E5%2586%2585%25E7%25BD%25AE%25E7%25BB%2584%25E4%25BB%25B6" target="_blank" rel="noopener">Vue技术揭秘|keep-alive</a></li>
+<li><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%2F%3Ftarget%3Dhttps%3A%2F%2Fgithub.com%2Fqiudongwei%2Fvue-analysis%2Ftree%2Fmaster%2Fvue%2F" target="_blank" rel="noopener">Vue源码</a></li>
+</ul>
+<p>原文地址：<a href="https://www.jianshu.com/p/9523bb439950" target="_blank" rel="noopener">https://www.jianshu.com/p/9523bb439950</a></p>
+
         </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
-        
-          <a href="/blogpost/tags/Webpack/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Webpack</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/ef2e5c8.html">
-      Github API v3 介绍文档
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
         
           
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
 
 
-          
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
         
-          
-            <div class="new-meta-item date">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-25T11:42:23+08:00">
   <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-08-18</p>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2021年8月25日</p>
   </a>
 </div>
 
-          
+        
+      
         
           
-            
   
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/开发工具/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>开发工具</p>
-    </a>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Vue</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/blogpost/tags/Webpack/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Webpack</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://yangyfeng.github.io/posts/e9fee5eb.html&title=keep-alive实现原理 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=一、前言本文介绍的内容包括：
+
+keep-alive用法：动态组件&amp;vue-router
+keep-alive源码解析
+keep-alive组件及其包裹组件的钩子
+keep-alive组件及其包裹组件的渲染
+
+二、keep-alive介绍与应用2.1 keep-alive是什么
+keep-alive是一个抽象组件：它自身不会渲染一个DOM元素，也不会出现在父组件链中；使用keep-alive包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
+
+一个场景用户在某个列表页面选择筛选条件过滤出一份数据列表，由列表页面进入数据详情页面，再返回该列表页面，我们希望：列表页面可以保留用户的筛选（或选中）状态。 keep-alive就是用来解决这种场景。当然keep-alive不仅仅是能够保存页面/组件的状态这么简单，它还可以避免组件反复创建和渲染，有效提升系统性能。总的来说，keep-alive用于保存组件的渲染状态。
+keep-alive用法
+在动态组件中的应用
+123&lt;keep-alive :include="whiteList" :exclude="blackList" :max="amount"&gt;     &lt;component :is="currentComponent"&gt;&lt;/component&gt;&lt;/keep-alive&gt;
+
+在vue-router中的应用
+
+
+123&lt;keep-alive :include="whiteList" :exclude="blackList" :max="amount"&gt;    &lt;router-view&gt;&lt;/router-view&gt;&lt;/keep-alive&gt;
+include定义缓存白名单，keep-alive会缓存命中的组件；exclude定义缓存黑名单，被命中的组件将不会被缓存；max定义缓存组件上限，超出上限使用LRU的策略置换缓存数据。
+
+内存管理的一种页面置换算法，对于在内存中但又不用的数据块（内存块）叫做LRU，操作系统会根据哪些数据属于LRU而将其移出内存而腾出空间来加载另外的数据。
+
+三、源码剖析keep-alive.js内部还定义了一些工具函数，我们按住不动，先看它对外暴露的对象
+123456789101112131415161718192021222324252627282930313233// src/core/components/keep-alive.jsexport default &#123;  name: 'keep-alive',  abstract: true, // 判断当前组件虚拟dom是否渲染成真实dom的关键  props: &#123;      include: patternTypes, // 缓存白名单      exclude: patternTypes, // 缓存黑名单      max: [String, Number] // 缓存的组件  &#125;,  created() &#123;     this.cache = Object.create(null) // 缓存虚拟dom     this.keys = [] // 缓存的虚拟dom的键集合  &#125;,  destroyed() &#123;    for (const key in this.cache) &#123;       // 删除所有的缓存       pruneCacheEntry(this.cache, key, this.keys)    &#125;  &#125;, mounted() &#123;   // 实时监听黑白名单的变动   this.$watch('include', val =&gt; &#123;       pruneCache(this, name =&gt; matched(val, name))   &#125;)   this.$watch('exclude', val =&gt; &#123;       pruneCache(this, name =&gt; !matches(val, name))   &#125;) &#125;, render() &#123;    // 先省略... &#125;&#125;"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yangyfeng.github.io/posts/e9fee5eb.html&title=keep-alive实现原理 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=一、前言本文介绍的内容包括：
+
+keep-alive用法：动态组件&amp;vue-router
+keep-alive源码解析
+keep-alive组件及其包裹组件的钩子
+keep-alive组件及其包裹组件的渲染
+
+二、keep-alive介绍与应用2.1 keep-alive是什么
+keep-alive是一个抽象组件：它自身不会渲染一个DOM元素，也不会出现在父组件链中；使用keep-alive包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
+
+一个场景用户在某个列表页面选择筛选条件过滤出一份数据列表，由列表页面进入数据详情页面，再返回该列表页面，我们希望：列表页面可以保留用户的筛选（或选中）状态。 keep-alive就是用来解决这种场景。当然keep-alive不仅仅是能够保存页面/组件的状态这么简单，它还可以避免组件反复创建和渲染，有效提升系统性能。总的来说，keep-alive用于保存组件的渲染状态。
+keep-alive用法
+在动态组件中的应用
+123&lt;keep-alive :include="whiteList" :exclude="blackList" :max="amount"&gt;     &lt;component :is="currentComponent"&gt;&lt;/component&gt;&lt;/keep-alive&gt;
+
+在vue-router中的应用
+
+
+123&lt;keep-alive :include="whiteList" :exclude="blackList" :max="amount"&gt;    &lt;router-view&gt;&lt;/router-view&gt;&lt;/keep-alive&gt;
+include定义缓存白名单，keep-alive会缓存命中的组件；exclude定义缓存黑名单，被命中的组件将不会被缓存；max定义缓存组件上限，超出上限使用LRU的策略置换缓存数据。
+
+内存管理的一种页面置换算法，对于在内存中但又不用的数据块（内存块）叫做LRU，操作系统会根据哪些数据属于LRU而将其移出内存而腾出空间来加载另外的数据。
+
+三、源码剖析keep-alive.js内部还定义了一些工具函数，我们按住不动，先看它对外暴露的对象
+123456789101112131415161718192021222324252627282930313233// src/core/components/keep-alive.jsexport default &#123;  name: 'keep-alive',  abstract: true, // 判断当前组件虚拟dom是否渲染成真实dom的关键  props: &#123;      include: patternTypes, // 缓存白名单      exclude: patternTypes, // 缓存黑名单      max: [String, Number] // 缓存的组件  &#125;,  created() &#123;     this.cache = Object.create(null) // 缓存虚拟dom     this.keys = [] // 缓存的虚拟dom的键集合  &#125;,  destroyed() &#123;    for (const key in this.cache) &#123;       // 删除所有的缓存       pruneCacheEntry(this.cache, key, this.keys)    &#125;  &#125;, mounted() &#123;   // 实时监听黑白名单的变动   this.$watch('include', val =&gt; &#123;       pruneCache(this, name =&gt; matched(val, name))   &#125;)   this.$watch('exclude', val =&gt; &#123;       pruneCache(this, name =&gt; !matches(val, name))   &#125;) &#125;, render() &#123;    // 先省略... &#125;&#125;"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://yangyfeng.github.io/posts/e9fee5eb.html&title=keep-alive实现原理 | 峰享会&pics=https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg&summary=一、前言本文介绍的内容包括：
+
+keep-alive用法：动态组件&amp;vue-router
+keep-alive源码解析
+keep-alive组件及其包裹组件的钩子
+keep-alive组件及其包裹组件的渲染
+
+二、keep-alive介绍与应用2.1 keep-alive是什么
+keep-alive是一个抽象组件：它自身不会渲染一个DOM元素，也不会出现在父组件链中；使用keep-alive包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
+
+一个场景用户在某个列表页面选择筛选条件过滤出一份数据列表，由列表页面进入数据详情页面，再返回该列表页面，我们希望：列表页面可以保留用户的筛选（或选中）状态。 keep-alive就是用来解决这种场景。当然keep-alive不仅仅是能够保存页面/组件的状态这么简单，它还可以避免组件反复创建和渲染，有效提升系统性能。总的来说，keep-alive用于保存组件的渲染状态。
+keep-alive用法
+在动态组件中的应用
+123&lt;keep-alive :include="whiteList" :exclude="blackList" :max="amount"&gt;     &lt;component :is="currentComponent"&gt;&lt;/component&gt;&lt;/keep-alive&gt;
+
+在vue-router中的应用
+
+
+123&lt;keep-alive :include="whiteList" :exclude="blackList" :max="amount"&gt;    &lt;router-view&gt;&lt;/router-view&gt;&lt;/keep-alive&gt;
+include定义缓存白名单，keep-alive会缓存命中的组件；exclude定义缓存黑名单，被命中的组件将不会被缓存；max定义缓存组件上限，超出上限使用LRU的策略置换缓存数据。
+
+内存管理的一种页面置换算法，对于在内存中但又不用的数据块（内存块）叫做LRU，操作系统会根据哪些数据属于LRU而将其移出内存而腾出空间来加载另外的数据。
+
+三、源码剖析keep-alive.js内部还定义了一些工具函数，我们按住不动，先看它对外暴露的对象
+123456789101112131415161718192021222324252627282930313233// src/core/components/keep-alive.jsexport default &#123;  name: 'keep-alive',  abstract: true, // 判断当前组件虚拟dom是否渲染成真实dom的关键  props: &#123;      include: patternTypes, // 缓存白名单      exclude: patternTypes, // 缓存黑名单      max: [String, Number] // 缓存的组件  &#125;,  created() &#123;     this.cache = Object.create(null) // 缓存虚拟dom     this.keys = [] // 缓存的虚拟dom的键集合  &#125;,  destroyed() &#123;    for (const key in this.cache) &#123;       // 删除所有的缓存       pruneCacheEntry(this.cache, key, this.keys)    &#125;  &#125;, mounted() &#123;   // 实时监听黑白名单的变动   this.$watch('include', val =&gt; &#123;       pruneCache(this, name =&gt; matched(val, name))   &#125;)   this.$watch('exclude', val =&gt; &#123;       pruneCache(this, name =&gt; !matches(val, name))   &#125;) &#125;, render() &#123;    // 先省略... &#125;&#125;"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3aS27DMAxFUe9/0+m0RVP1PlIuKvp6FAROrKMBzY+uC1+v0vX5t+t//v6U645LhgwZxzL4UtZLXP9qvVD+3B+pMmTIeACDhMI0UJLHk61Zr02GDBky0sBau5OQZMiQIaPG4GXneukyZMiQQRi8ZUYAu9LBW2pxGTJkHMjgXfe//3zLfEOGDBlHMWojyTSlIyNMHmTfrEqGDBmjGTzAdZDpN8WSWIYMGUMZr9JFml+1RRc3RYYMGQ9g1MJurQwm7Tmebn4JuDJkyBjK4CNGUsTWlssL49ZuyZAh41hGurjO5zs24s17Q4YMGeMYnVBLjl/UEj5+LGPDG0OGDBn/npGWlLV9qjXsArYMGTJGM2pJYa0p1hkwBMNOGTJkjGaQwNcJoxzTeaIMGTKmMvgBLxL+0vDKk8tgsiFDhoxBDB4Q+YEt8pR0CvnLNzJkyBjN2NXqSgvdtHhGwwwZMmSMZqAG1qZhQD8dRIMBGTJkjGOk6SBPBGv/X0xJZciQ8TBGmiySI2KtIxRky2TIkPEYBm/095O/NLlE4wEZMmSMZqSTwf4hjA1BVoYMGQ9g7AqpaduOF7eIKkOGjNGMtIlGQi1fdH+oGcNkyJBxLIMH2TR1qx2YCApX/vaQIUPGCEYt8KUFcFxh44RShgwZMmottvWdfDCAArEMGTJktFv8/IAFKY83BFwZMmQcyODDAHIsgwRNHl5RASxDhozRjFovKz0QRjarf9RDhgwZ4xgfvxci4IodEVUAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3aS27DMAxFUe9/0+m0RVP1PlIuKvp6FAROrKMBzY+uC1+v0vX5t+t//v6U645LhgwZxzL4UtZLXP9qvVD+3B+pMmTIeACDhMI0UJLHk61Zr02GDBky0sBau5OQZMiQIaPG4GXneukyZMiQQRi8ZUYAu9LBW2pxGTJkHMjgXfe//3zLfEOGDBlHMWojyTSlIyNMHmTfrEqGDBmjGTzAdZDpN8WSWIYMGUMZr9JFml+1RRc3RYYMGQ9g1MJurQwm7Tmebn4JuDJkyBjK4CNGUsTWlssL49ZuyZAh41hGurjO5zs24s17Q4YMGeMYnVBLjl/UEj5+LGPDG0OGDBn/npGWlLV9qjXsArYMGTJGM2pJYa0p1hkwBMNOGTJkjGaQwNcJoxzTeaIMGTKmMvgBLxL+0vDKk8tgsiFDhoxBDB4Q+YEt8pR0CvnLNzJkyBjN2NXqSgvdtHhGwwwZMmSMZqAG1qZhQD8dRIMBGTJkjGOk6SBPBGv/X0xJZciQ8TBGmiySI2KtIxRky2TIkPEYBm/095O/NLlE4wEZMmSMZqSTwf4hjA1BVoYMGQ9g7AqpaduOF7eIKkOGjNGMtIlGQi1fdH+oGcNkyJBxLIMH2TR1qx2YCApX/vaQIUPGCEYt8KUFcFxh44RShgwZMmottvWdfDCAArEMGTJktFv8/IAFKY83BFwZMmQcyODDAHIsgwRNHl5RASxDhozRjFovKz0QRjarf9RDhgwZ4xgfvxci4IodEVUAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qrcode.png">
+        
+        </a>
+      
+    
   </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>2.9k字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>11分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <blockquote>
-<p>对于常用Github的用户来说，经常有一些自动化的需求。比如我的需求是定时备份Github的issues和comments到本地。以下为Github的API的使用参考。</p>
-</blockquote>
-<p><a href="https://developer.github.com/v3/" target="_blank" rel="noopener">v3版API的文档链接</a><br><a href="https://developer.github.com/v3/guides/getting-started/" target="_blank" rel="noopener">v3版API的官方教程</a></p>
-<h2 id="基本访问路径-Root-Endpoints"><a href="#基本访问路径-Root-Endpoints" class="headerlink" title="基本访问路径 (Root Endpoints)"></a>基本访问路径 (Root Endpoints)</h2><p>一开始读文档的时候，照着它的事例直接在命令行里<code>curl</code>，或者在InSomnia或Postman软件里访问，都完美显示200状态。可是一旦把链接里改写成自己的用户名就各种显示404无页面。还以为是授权问题，然后在页头HEADER中按照各种方式试了username和token密钥，都没用还是404。结果发现，原来不是方法的问题，纯粹是链接地址没写对！<br><code>实际上只是读取的话，完全不用任何授权</code>，可以在命令行、Insomnia、网页等各种情况下直接输入链接访问任何人的所有公开信息。<br>然后对照<a href="https://api.github.com/" target="_blank" rel="noopener">官方路径列表Root Endpoints</a>得到的链接，好像怎么访问都不对。反而在Stackoverflow中看到的一个链接，顺藤摸瓜自己发现了各种正确的访问路径，总结如下：</p>
-<ul>
-<li>首先！访问的链接最后不能有<code>/</code>。如<code>https://api.github.com/users/solomonxie</code>是可以访问到我个人信息的，但是<code>https://api.github.com/users/solomonxie/</code>就不行了，唯一不同是多了一个<code>/</code>.</li>
-<li>其次！不同于一般URL访问，GIthub的API访问链接是<code>区分大小写</code>的！</li>
-<li>个人主要信息。 <code>https://api.github.com/users/用户名</code>,得到数据如下图：</li>
-</ul>
-<p><a href="https://imgtu.com/i/fTZ6nf" target="_blank" rel="noopener"><img src="https://z3.ax1x.com/2021/08/18/fTZ6nf.png" alt="fTZ6nf.png"></a></p>
-<ul>
-<li>个人所有repo。<code>https://api.github.com/users/用户名/repos</code>。会得到一个repo的JSON格式列表。</li>
-<li>repo详细信息。<code>https://api.github.com/repos/用户名/仓库名</code>。repo的路径就开始和个人信息不同了。</li>
-<li>获取某个repo的内容列表。<code>https://api.github.com/repos/solomonxie/gists/contents</code>，注意这只会返回根目录的内容。</li>
-<li>获取repo中子目录的内容列表。<code>https://api.github.com/repos/solomonxie/gists/contents/目录名</code>。一定要注意这里一定要完全遵循原文件名的大小写，否则无法获得信息。如果是更深层的内容，则在链接列按照顺序逐级写上目录名称。</li>
-<li>获取repo中某文件信息（不包括内容）。<code>https://api.github.com/repos/solomonxie/gists/contents/文件路径</code>。文件路径是文件的完整路径，区分大小写。只会返回文件基本信息。</li>
-<li>获取某文件的原始内容（Raw）。1. 通过上面的文件信息中提取<code>download_url</code>这条链接，就能获取它的原始内容了。2. 或者直接访问：<code>https://raw.githubusercontent.com/用户名/仓库名/分支名/文件路径</code></li>
-<li>repo中所有的commits列表。<code>https://api.github.com/repos/用户名/仓库名/commits</code>。</li>
-<li>某一条commit详情。<code>https://api.github.com/repos/用户名/仓库名/commits/某一条commit的SHA</code></li>
-<li>issues列表。<code>https://api.github.com/repos/用户名/仓库名/issues</code>。</li>
-<li>某条issue详情。<code>https://api.github.com/repos/用户名/仓库名/issues/序号</code>。issues都是以1,2,3这样的序列排号的。</li>
-<li>某issue中的comments列表。<code>https://api.github.com/repos/用户名/仓库名/issues/序号/comments</code>。</li>
-<li>某comment详情。<code>https://api.github.com/repos/用户名/仓库名/issues/comments/评论详情的ID</code>。其中评论ID是从issues列表中获得的。</li>
-</ul>
-<h2 id="查询参数-Parameters"><a href="#查询参数-Parameters" class="headerlink" title="查询参数 (Parameters)"></a>查询参数 (Parameters)</h2><p>如果在上面基本链接中加入查询条件，那么返回的数据就是filtered，过滤了的。比如要求只返回正在开放的issues，或者让列表数据分页显示。常用如下：</p>
-<ul>
-<li>分页功能。格式是<code>?page=页数&amp;per_page=每页包含数量</code>。</li>
-</ul>
-<p>如<code>https://api.github.com/users/solomonxie/repos?page=2&amp;per_page=3</code></p>
-<ul>
-<li>issues状态。格式是<code>?state=状态</code>。</li>
-</ul>
-<p>如<code>https://api.github.com/repos/solomonxie/solomonxie.github.io/issues?state=closed</code></p>
-<h2 id="权限认证-Authentication"><a href="#权限认证-Authentication" class="headerlink" title="权限认证 Authentication"></a>权限认证 Authentication</h2><blockquote>
-<p>首先需要知道都是，到此为止之前所有都查询都是不需要任何权限的，给个地址就返回数据，全公开。<br>但是创建文件、更新、删除等就是必须用自己的账号”登录”才能实现的。所以为了下面的增删改做准备，需要先看一下权限问题。<br>官网虽然写的很简答，不过如果不熟悉API的话还是不能马上就理解。</p>
-</blockquote>
-<p>常用的认证方法有三种，<code>Basic authentication</code>, <code>OAuth2 token</code>, <code>OAuth2 key/secret</code><br>三种方法效果一样，但是各有其特点和方便之处。选哪种就要看自己哪种方便了。</p>
-      
-        <div class="readmore">
-          <a href="/posts/ef2e5c8.html" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/Git/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Git</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/69a7e668.html">
-      git cherry-pick 教程
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-08-13</p>
-  </a>
 </div>
 
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/开发工具/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>开发工具</p>
-    </a>
-  </div>
 
 
-          
         
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>1.2k字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>4分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
       
     </div>
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>对于多分支的代码库，将代码从一个分支转移到另一个分支是常见需求。</p>
-<p>这时分两种情况。一种情况是，你需要另一个分支的所有代码变动，那么就采用合并（<code>git merge</code>）。另一种情况是，你只需要部分代码变动（某几个提交），这时可以采用 Cherry pick。</p>
-<p><a href="https://imgtu.com/i/frAvCt" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/yufengorg/assets_source@main/img/loading.gif" data-original="https://z3.ax1x.com/2021/08/13/frAvCt.jpg" alt="frAvCt.jpg"></a></p>
-<h2 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h2><p><code>git cherry-pick</code>命令的作用，就是将指定的提交（commit）应用于其他分支。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick &lt;commitHash&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面命令就会将指定的提交<code>commitHash</code>，应用于当前分支。这会在当前分支产生一个新的提交，当然它们的哈希值会不一样。</p>
-<p>举例来说，代码仓库有<code>master</code>和<code>feature</code>两个分支。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;     a - b - c - d   Master</span><br><span class="line">&gt;          \</span><br><span class="line">&gt;            e - f - g Feature</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>现在将提交<code>f</code>应用到<code>master</code>分支。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到 master 分支</span></span><br><span class="line">$ git checkout master</span><br><span class="line"></span><br><span class="line"><span class="comment"># Cherry pick 操作</span></span><br><span class="line">$ git cherry-pick f</span><br></pre></td></tr></table></figure>
-<p>上面的操作完成以后，代码库就变成了下面的样子。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;     a - b - c - d - f   Master</span><br><span class="line">&gt;          \</span><br><span class="line">&gt;            e - f - g Feature</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>从上面可以看到，<code>master</code>分支的末尾增加了一个提交<code>f</code>。</p>
-<p><code>git cherry-pick</code>命令的参数，不一定是提交的哈希值，分支名也是可以的，表示转移该分支的最新提交。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick feature</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面代码表示将<code>feature</code>分支的最近一次提交，转移到当前分支。</p>
-<h2 id="二、转移多个提交"><a href="#二、转移多个提交" class="headerlink" title="二、转移多个提交"></a>二、转移多个提交</h2><p>Cherry pick 支持一次转移多个提交。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick &lt;HashA&gt; &lt;HashB&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面的命令将 A 和 B 两个提交应用到当前分支。这会在当前分支生成两个对应的新提交。</p>
-<p>如果想要转移一系列的连续提交，可以使用下面的简便语法。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick A..B </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面的命令可以转移从 A 到 B 的所有提交。它们必须按照正确的顺序放置：提交 A 必须早于提交 B，否则命令将失败，但不会报错。</p>
-<p>注意，使用上面的命令，提交 A 将不会包含在 Cherry pick 中。如果要包含提交 A，可以使用下面的语法。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick A^..B </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="三、配置项"><a href="#三、配置项" class="headerlink" title="三、配置项"></a>三、配置项</h2><p><code>git cherry-pick</code>命令的常用配置项如下。</p>
-<p><strong>（1）<code>-e</code>，<code>--edit</code></strong></p>
-<p>打开外部编辑器，编辑提交信息。</p>
-<p><strong>（2）<code>-n</code>，<code>--no-commit</code></strong></p>
-<p>只更新工作区和暂存区，不产生新的提交。</p>
-<p><strong>（3）<code>-x</code></strong></p>
-<p>在提交信息的末尾追加一行<code>(cherry picked from commit ...)</code>，方便以后查到这个提交是如何产生的。</p>
-<p><strong>（4）<code>-s</code>，<code>--signoff</code></strong></p>
-<p>在提交信息的末尾追加一行操作者的签名，表示是谁进行了这个操作。</p>
-<p><strong>（5）<code>-m parent-number</code>，<code>--mainline parent-number</code></strong></p>
-<p>如果原始提交是一个合并节点，来自于两个分支的合并，那么 Cherry pick 默认将失败，因为它不知道应该采用哪个分支的代码变动。</p>
-<p><code>-m</code>配置项告诉 Git，应该采用哪个分支的变动。它的参数<code>parent-number</code>是一个从<code>1</code>开始的整数，代表原始提交的父分支编号。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick -m 1 &lt;commitHash&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面命令表示，Cherry pick 采用提交<code>commitHash</code>来自编号1的父分支的变动。</p>
-<p>一般来说，1号父分支是接受变动的分支（the branch being merged into），2号父分支是作为变动来源的分支（the branch being merged from）。</p>
-<h2 id="四、代码冲突"><a href="#四、代码冲突" class="headerlink" title="四、代码冲突"></a>四、代码冲突</h2><p>如果操作过程中发生代码冲突，Cherry pick 会停下来，让用户决定如何继续操作。</p>
-<p><strong>（1）<code>--continue</code></strong></p>
-<p>用户解决代码冲突后，第一步将修改的文件重新加入暂存区（<code>git add .</code>），第二步使用下面的命令，让 Cherry pick 过程继续执行。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick --<span class="built_in">continue</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>（2）<code>--abort</code></strong></p>
-<p>发生代码冲突后，放弃合并，回到操作前的样子。</p>
-<p><strong>（3）<code>--quit</code></strong></p>
-<p>发生代码冲突后，退出 Cherry pick，但是不回到操作前的样子。</p>
-<h2 id="五、转移到另一个代码库"><a href="#五、转移到另一个代码库" class="headerlink" title="五、转移到另一个代码库"></a>五、转移到另一个代码库</h2><p>Cherry pick 也支持转移另一个代码库的提交，方法是先将该库加为远程仓库。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git remote add target git://gitUrl</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面命令添加了一个远程仓库<code>target</code>。</p>
-<p>然后，将远程代码抓取到本地。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git fetch target</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>上面命令将远程代码仓库抓取到本地。</p>
-<p>接着，检查一下要从远程仓库转移的提交，获取它的哈希值。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git <span class="built_in">log</span> target/master</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>最后，使用<code>git cherry-pick</code>命令转移提交。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ git cherry-pick &lt;commitHash&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>（完）</p>
-<p>原文地址：<a href="https://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html" target="_blank" rel="noopener">https://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html</a></p>
-
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
         
-          <a href="/blogpost/tags/Git/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Git</a>
         
-      </div>
-    
-  </section>
-</article>
-
-          </div>
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/posts/ef2e5c8.html" rel="prev" title="Github API v3 介绍文档">
+                                    
+                                        Github API v3 介绍文档
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/blogpost/tags/Git/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Git</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
+      </section>
+    </article>
   
 
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/873788fc.html">
-      nodejs版本控制和切换
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-08-13</p>
-  </a>
-</div>
-
-          
-        
-          
-            
   
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/后端/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>后端</p>
-    </a>
-  </div>
+    <!-- 显示推荐文章和评论 -->
 
 
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>464字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>1分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>nvm是node.js的版本管理器，可以安装和切换不同版本node.js</p>
-<h3 id="第一步：下载"><a href="#第一步：下载" class="headerlink" title="第一步：下载"></a>第一步：下载</h3><p>下载地址：<a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener">https://github.com/coreybutler/nvm-windows/releases</a></p>
-<h3 id="第二步：安装"><a href="#第二步：安装" class="headerlink" title="第二步：安装"></a>第二步：安装</h3><p>按照提示完成安装即可，安装完成后可以检测一下是否安装成功</p>
-<p>在cmd命令行输入nvm,如果出现nvm版本号和一系列帮助指令，则说明nvm安装成功。</p>
-<h3 id="第三步：修改settings-txt"><a href="#第三步：修改settings-txt" class="headerlink" title="第三步：修改settings.txt"></a>第三步：修改settings.txt</h3><p>在你安装的目录下找到settings.txt文件，打开后加上 </p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">node_mirror:</span> <span class="string">https:</span><span class="comment">//npm.taobao.org/mirrors/node/ </span></span><br><span class="line"><span class="string">npm_mirror:</span> <span class="string">https:</span><span class="comment">//npm.taobao.org/mirrors/npm/</span></span><br></pre></td></tr></table></figure>
-<p>这一步主要是将npm镜像改为淘宝的镜像，可以提高下载速度。</p>
-<h3 id="第四步：node-js-安装"><a href="#第四步：node-js-安装" class="headerlink" title="第四步：node.js 安装"></a>第四步：node.js 安装</h3><p>可以先使用 num list 查看本地已安装的版本</p>
-<p>然后使用 nvm list available 查看所有版本</p>
-<p>nvm常用命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">nvm list 查看已经安装的版本</span><br><span class="line">nvm list installed 查看已经安装的版本</span><br><span class="line">nvm list available 查看网络可以安装的版本</span><br><span class="line">nvm version 查看当前的版本</span><br><span class="line">nvm install 安装最新版本nvm</span><br><span class="line">nvm use &lt;version&gt; <span class="comment">## 切换使用指定的版本node</span></span><br><span class="line">nvm ls 列出所有版本</span><br><span class="line">nvm current显示当前版本</span><br><span class="line">nvm <span class="built_in">alias</span> &lt;name&gt; &lt;version&gt; <span class="comment">## 给不同的版本号添加别名</span></span><br><span class="line">nvm <span class="built_in">unalias</span> &lt;name&gt; <span class="comment">## 删除已定义的别名</span></span><br><span class="line">nvm reinstall-packages &lt;version&gt; <span class="comment">## 在当前版本node环境下，重新全局安装指定版本号的npm包</span></span><br><span class="line">nvm on 打开nodejs控制</span><br><span class="line">nvm off 关闭nodejs控制</span><br><span class="line">nvm proxy 查看设置与代理</span><br><span class="line">nvm node_mirror [url] 设置或者查看setting.txt中的node_mirror，如果不设置的默认是 https://nodejs.org/dist/</span><br><span class="line">nvm npm_mirror [url] 设置或者查看setting.txt中的npm_mirror,如果不设置的话默认的是： https://github.com/npm/npm/archive/.</span><br><span class="line">nvm uninstall &lt;version&gt; 卸载制定的版本</span><br><span class="line">nvm use [version] [arch] 切换制定的node版本和位数</span><br><span class="line">nvm root [path] 设置和查看root路径</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/Node/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Node</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
 
   
 
 
-	
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'keep-alive实现原理',
+      tools: true
+    }
+  </script>
+
+<!-- gittalk -->
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container" style="margin: 0 5px;"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c9d3bfe9137dc2038a1a',
+    clientSecret: '1ecb6999a152dad80e08c672ac5a779b92eb6ec0',
+    id: window.location.pathname,
+    repo: 'yangyfeng.github.io',
+    owner: 'yangyfeng',
+    admin: 'yangyfeng'
+  })
+  gitalk.render('gitalk-container')
+</script>
+
 </div>
 <aside class='l_side'>
   
@@ -1231,6 +1013,18 @@
           
           
             
+  <section class='widget related_posts'>
+    
+<header class='material'>
+  <div><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;相关文章</div>
+  
+</header>
+
+    <div class="content material">
+      <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\f8a3109a.html" title="webpack依赖加载cdn配置" rel="bookmark">webpack依赖加载cdn配置</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\8136685c.html" title="less在vue中的使用" rel="bookmark">less在vue中的使用</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\4de2b0c3.html" title="vue.config.js配置" rel="bookmark">vue.config.js配置</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\b0d42301.html" title="vue响应式原理源码剖析" rel="bookmark">vue响应式原理源码剖析</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\d69ba86b.html" title="vue3学习起始" rel="bookmark">vue3学习起始</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\93532fe.html" title="vue性能优化" rel="bookmark">vue性能优化</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\86248f8a.html" title="vue3的新特性" rel="bookmark">vue3的新特性</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\d3643a0f.html" title="手写简易版vue，minivue的实现" rel="bookmark">手写简易版vue，minivue的实现</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\180dd8a3.html" title="globalThis对象" rel="bookmark">globalThis对象</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="\posts\390a51fc.html" title="Babel转码器" rel="bookmark">Babel转码器</a></h3></div></li></ul>
+    </div>
+  </section>
+
 
           
         
@@ -1360,14 +1154,6 @@
   }
   setInterval("createtime()", 250);
 </script>
-
-
-
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
-
 
       <!-- 会动的小人 -->
       <!-- <div id="spig" class="spig">

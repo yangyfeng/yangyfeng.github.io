@@ -346,6 +346,8 @@
       
         
           
+        
+          
             <div class='post-wrapper'>
               <article class="post reveal ">
   
@@ -520,6 +522,8 @@
           
         
           
+        
+          
             <div class='post-wrapper'>
               <article class="post reveal ">
   
@@ -661,13 +665,155 @@
         
           
         
-          
-        
-          
-        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/posts/e9fee5eb.html">
+      keep-alive实现原理
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2021-08-25</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/前端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>前端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>2.6k字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>11分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>本文介绍的内容包括：</p>
+<ul>
+<li>keep-alive用法：动态组件&amp;vue-router</li>
+<li>keep-alive源码解析</li>
+<li>keep-alive组件及其包裹组件的钩子</li>
+<li>keep-alive组件及其包裹组件的渲染</li>
+</ul>
+<h1 id="二、keep-alive介绍与应用"><a href="#二、keep-alive介绍与应用" class="headerlink" title="二、keep-alive介绍与应用"></a>二、keep-alive介绍与应用</h1><h2 id="2-1-keep-alive是什么"><a href="#2-1-keep-alive是什么" class="headerlink" title="2.1 keep-alive是什么"></a>2.1 keep-alive是什么</h2><blockquote>
+<p>keep-alive是一个抽象组件：它自身不会渲染一个DOM元素，也不会出现在父组件链中；使用keep-alive包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。</p>
+</blockquote>
+<h2 id="一个场景"><a href="#一个场景" class="headerlink" title="一个场景"></a>一个场景</h2><p>用户在某个列表页面选择筛选条件过滤出一份数据列表，由列表页面进入数据详情页面，再返回该列表页面，我们希望：列表页面可以保留用户的筛选（或选中）状态。<br> keep-alive就是用来解决这种场景。当然keep-alive不仅仅是能够保存页面/组件的状态这么简单，它还可以避免组件反复创建和渲染，有效提升系统性能。总的来说，<strong>keep-alive用于保存组件的渲染状态。</strong></p>
+<h2 id="keep-alive用法"><a href="#keep-alive用法" class="headerlink" title="keep-alive用法"></a>keep-alive用法</h2><ul>
+<li><p>在动态组件中的应用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">keep-alive</span> <span class="attr">:include</span>=<span class="string">"whiteList"</span> <span class="attr">:exclude</span>=<span class="string">"blackList"</span> <span class="attr">:max</span>=<span class="string">"amount"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">component</span> <span class="attr">:is</span>=<span class="string">"currentComponent"</span>&gt;</span><span class="tag">&lt;/<span class="name">component</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在vue-router中的应用</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">keep-alive</span> <span class="attr">:include</span>=<span class="string">"whiteList"</span> <span class="attr">:exclude</span>=<span class="string">"blackList"</span> <span class="attr">:max</span>=<span class="string">"amount"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>include</strong>定义缓存白名单，keep-alive会缓存命中的组件；<strong>exclude</strong>定义缓存黑名单，被命中的组件将不会被缓存；<strong>max</strong>定义缓存组件上限，超出上限使用LRU的策略置换缓存数据。</p>
+<blockquote>
+<p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fbaike.baidu.com%2Fitem%2F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%2F5633616" target="_blank" rel="noopener">内存管理</a>的一种页面置换算法，对于在内存中但又不用的<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fbaike.baidu.com%2Fitem%2F%E6%95%B0%E6%8D%AE%E5%9D%97%2F107672" target="_blank" rel="noopener">数据块</a>（内存块）叫做LRU，操作系统会根据哪些数据属于LRU而将其移出内存而腾出空间来加载另外的数据。</p>
+</blockquote>
+<h1 id="三、源码剖析"><a href="#三、源码剖析" class="headerlink" title="三、源码剖析"></a>三、源码剖析</h1><p>keep-alive.js内部还定义了一些工具函数，我们按住不动，先看它对外暴露的对象</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/core/components/keep-alive.js</span></span><br><span class="line">export <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'keep-alive'</span>,</span><br><span class="line">  <span class="keyword">abstract</span>: <span class="literal">true</span>, <span class="comment">// 判断当前组件虚拟dom是否渲染成真实dom的关键</span></span><br><span class="line">  props: &#123;</span><br><span class="line">      include: patternTypes, <span class="comment">// 缓存白名单</span></span><br><span class="line">      exclude: patternTypes, <span class="comment">// 缓存黑名单</span></span><br><span class="line">      max: [String, Number] <span class="comment">// 缓存的组件</span></span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">     <span class="keyword">this</span>.cache = Object.create(<span class="literal">null</span>) <span class="comment">// 缓存虚拟dom</span></span><br><span class="line">     <span class="keyword">this</span>.keys = [] <span class="comment">// 缓存的虚拟dom的键集合</span></span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed() &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> <span class="keyword">this</span>.cache) &#123;</span><br><span class="line">       <span class="comment">// 删除所有的缓存</span></span><br><span class="line">       pruneCacheEntry(<span class="keyword">this</span>.cache, key, <span class="keyword">this</span>.keys)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"> mounted() &#123;</span><br><span class="line">   <span class="comment">// 实时监听黑白名单的变动</span></span><br><span class="line">   <span class="keyword">this</span>.$watch(<span class="string">'include'</span>, <span class="keyword">val</span> =&gt; &#123;</span><br><span class="line">       pruneCache(<span class="keyword">this</span>, name =&gt; matched(<span class="keyword">val</span>, name))</span><br><span class="line">   &#125;)</span><br><span class="line">   <span class="keyword">this</span>.$watch(<span class="string">'exclude'</span>, <span class="keyword">val</span> =&gt; &#123;</span><br><span class="line">       pruneCache(<span class="keyword">this</span>, name =&gt; !matches(<span class="keyword">val</span>, name))</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;,</span><br><span class="line"></span><br><span class="line"> render() &#123;</span><br><span class="line">    <span class="comment">// 先省略...</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+        <div class="readmore">
+          <a href="/posts/e9fee5eb.html" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/Vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Vue</a>
+        
+          <a href="/blogpost/tags/Webpack/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Webpack</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
       
@@ -1067,8 +1213,6 @@
         
       
         
-      
-        
           <div class='post-wrapper'>
             <article class="post reveal ">
   
@@ -1189,6 +1333,138 @@
           <a href="/blogpost/tags/React/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>React</a>
         
           <a href="/blogpost/tags/面试题/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>面试题</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/posts/180dd8a3.html">
+      globalThis对象
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://yangyfeng.github.io" rel="nofollow">
+      
+        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
+      
+      <p>漫道求索</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2021-01-08</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/blogpost/categories/前端/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>前端</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+        
+          <!-- 文章字体个数 -->
+          <div class="new-meta-item size">
+            <a class="notlink">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <p>485字</p>
+            </a>
+          </div>
+          <!-- 阅读时间 -->
+          <div class="new-meta-item read-time">
+            <a class="notlink">
+              <i class="fas fa-desktop" aria-hidden="true"></i>
+              <p>1分</p>
+            </a>
+          </div>
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p> JavaScript 语言存在一个顶层对象，它提供全局环境（即全局作用域），所有代码都是在这个环境中运行。但是，顶层对象在各种实现里面是不统一的。 </p>
+<ul>
+<li>浏览器里面，顶层对象是<code>window</code>，但 Node 和 Web Worker 没有<code>window</code>。</li>
+<li>浏览器和 Web Worker 里面，<code>self</code>也指向顶层对象，但是 Node 没有<code>self</code>。</li>
+<li><p>Node 里面，顶层对象是<code>global</code>，但其他环境都不支持。</p>
+<p>同一段代码为了能够在各种环境，都能取到顶层对象，现在一般是使用<code>this</code>变量，但是有局限性。 </p>
+</li>
+<li><p>全局环境中，<code>this</code>会返回顶层对象。但是，Node.js 模块中<code>this</code>返回的是当前模块，ES6 模块中<code>this</code>返回的是<code>undefined</code>。</p>
+</li>
+<li>函数里面的<code>this</code>，如果函数不是作为对象的方法运行，而是单纯作为函数运行，<code>this</code>会指向顶层对象。但是，严格模式下，这时<code>this</code>会返回<code>undefined</code>。</li>
+<li><p>不管是严格模式，还是普通模式，<code>new Function(&#39;return this&#39;)()</code>，总是会返回全局对象。但是，如果浏览器用了 CSP（Content Security Policy，内容安全策略），那么<code>eval</code>、<code>new Function</code>这些方法都可能无法使用。</p>
+<p>综上所述，很难找到一种方法，可以在所有情况下，都取到顶层对象。下面是两种勉强可以使用的方法。 </p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">(<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span></span><br><span class="line">   ? <span class="built_in">window</span></span><br><span class="line">   : (<span class="keyword">typeof</span> process === <span class="string">'object'</span> &amp;&amp;</span><br><span class="line">      <span class="keyword">typeof</span> <span class="built_in">require</span> === <span class="string">'function'</span> &amp;&amp;</span><br><span class="line">      <span class="keyword">typeof</span> global === <span class="string">'object'</span>)</span><br><span class="line">     ? global</span><br><span class="line">     : <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line"><span class="keyword">var</span> getGlobal = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span>) &#123; <span class="keyword">return</span> self; &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span>) &#123; <span class="keyword">return</span> <span class="built_in">window</span>; &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> global !== <span class="string">'undefined'</span>) &#123; <span class="keyword">return</span> global; &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'unable to locate global object'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/tc39/proposal-global" target="_blank" rel="noopener">ES2020</a> 在语言标准的层面，引入<code>globalThis</code>作为顶层对象。也就是说，任何环境下，<code>globalThis</code>都是存在的，都可以从它拿到顶层对象，指向全局环境下的<code>this</code>。</p>
+<p>垫片库<a href="https://github.com/ungap/global-this" target="_blank" rel="noopener"><code>global-this</code></a>模拟了这个提案，可以在所有环境拿到<code>globalThis</code>。</p>
+
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/blogpost/tags/Es6/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Es6</a>
         
       </div>
     
@@ -1320,136 +1596,6 @@
 <p> 然后，在脚本头部，加入如下两行代码。 </p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'core-js'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'regenerator-runtime/runtime'</span>;</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'core-js'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'regenerator-runtime/runtime);</span></span><br></pre></td></tr></table></figure>
 <p> Babel 默认不转码的 API 非常多，详细清单可以查看<code>babel-plugin-transform-runtime</code>模块的<a href="https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-runtime/src/runtime-corejs3-definitions.js" target="_blank" rel="noopener">definitions.js</a>文件。 </p>
-
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/Es6/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Es6</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/180dd8a3.html">
-      globalThis对象
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-01-08</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/前端/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>前端</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>485字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>1分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p> JavaScript 语言存在一个顶层对象，它提供全局环境（即全局作用域），所有代码都是在这个环境中运行。但是，顶层对象在各种实现里面是不统一的。 </p>
-<ul>
-<li>浏览器里面，顶层对象是<code>window</code>，但 Node 和 Web Worker 没有<code>window</code>。</li>
-<li>浏览器和 Web Worker 里面，<code>self</code>也指向顶层对象，但是 Node 没有<code>self</code>。</li>
-<li><p>Node 里面，顶层对象是<code>global</code>，但其他环境都不支持。</p>
-<p>同一段代码为了能够在各种环境，都能取到顶层对象，现在一般是使用<code>this</code>变量，但是有局限性。 </p>
-</li>
-<li><p>全局环境中，<code>this</code>会返回顶层对象。但是，Node.js 模块中<code>this</code>返回的是当前模块，ES6 模块中<code>this</code>返回的是<code>undefined</code>。</p>
-</li>
-<li>函数里面的<code>this</code>，如果函数不是作为对象的方法运行，而是单纯作为函数运行，<code>this</code>会指向顶层对象。但是，严格模式下，这时<code>this</code>会返回<code>undefined</code>。</li>
-<li><p>不管是严格模式，还是普通模式，<code>new Function(&#39;return this&#39;)()</code>，总是会返回全局对象。但是，如果浏览器用了 CSP（Content Security Policy，内容安全策略），那么<code>eval</code>、<code>new Function</code>这些方法都可能无法使用。</p>
-<p>综上所述，很难找到一种方法，可以在所有情况下，都取到顶层对象。下面是两种勉强可以使用的方法。 </p>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">(<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span></span><br><span class="line">   ? <span class="built_in">window</span></span><br><span class="line">   : (<span class="keyword">typeof</span> process === <span class="string">'object'</span> &amp;&amp;</span><br><span class="line">      <span class="keyword">typeof</span> <span class="built_in">require</span> === <span class="string">'function'</span> &amp;&amp;</span><br><span class="line">      <span class="keyword">typeof</span> global === <span class="string">'object'</span>)</span><br><span class="line">     ? global</span><br><span class="line">     : <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line"><span class="keyword">var</span> getGlobal = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span>) &#123; <span class="keyword">return</span> self; &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span>) &#123; <span class="keyword">return</span> <span class="built_in">window</span>; &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> global !== <span class="string">'undefined'</span>) &#123; <span class="keyword">return</span> global; &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'unable to locate global object'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/tc39/proposal-global" target="_blank" rel="noopener">ES2020</a> 在语言标准的层面，引入<code>globalThis</code>作为顶层对象。也就是说，任何环境下，<code>globalThis</code>都是存在的，都可以从它拿到顶层对象，指向全局环境下的<code>this</code>。</p>
-<p>垫片库<a href="https://github.com/ungap/global-this" target="_blank" rel="noopener"><code>global-this</code></a>模拟了这个提案，可以在所有环境拿到<code>globalThis</code>。</p>
 
       
     </div>
@@ -1617,185 +1763,6 @@
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/posts/63fad71d.html">
-      面试题集锦（2）
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://yangyfeng.github.io" rel="nofollow">
-      
-        <img src="https://s2.ax1x.com/2019/07/12/Zhm4jf.jpg">
-      
-      <p>漫道求索</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2020-12-17</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/blogpost/categories/前端/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>前端</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-        
-          <!-- 文章字体个数 -->
-          <div class="new-meta-item size">
-            <a class="notlink">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-              <p>814字</p>
-            </a>
-          </div>
-          <!-- 阅读时间 -->
-          <div class="new-meta-item read-time">
-            <a class="notlink">
-              <i class="fas fa-desktop" aria-hidden="true"></i>
-              <p>3分</p>
-            </a>
-          </div>
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="web安全攻击手段有哪些？以及如何防范"><a href="#web安全攻击手段有哪些？以及如何防范" class="headerlink" title="web安全攻击手段有哪些？以及如何防范"></a>web安全攻击手段有哪些？以及如何防范</h2><p>常见的有xss, csrf, sql注入</p>
-<p><strong>xss(cross site scripting) 跨站脚本攻击</strong></p>
-<p>定义: 指攻击者在网页嵌入脚本，用户浏览网页触发恶意脚本执行</p>
-<p>XSS攻击分为3类：存储型（持久型）、反射型（非持久型）、基于DOM</p>
-<p>如何防范:</p>
-<p>设置HttpOnly以避免cookie劫持的危险<br>过滤，对诸如<code>&lt;script&gt;、&lt;img&gt;、&lt;a&gt;</code>等标签进行过滤<br>编码，像一些常见的符号，如&lt;&gt;在输入的时候要对其进行转换编码<br>限制，对于一些可以预期的输入可以通过限制长度强制截断来进行防御</p>
-<p><strong>csrf(cross site request forgery) 跨站请求伪造</strong></p>
-<p>定义: 是一种劫持受信任用户向服务器发送非预期请求的攻击方式</p>
-<p>如何防范:</p>
-<p>验证 HTTP Referer 字段<br>请求地址中添加 token 并验证<br>HTTP 头中自定义属性并验证</p>
-<p><strong>sql注入(SQL injection)</strong></p>
-<p>定义: 在未授权情况下，非法访问数据库信息</p>
-<p>如何防范:</p>
-<p>杜绝用户提交的参数入库并且执行<br>在代码层，不准出现sql语句<br>在web输入参数处，对所有的参数做sql转义<br>上线测试，需要使用sql自动注入工具进行所有的页面sql注入测试</p>
-<h2 id="前端优化手段有哪些？"><a href="#前端优化手段有哪些？" class="headerlink" title="前端优化手段有哪些？"></a>前端优化手段有哪些？</h2><ul>
-<li>静态资源合并压缩(js,css, images)<ul>
-<li>请求数量优化</li>
-</ul>
-</li>
-<li>Gzip压缩<ul>
-<li>带宽优化</li>
-</ul>
-</li>
-<li>CDN<ul>
-<li>就近节点，减少DNS查找</li>
-</ul>
-</li>
-<li>按需加载</li>
-<li>lazyload<ul>
-<li>减少请求</li>
-</ul>
-</li>
-<li>骨架屏<ul>
-<li>优化白屏</li>
-</ul>
-</li>
-<li>web缓存<ul>
-<li>缓存ajax数据</li>
-</ul>
-</li>
-<li>减少重绘和重排<ul>
-<li>批量更新ＤＯＭ样式</li>
-</ul>
-</li>
-<li>页面结构<ul>
-<li>将样式表放在顶部，将脚本放在底部，尽早刷新文档的输出</li>
-</ul>
-</li>
-</ul>
-<h2 id="如何理解es6中的Decorator（装饰器）？"><a href="#如何理解es6中的Decorator（装饰器）？" class="headerlink" title="如何理解es6中的Decorator（装饰器）？"></a>如何理解es6中的Decorator（装饰器）？</h2><p><strong>定义</strong></p>
-<p>Decorator是ES7中的提案，概念借鉴于python， 它作用于一个目标类为其添加属性于方法</p>
-<p>我们用一个比喻来理解Decorator, 把孙悟空看成是一个类，那么棒子就是装饰器为其装备的武器</p>
-<p> 代码理解: </p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@stick</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stick</span><span class="params">(target)</span> </span>&#123;<span class="comment">// 第一个参数就是目标类的本身</span></span><br><span class="line">  target.ATK = <span class="number">100000</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Monkey.ATK<span class="comment">// 为悟空装备了棒子，攻击力提高了100000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果一个参数不够用，可以在装饰器外层再包一层</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stick</span><span class="params">(atk)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(targt)</span> </span>&#123;</span><br><span class="line">    target.ATK = atk</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@stick(<span class="number">200000</span>)<span class="comment">// 这样我们就为悟空增加了200000攻击力</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
-<p> Decorator 不仅能修饰类，也能修饰类的方法 </p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123;</span><br><span class="line">  <span class="meta">@setName</span></span><br><span class="line">  name() &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'孙悟空'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> Decorator 只能修饰类及类的方法,不能修饰于函数,因为存在函数提升 </p>
-<p><strong>Mixin</strong></p>
-<p> 在修饰器基础上，我们可以实现mixin(混入),意思在一个对象中混入另一个对象的方法 </p>
-<p> 代码示例: </p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">export <span class="function"><span class="keyword">function</span> <span class="title">mixins</span><span class="params">(<span class="rest_arg">...list</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(target)</span> </span>&#123;</span><br><span class="line">    Object.assign(target.prototype, ...list)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> skill = &#123;</span><br><span class="line">  shapeshifting() &#123;</span><br><span class="line">    console.log(<span class="string">'72变'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@mixins(skill)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Object.assign(Monkey.prototype, skill)</span><br><span class="line"><span class="keyword">const</span> swk = <span class="keyword">new</span> Monkey()</span><br><span class="line">swk.shapeshifting() <span class="comment">// 72变</span></span><br></pre></td></tr></table></figure>
-<p><strong>使用Decorator的好处</strong></p>
-<ul>
-<li>扩展功能，相对于继承增加了更多的灵活性</li>
-<li>代码可读性更高，装饰器正确命名相当于注释</li>
-</ul>
-
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/blogpost/tags/面试题/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>面试题</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1805,7 +1772,7 @@
         <div class="prev-next">
           
           <p class="current">
-            1 / 3
+            1 / 4
           </p>
           
             <a class="next" rel="next" href="/blogpost/categories/前端/page/2/">
@@ -2017,7 +1984,7 @@
         
           <li><a class="flat-box" title="/blogpost/categories/个人项目/" href="/blogpost/categories/个人项目/"><div class='name'>个人项目</div><div class='badge'>(7)</div></a></li>
         
-          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(30)</div></a></li>
+          <li><a class="flat-box" title="/blogpost/categories/前端/" href="/blogpost/categories/前端/"><div class='name'>前端</div><div class='badge'>(31)</div></a></li>
         
           <li><a class="flat-box" title="/blogpost/categories/博客文档/" href="/blogpost/categories/博客文档/"><div class='name'>博客文档</div><div class='badge'>(2)</div></a></li>
         
@@ -2056,7 +2023,7 @@
 </header>
 
     <div class='content material'>
-      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.43px; color: #8f8f8f">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.43px; color: #8f8f8f">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 21.14px; color: #686868">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 16.86px; color: #868686">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 16.86px; color: #868686">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 16.86px; color: #868686">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 18.29px; color: #7c7c7c">Node</a> <a href="/blogpost/tags/React/" style="font-size: 19.71px; color: #727272">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.43px; color: #8f8f8f">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Vue3/" style="font-size: 14px; color: #999">Vue3</a> <a href="/blogpost/tags/Webpack/" style="font-size: 15.43px; color: #8f8f8f">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.57px; color: #5f5f5f">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 18.29px; color: #7c7c7c">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 16.86px; color: #868686">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 18.29px; color: #7c7c7c">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.57px; color: #5f5f5f">面试题</a>
+      <a href="/blogpost/tags/Create-React-App/" style="font-size: 15.43px; color: #8f8f8f">Create-React-App</a> <a href="/blogpost/tags/Devops/" style="font-size: 14px; color: #999">Devops</a> <a href="/blogpost/tags/Es6/" style="font-size: 15.43px; color: #8f8f8f">Es6</a> <a href="/blogpost/tags/EventLoop/" style="font-size: 14px; color: #999">EventLoop</a> <a href="/blogpost/tags/Excel/" style="font-size: 14px; color: #999">Excel</a> <a href="/blogpost/tags/Git/" style="font-size: 21.14px; color: #686868">Git</a> <a href="/blogpost/tags/GoLang/" style="font-size: 14px; color: #999">GoLang</a> <a href="/blogpost/tags/Http/" style="font-size: 16.86px; color: #868686">Http</a> <a href="/blogpost/tags/JS运行原理/" style="font-size: 16.86px; color: #868686">JS运行原理</a> <a href="/blogpost/tags/Javascript/" style="font-size: 16.86px; color: #868686">Javascript</a> <a href="/blogpost/tags/Less/" style="font-size: 14px; color: #999">Less</a> <a href="/blogpost/tags/Node/" style="font-size: 18.29px; color: #7c7c7c">Node</a> <a href="/blogpost/tags/React/" style="font-size: 19.71px; color: #727272">React</a> <a href="/blogpost/tags/V8引擎/" style="font-size: 14px; color: #999">V8引擎</a> <a href="/blogpost/tags/VsCode/" style="font-size: 15.43px; color: #8f8f8f">VsCode</a> <a href="/blogpost/tags/Vue/" style="font-size: 24px; color: #555">Vue</a> <a href="/blogpost/tags/Vue3/" style="font-size: 14px; color: #999">Vue3</a> <a href="/blogpost/tags/Webpack/" style="font-size: 16.86px; color: #868686">Webpack</a> <a href="/blogpost/tags/代码优化/" style="font-size: 14px; color: #999">代码优化</a> <a href="/blogpost/tags/前端/" style="font-size: 22.57px; color: #5f5f5f">前端</a> <a href="/blogpost/tags/前端工程化/" style="font-size: 18.29px; color: #7c7c7c">前端工程化</a> <a href="/blogpost/tags/开发工具/" style="font-size: 16.86px; color: #868686">开发工具</a> <a href="/blogpost/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/blogpost/tags/插件/" style="font-size: 14px; color: #999">插件</a> <a href="/blogpost/tags/数据可视化/" style="font-size: 18.29px; color: #7c7c7c">数据可视化</a> <a href="/blogpost/tags/模块化/" style="font-size: 14px; color: #999">模块化</a> <a href="/blogpost/tags/浏览器运行原理/" style="font-size: 14px; color: #999">浏览器运行原理</a> <a href="/blogpost/tags/深入前端/" style="font-size: 14px; color: #999">深入前端</a> <a href="/blogpost/tags/面试题/" style="font-size: 22.57px; color: #5f5f5f">面试题</a>
     </div>
   </section>
 
@@ -2169,7 +2136,7 @@
     
       <span>
         <b class="fas fa-database"></b>
-        本站字数：<span class="post-count">81k</span>
+        本站字数：<span class="post-count">83.7k</span>
       </span>
     
     <!-- 网站运行时间 -->
